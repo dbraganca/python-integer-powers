@@ -4,9 +4,7 @@ import sys
 from functools import lru_cache
 import pandas as pd
 
-# from babiscython_v4_ubuntu import Ltrian as L
 from Jfunc_cython_v4 import computeJ as J
-# from computeJ_Guido import computeJ as J
 import gmpy2 as gm
 from gmpy2 import *
 import time
@@ -15,9 +13,8 @@ gm.get_context().precision = 190
 gm.get_context().allow_complex = True
 
 # load coefficients
-ctabfolder = '../3. Ctabs/B411ctabks/'
-outputfolder = '../2. Jmat_loopvals/B411_Jmat_cython/'
-
+ctabfolder = '../3. Ctabs/B411Redshiftctabks/'
+outputfolder = '../2. Jmat_loopvals/B411Redshift_Jmat_cython/'
 
 
 
