@@ -16,8 +16,6 @@ gm.get_context().allow_complex = True
 ctabfolder = '../3. Ctabs/B411Redshiftctabks/'
 outputfolder = '../2. Jmat_loopvals/B411Redshift_Jmat_cython/'
 
-
-
 if not(os.path.exists(outputfolder)):
 	os.makedirs(outputfolder)
 
@@ -98,7 +96,7 @@ def compute_B411_jmat(filename):
 	out_filename = outputfolder + 'B411Redshift_Jfunc_'+str(float(k1))+'_' + str(float(k2)) + '_' + str(float(k3)) + '_' +'.csv'
 	out_df.to_csv(out_filename, index = False)
 	
-start_time = time.time()
+begin_time = time.time()
 for file in filelist:
 	(k1,k2,k3)=get_ks(file)
 	print(float(k1), float(k2), float(k3))
@@ -108,4 +106,4 @@ for file in filelist:
 		if k1==k2 and k2==k3:
 			start_time = time.time()
 			compute_B411_jmat(file)
-print("--- %s seconds ---" % (time.time() - start_time))
+print("--- %s seconds ---" % (time.time() - begin_time))

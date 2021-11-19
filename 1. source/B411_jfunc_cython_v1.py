@@ -18,9 +18,6 @@ gm.get_context().allow_complex = True
 ctabfolder = '../3. Ctabs/B411ctabks/'
 outputfolder = '../2. Jmat_loopvals/B411_Jmat_cython/'
 
-
-
-
 if not(os.path.exists(outputfolder)):
 	os.makedirs(outputfolder)
 

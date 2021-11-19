@@ -263,7 +263,7 @@ def BubN(long n1, long n2, mpfr k2, mpc m1, mpc m2):
 
 		cpm0 = k1s
 		cmp0 = -2.*m2/nu1*nu2
-		c000 = (2.*m2-k1s)/nu1*Ndim - 2.*m2 + (k1s*nu2)/nu1
+		c000 = 2*m2*(1./nu1 * Ndim - 1) + k1s * (1./nu1 * (nu2 - Ndim))
 	elif n2 > 1:
 		nu1 = n1
 		nu2 = n2-1
@@ -271,8 +271,7 @@ def BubN(long n1, long n2, mpfr k2, mpc m1, mpc m2):
 
 		cpm0 = -2*m1/nu2*nu1
 		cmp0 = k1s
-		c000 = (2*m1 - k1s)/nu2*Ndim + k1s/nu2*nu1 - 2*m1
-	
+		c000 = 2*m1*(1./nu2 * Ndim - 1) + k1s * (1./nu2 * (nu1 - Ndim)) 
 	#code to deal with numerators
 	if n1 < 0 or n2 < 0:
 		if m1 == 0 and m2 == 0:
@@ -293,6 +292,8 @@ def BubN(long n1, long n2, mpfr k2, mpc m1, mpc m2):
 	c000 = c000/jac
 	cmp0 = cmp0/jac
 	cpm0 = cpm0/jac
+	if c000 == 0:
+		return cpm0*BubN(nu1 + 1, nu2 - 1, k2, m1, m2) + cmp0*BubN(nu1 - 1, nu2 + 1, k2, m1, m2)
 
 	return c000*BubN(nu1,nu2,k2,m1,m2) + cpm0*BubN(nu1 + 1, nu2 - 1, k2, m1, m2) + cmp0*BubN(nu1 - 1, nu2 + 1, k2, m1, m2)
  
