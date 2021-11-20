@@ -131,13 +131,21 @@ cdef num_terms(long long n1, int kmq = True):
 			i += 1			
 	return term_list, exp_list
 
-# this function does not affect speed
+@lru_cache(None)
+def coef_dim_gen(long long expnum, long long expden):
+	if expden == 1:
+		return (-1)**(expnum + 1)
+	if expden < 1:
+		return 0 
+	if expden > 1:
+		return (coef_dim_gen(expnum, expden-1)*(5 - 2*expden + 2*expnum))/(2 - 2*expden)
+
 @cython.boundscheck(False)
 @cython.wraparound(False)
 cdef mpc dim_gen(long long expnum, long long expden, mpc m):
 	if m == 0:
 		return mpc(0)
-	return (2./SQRT_PI)*gamma(expnum + mpfr(1.5))*gamma(expden - expnum - mpfr(1.5))/gamma(expden)*m**(expnum - expden + 1)*sqrt(m)
+	return (2./SQRT_PI)*PI*coef_dim_gen(expnum,expden)*m**(expnum - expden + 1)*sqrt(m)
 
 @cython.boundscheck(False)
 @cython.wraparound(False)
