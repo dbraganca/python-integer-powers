@@ -554,17 +554,25 @@ cdef num_two_pow(long long d1, long long d2, mpfr denk2, mpc m1, mpc m2):
 cdef num_three_pow(long long d1, long long d2, mpfr denk2, mpc m1, mpc m2):
 	#integral of (k.q)^3/(((q^2+m1)^d1)*((denk+q)^2+m2)^d2) divided by k^3
 
-	cdef mpc coef1 = 3/(16 * denk2*sqrt(denk2))*(BubN(d1-3,d2,denk2,m1,m2)-3*BubN(d1-2,d2-1,denk2,m1,m2) - 4*denk2*BubN(d1-2,d2,denk2,m1,m2)
-		+ 3*(denk2 + m2 - m1)*BubN(d1-2,d2,denk2,m1,m2) + 3*BubN(d1-1,d2-2,denk2,m1,m2)
-		+ 4*denk2*BubN(d1-1,d2-1,denk2,m1,m2) - 6*(denk2 + m2 - m1)*BubN(d1-1,d2-1,denk2,m1,m2)
-		-4*denk2*(denk2 + m2 - m1)*BubN(d1-1,d2,denk2,m1,m2) + 3*(denk2 + m2 - m1)**2*BubN(d1-1,d2,denk2,m1,m2)
-		+ 4* denk2*m1*BubN(d1-1,d2,denk2,m1,m2) - BubN(d1,d2-3,denk2,m1,m2) + 3*(denk2 + m2 - m1)*BubN(d1,d2-2,denk2,m1,m2)
-		-3*(denk2 + m2 - m1)**2*BubN(d1,d2-1,denk2,m1,m2) - 4*denk2*m1*BubN(d1,d2-1,denk2,m1,m2)
-		+(denk2 + m2 - m1)**3*BubN(d1,d2,denk2,m1,m2) + 4*denk2*(denk2 + m2 - m1)*m1*BubN(d1,d2,denk2,m1,m2))
-	
-	cdef mpc coef2 = 1/(2*sqrt(denk2))*(BubN(d1-1,d2-1,denk2,m1,m2) - BubN(d1-2,d2,denk2,m1,m2)
-		-(denk2 + m2 - m1)*BubN(d1-1,d2,denk2,m1,m2) + m1*BubN(d1-1,d2,denk2,m1,m2) - m1*BubN(d1,d2-1,denk2,m1,m2)
-		+(denk2 + m2 - m1)*m1*BubN(d1,d2,denk2,m1,m2))-5*coef1/3
+	cdef mpc aux0=(((3.*(((m1-m2)**2)))+(2.*(denk2*(m1+m2))))-(denk2**2))*(BubN(-1 + d1, d2, denk2, m1, m2))
+	cdef mpc aux1=((denk2**2)+((((m1-m2)**2))+(2.*(denk2*(m1+m2)))))*(BubN(d1, d2, denk2, m1, m2))
+	cdef mpc aux2=(3.*(((denk2+m2)-m1)*(BubN(d1, -2 + d2, denk2, m1, m2))))+(((denk2+m2)-m1)*aux1)
+	cdef mpc aux3=(-2.*((denk2+((-3.*m1)+(3.*m2)))*(BubN(-1 + d1, -1 + d2, denk2, m1, m2))))+(aux0+aux2)
+	cdef mpc aux4=(-3.*(BubN(-2 + d1, -1 + d2, denk2, m1, m2)))+((3.*(BubN(-1 + d1, -2 + d2, denk2, m1, m2)))+aux3)
+	cdef mpc aux5=((3.*(denk2**2))+((-2.*(denk2*(m1+(-3.*m2))))+(3.*(((m1-m2)**2)))))*(BubN(d1, -1 + d2, denk2, m1, m2))
+	cdef mpc aux6=((((BubN(-3 + d1, d2, denk2, m1, m2))+aux4)-aux5)-(BubN(d1, -3 + d2, denk2, m1, m2)))-((denk2+((3.*m1)+(-3.*m2)))*(BubN(-2 + d1, d2, denk2, m1, m2)))
+	cdef mpc coef1=0.1875*((denk2**-1.5)*aux6)
+
+	aux0=((denk2**2)+((-2.*(denk2*(m1+(-3.*m2))))+(5.*(((m1-m2)**2)))))*(BubN(-1 + d1, d2, denk2, m1, m2))
+	aux1=(((BubN(-1 + d1, -2 + d2, denk2, m1, m2)*(-3.))+(BubN(d1, -3 + d2, denk2, m1, m2)))*mpc(5))
+	aux2=((5.*(denk2**2))+((5.*(((m1-m2)**2)))+(denk2*((-6.*m1)+(10.*m2)))))*(BubN(d1, -1 + d2, denk2, m1, m2))
+	aux3=(-3.*aux0)+(aux1+((-15.*(((denk2+m2)-m1)*(BubN(d1, -2 + d2, denk2, m1, m2))))+(3.*aux2)))
+	aux4=(6.*(((3.*denk2)+((-5.*m1)+(5.*m2)))*(BubN(-1 + d1, -1 + d2, denk2, m1, m2))))+aux3
+	aux5=(15.*(BubN(-2 + d1, -1 + d2, denk2, m1, m2)))+((-3.*((denk2+((-5.*m1)+(5.*m2)))*(BubN(-2 + d1, d2, denk2, m1, m2))))+aux4)
+	aux6=((5.*(denk2**2))+((5.*(((m1-m2)**2)))+(2.*(denk2*(m1+(5.*m2))))))*(BubN(d1, d2, denk2, m1, m2))
+	cdef mpc aux7=(denk2**-1.5)*(((-5.*(BubN(-3 + d1, d2, denk2, m1, m2)))+aux5)-(((denk2+m2)-m1)*aux6))
+	cdef mpc coef2=0.0625*aux7
+
 	return coef1, coef2
 
 @cython.boundscheck(False)
@@ -767,11 +775,14 @@ cdef mpc BubMaster(mpfr k2, mpc M1, mpc M2):
 	cdef int sign = 0
 	cdef mpc bubmaster
 
-	if (1j*(1 + m1-m2-2)+2*sqrt(m1)).imag > 0 and (1j*(1 + m1-m2)+2*sqrt(m2)).imag < 0:
+	cdef mpc arglog0 = 1j*(m1 - m2 - 1) + 2*sqrt(m1)
+	cdef mpc arglog1 = 1j*(m1 - m2 + 1)+ 2*sqrt(m2)
+
+	if (arglog0).imag > 0 and (arglog1).imag < 0:
 		sign = 1
 	else:
 		sign = 0
-	bubmaster = SQRT_PI/sqrt(k2)*(1j*log(1j*(1 + m1-m2-2)+2*sqrt(m1))-1j*log(1j*(1 + m1-m2)+2*sqrt(m2))+2*PI*sign)
+	bubmaster = SQRT_PI/sqrt(k2)*(1j*(log(arglog0)-log(arglog1))+2*PI*sign)
 	return bubmaster
 
 
