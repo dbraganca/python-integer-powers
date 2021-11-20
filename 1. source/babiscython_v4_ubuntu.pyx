@@ -364,7 +364,6 @@ def TriaN(long n1, long n2, long n3,
 				return tri_dim_two(-n3,-n2,n1,k23,k21,k22,m1)
 		if n3 < 0:
 			if n1 > 0 and n2 > 0:
-				#print('tri dim',tri_dim(-n3,n1,n2,k23,k21,k22,m1,m2))
 				return tri_dim(-n3,n1,n2,k23,k21,k22,m1,m2)	
 			print('ERROR: case not considered')
 
@@ -572,216 +571,53 @@ cdef num_three_pow(long long d1, long long d2, mpfr denk2, mpc m1, mpc m2):
 @cython.wraparound(False)
 cdef num_four_pow(long long d1, long long d2, 
 					mpfr denk2, mpc m1, mpc m2):
-	cdef mpc coef1 = 3*(BubN(-4 + d1, d2, denk2, m1, m2) - 
-		4*BubN(-3 + d1, -1 + d2, denk2, m1, m2) - 
-		4*denk2*BubN(-3 + d1, d2, denk2, m1, m2) - 
-		4*m1*BubN(-3 + d1, d2, denk2, m1, m2) + 
-		4*m2*BubN(-3 + d1, d2, denk2, m1, m2) + 
-		6*BubN(-2 + d1, -2 + d2, denk2, m1, m2) + 
-		4*denk2*BubN(-2 + d1, -1 + d2, denk2, m1, m2) + 
-		12*m1*BubN(-2 + d1, -1 + d2, denk2, m1, m2) - 
-		12*m2*BubN(-2 + d1, -1 + d2, denk2, m1, m2) + 
-		6*denk2**2*BubN(-2 + d1, d2, denk2, m1, m2) + 
-		12*denk2*m1*BubN(-2 + d1, d2, denk2, m1, m2) + 
-		6*m1**2*BubN(-2 + d1, d2, denk2, m1, m2) - 
-		4*denk2*m2*BubN(-2 + d1, d2, denk2, m1, m2) - 
-		12*m1*m2*BubN(-2 + d1, d2, denk2, m1, m2) + 
-		6*m2**2*BubN(-2 + d1, d2, denk2, m1, m2) - 
-		4*BubN(-1 + d1, -3 + d2, denk2, m1, m2) + 
-		4*denk2*BubN(-1 + d1, -2 + d2, denk2, m1, m2) - 
-		12*m1*BubN(-1 + d1, -2 + d2, denk2, m1, m2) + 
-		12*m2*BubN(-1 + d1, -2 + d2, denk2, m1, m2) + 
-		4*denk2**2*BubN(-1 + d1, -1 + d2, denk2, m1, m2) - 
-		8*denk2*m1*BubN(-1 + d1, -1 + d2, denk2, m1, m2) - 
-		12*m1**2*BubN(-1 + d1, -1 + d2, denk2, m1, m2) - 
-		8*denk2*m2*BubN(-1 + d1, -1 + d2, denk2, m1, m2) + 
-		24*m1*m2*BubN(-1 + d1, -1 + d2, denk2, m1, m2) - 
-		12*m2**2*BubN(-1 + d1, -1 + d2, denk2, m1, m2) - 
-		4*denk2**3*BubN(-1 + d1, d2, denk2, m1, m2) - 
-		12*denk2**2*m1*BubN(-1 + d1, d2, denk2, m1, m2) - 
-		12*denk2*m1**2*BubN(-1 + d1, d2, denk2, m1, m2) - 
-		4*m1**3*BubN(-1 + d1, d2, denk2, m1, m2) - 
-		4*denk2**2*m2*BubN(-1 + d1, d2, denk2, m1, m2) + 
-		8*denk2*m1*m2*BubN(-1 + d1, d2, denk2, m1, m2) + 
-		12*m1**2*m2*BubN(-1 + d1, d2, denk2, m1, m2) + 
-		4*denk2*m2**2*BubN(-1 + d1, d2, denk2, m1, m2) - 
-		12*m1*m2**2*BubN(-1 + d1, d2, denk2, m1, m2) + 
-		4*m2**3*BubN(-1 + d1, d2, denk2, m1, m2) + 
-		BubN(d1, -4 + d2, denk2, m1, m2) - 
-		4*denk2*BubN(d1, -3 + d2, denk2, m1, m2) + 
-		4*m1*BubN(d1, -3 + d2, denk2, m1, m2) - 
-		4*m2*BubN(d1, -3 + d2, denk2, m1, m2) + 
-		6*denk2**2*BubN(d1, -2 + d2, denk2, m1, m2) - 
-		4*denk2*m1*BubN(d1, -2 + d2, denk2, m1, m2) + 
-		6*m1**2*BubN(d1, -2 + d2, denk2, m1, m2) + 
-		12*denk2*m2*BubN(d1, -2 + d2, denk2, m1, m2) - 
-		12*m1*m2*BubN(d1, -2 + d2, denk2, m1, m2) + 
-		6*m2**2*BubN(d1, -2 + d2, denk2, m1, m2) - 
-		4*denk2**3*BubN(d1, -1 + d2, denk2, m1, m2) - 
-		4*denk2**2*m1*BubN(d1, -1 + d2, denk2, m1, m2) + 
-		4*denk2*m1**2*BubN(d1, -1 + d2, denk2, m1, m2) + 
-		4*m1**3*BubN(d1, -1 + d2, denk2, m1, m2) - 
-		12*denk2**2*m2*BubN(d1, -1 + d2, denk2, m1, m2) + 
-		8*denk2*m1*m2*BubN(d1, -1 + d2, denk2, m1, m2) - 
-		12*m1**2*m2*BubN(d1, -1 + d2, denk2, m1, m2) - 
-		12*denk2*m2**2*BubN(d1, -1 + d2, denk2, m1, m2) + 
-		12*m1*m2**2*BubN(d1, -1 + d2, denk2, m1, m2) - 
-		4*m2**3*BubN(d1, -1 + d2, denk2, m1, m2) + 
-		denk2**4*BubN(d1, d2, denk2, m1, m2) + 
-		4*denk2**3*m1*BubN(d1, d2, denk2, m1, m2) + 
-		6*denk2**2*m1**2*BubN(d1, d2, denk2, m1, m2) + 
-		4*denk2*m1**3*BubN(d1, d2, denk2, m1, m2) + 
-		m1**4*BubN(d1, d2, denk2, m1, m2) + 
-		4*denk2**3*m2*BubN(d1, d2, denk2, m1, m2) + 
-		4*denk2**2*m1*m2*BubN(d1, d2, denk2, m1, m2) - 
-		4*denk2*m1**2*m2*BubN(d1, d2, denk2, m1, m2) - 
-		4*m1**3*m2*BubN(d1, d2, denk2, m1, m2) + 
-		6*denk2**2*m2**2*BubN(d1, d2, denk2, m1, m2) - 
-		4*denk2*m1*m2**2*BubN(d1, d2, denk2, m1, m2) + 
-		6*m1**2*m2**2*BubN(d1, d2, denk2, m1, m2) + 
-		4*denk2*m2**3*BubN(d1, d2, denk2, m1, m2) - 
-		4*m1*m2**3*BubN(d1, d2, denk2, m1, m2) + 
-		m2**4*BubN(d1, d2, denk2, m1, m2))/(128*denk2**2)
-	cdef mpc coef2 = -3*(5*BubN(-4 + d1, d2, denk2, m1, m2) - 
-		20*BubN(-3 + d1, -1 + d2, denk2, m1, m2) - 
-		4*denk2*BubN(-3 + d1, d2, denk2, m1, m2) - 
-		20*m1*BubN(-3 + d1, d2, denk2, m1, m2) + 
-		20*m2*BubN(-3 + d1, d2, denk2, m1, m2) + 
-		30*BubN(-2 + d1, -2 + d2, denk2, m1, m2) - 
-		12*denk2*BubN(-2 + d1, -1 + d2, denk2, m1, m2) + 
-		60*m1*BubN(-2 + d1, -1 + d2, denk2, m1, m2) - 
-		60*m2*BubN(-2 + d1, -1 + d2, denk2, m1, m2) - 
-		2*denk2**2*BubN(-2 + d1, d2, denk2, m1, m2) + 
-		12*denk2*m1*BubN(-2 + d1, d2, denk2, m1, m2) + 
-		30*m1**2*BubN(-2 + d1, d2, denk2, m1, m2) + 
-		12*denk2*m2*BubN(-2 + d1, d2, denk2, m1, m2) - 
-		60*m1*m2*BubN(-2 + d1, d2, denk2, m1, m2) + 
-		30*m2**2*BubN(-2 + d1, d2, denk2, m1, m2) - 
-		20*BubN(-1 + d1, -3 + d2, denk2, m1, m2) + 
-		36*denk2*BubN(-1 + d1, -2 + d2, denk2, m1, m2) - 
-		60*m1*BubN(-1 + d1, -2 + d2, denk2, m1, m2) + 
-		60*m2*BubN(-1 + d1, -2 + d2, denk2, m1, m2) - 
-		12*denk2**2*BubN(-1 + d1, -1 + d2, denk2, m1, m2) + 
-		24*denk2*m1*BubN(-1 + d1, -1 + d2, denk2, m1, m2) - 
-		60*m1**2*BubN(-1 + d1, -1 + d2, denk2, m1, m2) - 
-		72*denk2*m2*BubN(-1 + d1, -1 + d2, denk2, m1, m2) + 
-		120*m1*m2*BubN(-1 + d1, -1 + d2, denk2, m1, m2) - 
-		60*m2**2*BubN(-1 + d1, -1 + d2, denk2, m1, m2) - 
-		4*denk2**3*BubN(-1 + d1, d2, denk2, m1, m2) + 
-		4*denk2**2*m1*BubN(-1 + d1, d2, denk2, m1, m2) - 
-		12*denk2*m1**2*BubN(-1 + d1, d2, denk2, m1, m2) - 
-		20*m1**3*BubN(-1 + d1, d2, denk2, m1, m2) + 
-		12*denk2**2*m2*BubN(-1 + d1, d2, denk2, m1, m2) - 
-		24*denk2*m1*m2*BubN(-1 + d1, d2, denk2, m1, m2) + 
-		60*m1**2*m2*BubN(-1 + d1, d2, denk2, m1, m2) + 
-		36*denk2*m2**2*BubN(-1 + d1, d2, denk2, m1, m2) - 
-		60*m1*m2**2*BubN(-1 + d1, d2, denk2, m1, m2) + 
-		20*m2**3*BubN(-1 + d1, d2, denk2, m1, m2) + 
-		5*BubN(d1, -4 + d2, denk2, m1, m2) - 
-		20*denk2*BubN(d1, -3 + d2, denk2, m1, m2) + 
-		20*m1*BubN(d1, -3 + d2, denk2, m1, m2) - 
-		20*m2*BubN(d1, -3 + d2, denk2, m1, m2) + 
-		30*denk2**2*BubN(d1, -2 + d2, denk2, m1, m2) - 
-		36*denk2*m1*BubN(d1, -2 + d2, denk2, m1, m2) + 
-		30*m1**2*BubN(d1, -2 + d2, denk2, m1, m2) + 
-		60*denk2*m2*BubN(d1, -2 + d2, denk2, m1, m2) - 
-		60*m1*m2*BubN(d1, -2 + d2, denk2, m1, m2) + 
-		30*m2**2*BubN(d1, -2 + d2, denk2, m1, m2) - 
-		20*denk2**3*BubN(d1, -1 + d2, denk2, m1, m2) + 
-		12*denk2**2*m1*BubN(d1, -1 + d2, denk2, m1, m2) - 
-		12*denk2*m1**2*BubN(d1, -1 + d2, denk2, m1, m2) + 
-		20*m1**3*BubN(d1, -1 + d2, denk2, m1, m2) - 
-		60*denk2**2*m2*BubN(d1, -1 + d2, denk2, m1, m2) + 
-		72*denk2*m1*m2*BubN(d1, -1 + d2, denk2, m1, m2) - 
-		60*m1**2*m2*BubN(d1, -1 + d2, denk2, m1, m2) - 
-		60*denk2*m2**2*BubN(d1, -1 + d2, denk2, m1, m2) + 
-		60*m1*m2**2*BubN(d1, -1 + d2, denk2, m1, m2) - 
-		20*m2**3*BubN(d1, -1 + d2, denk2, m1, m2) + 
-		5*denk2**4*BubN(d1, d2, denk2, m1, m2) + 
-		4*denk2**3*m1*BubN(d1, d2, denk2, m1, m2) - 
-		2*denk2**2*m1**2*BubN(d1, d2, denk2, m1, m2) + 
-		4*denk2*m1**3*BubN(d1, d2, denk2, m1, m2) + 
-		5*m1**4*BubN(d1, d2, denk2, m1, m2) + 
-		20*denk2**3*m2*BubN(d1, d2, denk2, m1, m2) - 
-		12*denk2**2*m1*m2*BubN(d1, d2, denk2, m1, m2) + 
-		12*denk2*m1**2*m2*BubN(d1, d2, denk2, m1, m2) - 
-		20*m1**3*m2*BubN(d1, d2, denk2, m1, m2) + 
-		30*denk2**2*m2**2*BubN(d1, d2, denk2, m1, m2) - 
-		36*denk2*m1*m2**2*BubN(d1, d2, denk2, m1, m2) + 
-		30*m1**2*m2**2*BubN(d1, d2, denk2, m1, m2) + 
-		20*denk2*m2**3*BubN(d1, d2, denk2, m1, m2) - 
-		20*m1*m2**3*BubN(d1, d2, denk2, m1, m2) + 
-		5*m2**4*BubN(d1, d2, denk2, m1, m2))/(64*denk2**2)
-	cdef mpc coef3 = -(-35*BubN(-4 + d1, d2, denk2, m1, m2) + 
-		140*BubN(-3 + d1, -1 + d2, denk2, m1, m2) - 
-		20*denk2*BubN(-3 + d1, d2, denk2, m1, m2) + 
-		140*m1*BubN(-3 + d1, d2, denk2, m1, m2) - 
-		140*m2*BubN(-3 + d1, d2, denk2, m1, m2) - 
-		210*BubN(-2 + d1, -2 + d2, denk2, m1, m2) + 
-		180*denk2*BubN(-2 + d1, -1 + d2, denk2, m1, m2) - 
-		420*m1*BubN(-2 + d1, -1 + d2, denk2, m1, m2) + 
-		420*m2*BubN(-2 + d1, -1 + d2, denk2, m1, m2) - 
-		18*denk2**2*BubN(-2 + d1, d2, denk2, m1, m2) + 
-		60*denk2*m1*BubN(-2 + d1, d2, denk2, m1, m2) - 
-		210*m1**2*BubN(-2 + d1, d2, denk2, m1, m2) - 
-		180*denk2*m2*BubN(-2 + d1, d2, denk2, m1, m2) + 
-		420*m1*m2*BubN(-2 + d1, d2, denk2, m1, m2) - 
-		210*m2**2*BubN(-2 + d1, d2, denk2, m1, m2) + 
-		140*BubN(-1 + d1, -3 + d2, denk2, m1, m2) - 
-		300*denk2*BubN(-1 + d1, -2 + d2, denk2, m1, m2) + 
-		420*m1*BubN(-1 + d1, -2 + d2, denk2, m1, m2) - 
-		420*m2*BubN(-1 + d1, -2 + d2, denk2, m1, m2) + 
-		180*denk2**2*BubN(-1 + d1, -1 + d2, denk2, m1, m2) - 
-		360*denk2*m1*BubN(-1 + d1, -1 + d2, denk2, m1, m2) + 
-		420*m1**2*BubN(-1 + d1, -1 + d2, denk2, m1, m2) + 
-		600*denk2*m2*BubN(-1 + d1, -1 + d2, denk2, m1, m2) - 
-		840*m1*m2*BubN(-1 + d1, -1 + d2, denk2, m1, m2) + 
-		420*m2**2*BubN(-1 + d1, -1 + d2, denk2, m1, m2) - 
-		20*denk2**3*BubN(-1 + d1, d2, denk2, m1, m2) + 
-		36*denk2**2*m1*BubN(-1 + d1, d2, denk2, m1, m2) - 
-		60*denk2*m1**2*BubN(-1 + d1, d2, denk2, m1, m2) + 
-		140*m1**3*BubN(-1 + d1, d2, denk2, m1, m2) - 
-		180*denk2**2*m2*BubN(-1 + d1, d2, denk2, m1, m2) + 
-		360*denk2*m1*m2*BubN(-1 + d1, d2, denk2, m1, m2) - 
-		420*m1**2*m2*BubN(-1 + d1, d2, denk2, m1, m2) - 
-		300*denk2*m2**2*BubN(-1 + d1, d2, denk2, m1, m2) + 
-		420*m1*m2**2*BubN(-1 + d1, d2, denk2, m1, m2) - 
-		140*m2**3*BubN(-1 + d1, d2, denk2, m1, m2) - 
-		35*BubN(d1, -4 + d2, denk2, m1, m2) + 
-		140*denk2*BubN(d1, -3 + d2, denk2, m1, m2) - 
-		140*m1*BubN(d1, -3 + d2, denk2, m1, m2) + 
-		140*m2*BubN(d1, -3 + d2, denk2, m1, m2) - 
-		210*denk2**2*BubN(d1, -2 + d2, denk2, m1, m2) + 
-		300*denk2*m1*BubN(d1, -2 + d2, denk2, m1, m2) - 
-		210*m1**2*BubN(d1, -2 + d2, denk2, m1, m2) - 
-		420*denk2*m2*BubN(d1, -2 + d2, denk2, m1, m2) + 
-		420*m1*m2*BubN(d1, -2 + d2, denk2, m1, m2) - 
-		210*m2**2*BubN(d1, -2 + d2, denk2, m1, m2) + 
-		140*denk2**3*BubN(d1, -1 + d2, denk2, m1, m2) - 
-		180*denk2**2*m1*BubN(d1, -1 + d2, denk2, m1, m2) + 
-		180*denk2*m1**2*BubN(d1, -1 + d2, denk2, m1, m2) - 
-		140*m1**3*BubN(d1, -1 + d2, denk2, m1, m2) + 
-		420*denk2**2*m2*BubN(d1, -1 + d2, denk2, m1, m2) - 
-		600*denk2*m1*m2*BubN(d1, -1 + d2, denk2, m1, m2) + 
-		420*m1**2*m2*BubN(d1, -1 + d2, denk2, m1, m2) + 
-		420*denk2*m2**2*BubN(d1, -1 + d2, denk2, m1, m2) - 
-		420*m1*m2**2*BubN(d1, -1 + d2, denk2, m1, m2) + 
-		140*m2**3*BubN(d1, -1 + d2, denk2, m1, m2) - 
-		35*denk2**4*BubN(d1, d2, denk2, m1, m2) + 
-		20*denk2**3*m1*BubN(d1, d2, denk2, m1, m2) - 
-		18*denk2**2*m1**2*BubN(d1, d2, denk2, m1, m2) + 
-		20*denk2*m1**3*BubN(d1, d2, denk2, m1, m2) - 
-		35*m1**4*BubN(d1, d2, denk2, m1, m2) - 
-		140*denk2**3*m2*BubN(d1, d2, denk2, m1, m2) + 
-		180*denk2**2*m1*m2*BubN(d1, d2, denk2, m1, m2) - 
-		180*denk2*m1**2*m2*BubN(d1, d2, denk2, m1, m2) + 
-		140*m1**3*m2*BubN(d1, d2, denk2, m1, m2) - 
-		210*denk2**2*m2**2*BubN(d1, d2, denk2, m1, m2) + 
-		300*denk2*m1*m2**2*BubN(d1, d2, denk2, m1, m2) - 
-		210*m1**2*m2**2*BubN(d1, d2, denk2, m1, m2) - 
-		140*denk2*m2**3*BubN(d1, d2, denk2, m1, m2) + 
-		140*m1*m2**3*BubN(d1, d2, denk2, m1, m2) - 
-		35*m2**4*BubN(d1, d2, denk2, m1, m2))/(128*denk2**2)
+
+	cdef mpc aux0=((3.*(((denk2+m1)**2)))+((-2.*((denk2+(3.*m1))*m2))+(3.*(m2**2))))*(BubN(-2 + d1, d2, denk2, m1, m2))
+	cdef mpc aux1=((denk2**2)+((-3.*(((m1-m2)**2)))+(-2.*(denk2*(m1+m2)))))*(BubN(-1 + d1, -1 + d2, denk2, m1, m2))
+	cdef mpc aux2=((denk2**2)+((((m1-m2)**2))+(2.*(denk2*(m1+m2)))))*(BubN(-1 + d1, d2, denk2, m1, m2))
+	cdef mpc aux3=((3.*(denk2**2))+((-2.*(denk2*(m1+(-3.*m2))))+(3.*(((m1-m2)**2)))))*(BubN(d1, -2 + d2, denk2, m1, m2))
+	cdef mpc aux4=((denk2**2)+((((m1-m2)**2))+(2.*(denk2*(m1+m2)))))*(BubN(d1, -1 + d2, denk2, m1, m2))
+	cdef mpc aux5=((((denk2**2)+((((m1-m2)**2))+(2.*(denk2*(m1+m2)))))**2))*(BubN(d1, d2, denk2, m1, m2))
+	cdef mpc aux6=(-4.*(((denk2+m2)-m1)*(BubN(d1, -3 + d2, denk2, m1, m2))))+((2.*aux3)+((-4.*(((denk2+m2)-m1)*aux4))+aux5))
+	cdef mpc aux7=(4.*aux1)+((-4.*(((denk2+m1)-m2)*aux2))+((BubN(d1, -4 + d2, denk2, m1, m2))+aux6))
+	cdef mpc aux8=(4.*((denk2+((-3.*m1)+(3.*m2)))*(BubN(-1 + d1, -2 + d2, denk2, m1, m2))))+aux7
+	cdef mpc aux9=(4.*((denk2+((3.*m1)+(-3.*m2)))*(BubN(-2 + d1, -1 + d2, denk2, m1, m2))))+((2.*aux0)+((-4.*(BubN(-1 + d1, -3 + d2, denk2, m1, m2)))+aux8))
+	cdef mpc aux10=(-4.*(((denk2+m1)-m2)*(BubN(-3 + d1, d2, denk2, m1, m2))))+((6.*(BubN(-2 + d1, -2 + d2, denk2, m1, m2)))+aux9)
+	cdef mpc aux11=(BubN(-4 + d1, d2, denk2, m1, m2))+((-4.*(BubN(-3 + d1, -1 + d2, denk2, m1, m2)))+aux10)
+	cdef mpc coef1=0.0234375*((denk2**(-2))*aux11)
+
+	aux0=((denk2**2)+((-15.*(((m1-m2)**2)))+(-6.*(denk2*(m1+m2)))))*(BubN(-2 + d1, d2, denk2, m1, m2))
+	aux1=-12.*(((3.*denk2)+((-5.*m1)+(5.*m2)))*(BubN(-1 + d1, -2 + d2, denk2, m1, m2)))
+	aux2=((denk2**2)+((-2.*(denk2*(m1+(-3.*m2))))+(5.*(((m1-m2)**2)))))*(BubN(-1 + d1, -1 + d2, denk2, m1, m2))
+	aux3=((denk2**3.)+((5.*((m1-m2)**3.))+(3.*(denk2*((m1-m2)*(m1+(3.*m2)))))))-((denk2**2)*(m1+(3.*m2)))
+	aux4=((5.*(denk2**2))+((5.*(((m1-m2)**2)))+(denk2*((-6.*m1)+(10.*m2)))))*(BubN(d1, -2 + d2, denk2, m1, m2))
+	aux5=((5.*(denk2**2))+((5.*(((m1-m2)**2)))+(2.*(denk2*(m1+(5.*m2))))))*(BubN(d1, -1 + d2, denk2, m1, m2))
+	aux6=(20.*(((denk2+m2)-m1)*(BubN(d1, -3 + d2, denk2, m1, m2))))+((-6.*aux4)+(4.*(((denk2+m2)-m1)*aux5)))
+	aux7=(4.*(aux3*(BubN(-1 + d1, d2, denk2, m1, m2))))+((-5.*(BubN(d1, -4 + d2, denk2, m1, m2)))+aux6)
+	aux8=(2.*aux0)+((20.*(BubN(-1 + d1, -3 + d2, denk2, m1, m2)))+(aux1+((12.*aux2)+aux7)))
+	aux9=(12.*((denk2+((-5.*m1)+(5.*m2)))*(BubN(-2 + d1, -1 + d2, denk2, m1, m2))))+aux8
+	aux10=(4.*((denk2+((5.*m1)+(-5.*m2)))*(BubN(-3 + d1, d2, denk2, m1, m2))))+((-30.*(BubN(-2 + d1, -2 + d2, denk2, m1, m2)))+aux9)
+	aux11=(-5.*(BubN(-4 + d1, d2, denk2, m1, m2)))+((20.*(BubN(-3 + d1, -1 + d2, denk2, m1, m2)))+aux10)
+	aux12=((5.*(denk2**2))+((5.*(((m1-m2)**2)))+(denk2*((-6.*m1)+(10.*m2)))))*(BubN(d1, d2, denk2, m1, m2))
+	aux13=(denk2**-2.)*(aux11-(((denk2**2)+((((m1-m2)**2))+(2.*(denk2*(m1+m2)))))*aux12))
+	cdef mpc coef2=0.046875*aux13
+
+	aux0=-60.*(((3.*denk2)+((-7.*m1)+(7.*m2)))*(BubN(-2 + d1, -1 + d2, denk2, m1, m2)))
+	aux1=((3.*(denk2**2))+((-10.*(denk2*(m1+(-3.*m2))))+(35.*(((m1-m2)**2)))))*(BubN(-2 + d1, d2, denk2, m1, m2))
+	aux2=((3.*(denk2**2))+((7.*(((m1-m2)**2)))+(denk2*((-6.*m1)+(10.*m2)))))*(BubN(-1 + d1, -1 + d2, denk2, m1, m2))
+	aux3=(-9.*((denk2**2)*(m1+(-5.*m2))))+((15.*(denk2*((m1+(-5.*m2))*(m1-m2))))+(-35.*((m1-m2)**3.)))
+	aux4=((7.*(denk2**2))+((7.*(((m1-m2)**2)))+(2.*(denk2*((-5.*m1)+(7.*m2))))))*(BubN(d1, -2 + d2, denk2, m1, m2))
+	aux5=((7.*(denk2**2))+((-2.*(denk2*(m1+(-7.*m2))))+(7.*(((m1-m2)**2)))))*(((denk2+m2)-m1)*(BubN(d1, -1 + d2, denk2, m1, m2)))
+	aux6=(35.*((m1-m2)**4.))+(6.*((denk2**2)*((3.*(m1**2))+((-30.*(m1*m2))+(35.*(m2**2))))))
+	aux7=(-20.*((denk2**3.)*(m1+(-7.*m2))))+((-20.*(denk2*((m1+(-7.*m2))*(((m1-m2)**2)))))+aux6)
+	aux8=(30.*aux4)+((-20.*aux5)+(((35.*(denk2**4.))+aux7)*(BubN(d1, d2, denk2, m1, m2))))
+	aux9=(35.*(BubN(d1, -4 + d2, denk2, m1, m2)))+((-140.*(((denk2+m2)-m1)*(BubN(d1, -3 + d2, denk2, m1, m2))))+aux8)
+	aux10=(-60.*aux2)+((4.*(((5.*(denk2**3.))+aux3)*(BubN(-1 + d1, d2, denk2, m1, m2))))+aux9)
+	aux11=(60.*(((5.*denk2)+((-7.*m1)+(7.*m2)))*(BubN(-1 + d1, -2 + d2, denk2, m1, m2))))+aux10
+	aux12=(210.*(BubN(-2 + d1, -2 + d2, denk2, m1, m2)))+(aux0+((6.*aux1)+((-140.*(BubN(-1 + d1, -3 + d2, denk2, m1, m2)))+aux11)))
+	aux13=(-140.*(BubN(-3 + d1, -1 + d2, denk2, m1, m2)))+((20.*((denk2+((-7.*m1)+(7.*m2)))*(BubN(-3 + d1, d2, denk2, m1, m2))))+aux12)
+	cdef mpc coef3=0.0078125*((denk2**-2.)*((35.*(BubN(-4 + d1, d2, denk2, m1, m2)))+aux13))
+
 	return coef1, coef2, coef3
 
 
@@ -892,7 +728,7 @@ cdef mpc tri_dim_two(long n1, long n2, long d1,
 cdef mpfr k1dotk2(mpfr k21, mpfr k22, mpfr ksum2):
 	return (ksum2 - k21 - k22)/2.
 
-# This function AFFECTS SPEED, overall time ~6 times slower
+# This recursion AFFECTS SPEED, overall time ~6 times slower
 #@cython.boundscheck(False)
 #@cython.wraparound(False)
 @lru_cache(None)
