@@ -1,3 +1,5 @@
+# cython: profile=True
+
 import cython
 cimport cython
 import numpy as np
@@ -141,8 +143,8 @@ cdef double computeL2(long[:] d2new, long[:] d3basis, long n1, long n2, long n3,
 
 	return 2*np.real(np.einsum('ij, i, j', matmul, matcoefs[d2][::2], matcoefs[d3]))/(8 * PI * SQRT_PI)	
 
-
-cpdef double computeJ(long n1, long n2, long n3, 
+# cpdef double
+def computeJ(long n1, long n2, long n3, 
 					long d1, long d2, long d3, 
 					mpfr k1sq, mpfr k2sq, mpfr k3sq):
 	# n1, n2, n3 are the exponents of q, k1pq, k2mq in the denominator

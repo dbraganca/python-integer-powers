@@ -1,3 +1,5 @@
+# cython: profile=True
+
 import cython
 cimport cython
 
@@ -299,7 +301,8 @@ def BubN(long n1, long n2, mpfr k2, mpc m1, mpc m2):
  
 @cython.boundscheck(False)
 @cython.wraparound(False)
-cdef TrianKinem(mpfr k21, mpfr k22, mpfr k23, 
+@lru_cache(None)
+def TrianKinem(mpfr k21, mpfr k22, mpfr k23, 
 				mpc m1, mpc m2, mpc m3):
 	
 	cdef mpc k1s, k2s, k3s, jac, ks11, ks12, ks22, ks23, ks31, ks33
