@@ -145,7 +145,7 @@ def coef_dim_gen(long long expnum, long long expden):
 cdef mpc dim_gen(long long expnum, long long expden, mpc m):
 	if m == 0:
 		return mpc(0)
-	return (2./SQRT_PI)*PI*coef_dim_gen(expnum,expden)*m**(expnum - expden + 1)*sqrt(m)
+	return (2.*SQRT_PI)*coef_dim_gen(expnum,expden)*m**(expnum - expden + 1)*sqrt(m)
 
 @cython.boundscheck(False)
 @cython.wraparound(False)
@@ -351,14 +351,9 @@ def TriaN(long n1, long n2, long n3,
 		return BubN(n1, n2, k21, m1, m2)
 
 	if n1 == 1 and n2 == 1 and n3 == 1:
-		# print("masses", m1, m2, m3)
-		if m1 == 0 and m2 == 0 and m3 == 0:
-			return TriaMasterZeroMasses(k21,k22,k23)
-		# print("TriaMaster = ",TriaMaster(k21, k22, k23, m1, m2, m3))
 		return TriaMaster(k21, k22, k23, m1, m2, m3)
 
 	if n1 < 0 or n2 < 0 or n3 < 0:
-		# print("tri dim:",n1,n2,n3)
 		if n1 < -4 or n2 < -4 or n3 < -4:
 			print('ERROR: case not considered -  n1, n2, n3', n1,n2,n3)
 		if n1 < 0:
@@ -382,7 +377,7 @@ def TriaN(long n1, long n2, long n3,
 	cdef mpc ks11, ks22, ks33, ks12, ks23, ks31
 	cdef mpc cpm0, cmp0, cm0p, cp0m, c0pm, c0mp, c000
 
-	kinem = TrianKinem(k21, k22, k23, m1, m2, m3)
+	cdef mpc[:] kinem = TrianKinem(k21, k22, k23, m1, m2, m3)
 	#jac = kinem[0]
 	ks11 = kinem[1]
 	ks22 = kinem[2]
@@ -437,9 +432,6 @@ def TriaN(long n1, long n2, long n3,
 		c0mp = -ks31
 		c000 = -(-nu3 + Ndim)*ks11/nu3 + (-nu1 + Ndim)*ks12/nu3 + (-nu2 + Ndim)*ks31/nu3
 	
-	
-	# print("coefs", c000, c0mp, c0pm, cp0m, cmp0, cpm0)	
-	# print(n1, n2, n3, m1,m2,m3,c000*TriaN(nu1, nu2, nu3, k21,k22,k23,m1,m2,m3) + c0mp*TriaN(nu1, nu2-1, nu3+1, k21,k22,k23,m1,m2,m3) +c0pm*TriaN(nu1, nu2+1, nu3-1, k21,k22,k23,m1,m2,m3)+cm0p*TriaN(nu1-1, nu2, nu3+1, k21,k22,k23,m1,m2,m3)+cp0m*TriaN(nu1+1, nu2, nu3-1, k21,k22,k23,m1,m2,m3)+cmp0*TriaN(nu1-1, nu2+1, nu3, k21,k22,k23,m1,m2,m3)+cpm0*TriaN(nu1+1, nu2-1, nu3, k21,k22,k23,m1,m2,m3))
 	return  c000*TriaN(nu1, nu2, nu3, k21,k22,k23,m1,m2,m3) + c0mp*TriaN(nu1, nu2-1, nu3+1, k21,k22,k23,m1,m2,m3) +c0pm*TriaN(nu1, nu2+1, nu3-1, k21,k22,k23,m1,m2,m3)+cm0p*TriaN(nu1-1, nu2, nu3+1, k21,k22,k23,m1,m2,m3)+cp0m*TriaN(nu1+1, nu2, nu3-1, k21,k22,k23,m1,m2,m3)+cmp0*TriaN(nu1-1, nu2+1, nu3, k21,k22,k23,m1,m2,m3)+cpm0*TriaN(nu1+1, nu2-1, nu3, k21,k22,k23,m1,m2,m3)
 
 # @lru_cache(None)
@@ -574,15 +566,9 @@ cdef num_three_pow(long long d1, long long d2, mpfr denk2, mpc m1, mpc m2):
 	cdef mpc aux6=((((BubN(-3 + d1, d2, denk2, m1, m2))+aux4)-aux5)-(BubN(d1, -3 + d2, denk2, m1, m2)))-((denk2+((3.*m1)+(-3.*m2)))*(BubN(-2 + d1, d2, denk2, m1, m2)))
 	cdef mpc coef1=0.1875*((denk2**-1.5)*aux6)
 
-	aux0=((denk2**2)+((-2.*(denk2*(m1+(-3.*m2))))+(5.*(((m1-m2)**2)))))*(BubN(-1 + d1, d2, denk2, m1, m2))
-	aux1=(((BubN(-1 + d1, -2 + d2, denk2, m1, m2)*(-3.))+(BubN(d1, -3 + d2, denk2, m1, m2)))*mpc(5))
-	aux2=((5.*(denk2**2))+((5.*(((m1-m2)**2)))+(denk2*((-6.*m1)+(10.*m2)))))*(BubN(d1, -1 + d2, denk2, m1, m2))
-	aux3=(-3.*aux0)+(aux1+((-15.*(((denk2+m2)-m1)*(BubN(d1, -2 + d2, denk2, m1, m2))))+(3.*aux2)))
-	aux4=(6.*(((3.*denk2)+((-5.*m1)+(5.*m2)))*(BubN(-1 + d1, -1 + d2, denk2, m1, m2))))+aux3
-	aux5=(15.*(BubN(-2 + d1, -1 + d2, denk2, m1, m2)))+((-3.*((denk2+((-5.*m1)+(5.*m2)))*(BubN(-2 + d1, d2, denk2, m1, m2))))+aux4)
-	aux6=((5.*(denk2**2))+((5.*(((m1-m2)**2)))+(2.*(denk2*(m1+(5.*m2))))))*(BubN(d1, d2, denk2, m1, m2))
-	cdef mpc aux7=(denk2**-1.5)*(((-5.*(BubN(-3 + d1, d2, denk2, m1, m2)))+aux5)-(((denk2+m2)-m1)*aux6))
-	cdef mpc coef2=0.0625*aux7
+	cdef mpc coef2 = 1/(2*sqrt(denk2))*(BubN(d1-1,d2-1,denk2,m1,m2) - BubN(d1-2,d2,denk2,m1,m2)
+		-(denk2 + m2 - 2*m1)*BubN(d1-1,d2,denk2,m1,m2) - m1*BubN(d1,d2-1,denk2,m1,m2)
+		+(denk2 + m2 - m1)*m1*BubN(d1,d2,denk2,m1,m2))-5*coef1/3
 
 	return coef1, coef2
 
@@ -930,12 +916,10 @@ cdef mpc Fint(mpfr aa, mpc Y1, mpc Y2, mpc X0):
 	
 	cdef mpc cut = mpc(0)
 	if len(xsol) > 0:
-		#print(xsol,x0)
-		#atanarglist = [chop(sqrt(x-y1)*sqrt(x0-y2)/(sqrt(-x0+y1)*sqrt(x-y2)), tol = CHOP_TOL) for x in xsol]
+
 		atanarglist = [sqrt(x-y1)*sqrt(x0-y2)/(sqrt(-x0+y1)*sqrt(x-y2)) for x in xsol]
 		abscrit = [abs(atanarg) for atanarg in atanarglist]
 		recrit = [atanarg.real for atanarg in atanarglist]
-
 	
 		for i in range(len(xsol)):
 			if abscrit[i] > 1 and abs(recrit[i])<CHOP_TOL:
@@ -952,22 +936,15 @@ cdef mpc Fint(mpfr aa, mpc Y1, mpc Y2, mpc X0):
 	else:
 		cut = mpc(0)
 
-	
-	
-	# cdef prefac0 = chop(Prefactor(aa,y1,y2), tol = CHOP_TOL)
 	cdef mpc prefac0 = Prefactor(aa,y1,y2)
-	# print("aa,y1,y2,x0","{0:.10f}".format(aa),"{0:.10f}".format(y1),"{0:.10f}".format(y2),"{0:.10f}".format(x0))
-	# print("prefac0, cut, cutx0", "{0:.10f}".format(prefac0), cut, cutx0)
-	# print("Antideriv ",Antideriv(1.,y1,y2,x0) - Antideriv(0.,y1,y2,x0))
 	cdef mpc result = prefac0*(SQRT_PI/2.)*(cut + cutx0 + Antideriv(1,y1,y2,x0) - Antideriv(0,y1,y2,x0))
-	# print("result", result)
+
 	return result
 
 @cython.boundscheck(False)
 @cython.wraparound(False)
 cdef mpc TrMxy(long double y, mpfr k21, mpfr k22, mpfr k23, mpc M1, mpc M2, mpc M3):
 
-	# print('y',y)
 	cdef mpfr Num1 = 4*k22*y+2*k21-2*k22-2*k23
 	cdef mpc Num0 = -4*k22*y+2*M2-2*M3+2*k22
 	cdef mpfr DeltaR2 = -k21*y+k23*y-k23
@@ -977,12 +954,10 @@ cdef mpc TrMxy(long double y, mpfr k21, mpfr k22, mpfr k23, mpc M1, mpc M2, mpc 
 	cdef mpc DeltaS1 =-4*M1*k22-2*M2*k21+2*M2*k22+2*M2*k23+2*M3*k21+2*M3*k22-2*M3*k23-2*k21*k22+2*k22**2-2*k22*k23
 	cdef mpc DeltaS0 =-M2**2+2*M2*M3-2*M2*k22-M3**2-2*M3*k22-k22**2
 
-	# cdef mpc DiakrS = sqrt(Diakr(DeltaS2, DeltaS1, DeltaS0))
 	cdef mpc DiakrS = sqrt(Diakr(DeltaS2, DeltaS1, DeltaS0))
-	#print('Num1',Num1, 'Num0', Num0, 'DiakrS',DiakrS)
 	cdef mpc solS1 = (-DeltaS1+DiakrS)/2/DeltaS2
 	cdef mpc solS2 = (-DeltaS1-DiakrS)/2/DeltaS2  
-	#print("solS1",solS1,"solS2", solS2)
+
 	cdef mpc cf2 = -(Num1*solS2+Num0)/DiakrS
 	cdef mpc cf1 = (Num1*solS1+Num0)/DiakrS
 		
@@ -990,19 +965,14 @@ cdef mpc TrMxy(long double y, mpfr k21, mpfr k22, mpfr k23, mpc M1, mpc M2, mpc 
 				  
 	cdef mpc solR1 = ((-DeltaR1+DiakrR)/2)/DeltaR2     
 	cdef mpc solR2 = ((-DeltaR1-DiakrR)/2)/DeltaR2 
-	#print("cf1, cf2", cf1, cf2)
-	#print('Fint cf2 = ',Fint(DeltaR2, solR1, solR2, solS2))
-	#print('Fint cf1 = ',Fint(DeltaR2, solR1, solR2, solS1))
+
 	if abs(cf1) < CHOP_TOL:
-		# print('neglect cf1')
-		# print('Fint = ',cf2*Fint(DeltaR2, solR1, solR2, solS2))
+		# neglect cf1
 		return cf2*Fint(DeltaR2, solR1, solR2, solS2)
 	elif abs(cf2) < CHOP_TOL:
-		# print('neglect cf2')
-		# print('Fint = ',cf1*Fint(DeltaR2, solR1, solR2, solS1))
+		# neglect cf2
 		return cf1*Fint(DeltaR2, solR1, solR2, solS1)
 	else:
-		# print('cf_i Fint = ',cf2*Fint(DeltaR2, solR1, solR2, solS2)+cf1*Fint(DeltaR2, solR1, solR2, solS1))
 		return cf2*Fint(DeltaR2, solR1, solR2, solS2)+cf1*Fint(DeltaR2, solR1, solR2, solS1)
 
 #@lru_cache(None)
@@ -1012,9 +982,6 @@ cdef mpc TriaMasterZeroMasses(mpfr k21, mpfr k22, mpfr k23):
 	#case for triangle integrals where all masses vanish
 	return mpc(PI*SQRT_PI/sqrt(k21)/sqrt(k22)/sqrt(k23))
 
-
-# TriaMaster does not affect speed 
-#@lru_cache(None)
 @cython.boundscheck(False)
 @cython.wraparound(False)
 cdef mpc TriaMaster(mpfr k21, mpfr k22, mpfr k23, mpc M1, mpc M2, mpc M3):
@@ -1022,6 +989,5 @@ cdef mpc TriaMaster(mpfr k21, mpfr k22, mpfr k23, mpc M1, mpc M2, mpc M3):
 	if M1 == 0 and M2 == 0 and M3 == 0:
 		return  TriaMasterZeroMasses(k21, k22, k23)
 	
-	cdef mpc triamaster = TrMxy(1, k21, k22, k23, M1, M2, M3)-TrMxy(0, k21, k22, k23,M1, M2, M3)
-	return triamaster
+	return TrMxy(1, k21, k22, k23, M1, M2, M3)-TrMxy(0, k21, k22, k23,M1, M2, M3)
 

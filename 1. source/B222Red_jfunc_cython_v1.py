@@ -5,7 +5,6 @@ from functools import lru_cache
 import pandas as pd
 
 from Jfunc_cython_v4 import computeJ as J
-
 import gmpy2 as gm
 from gmpy2 import *
 import time
@@ -14,9 +13,9 @@ gm.get_context().precision = 190
 gm.get_context().allow_complex = True
 
 # load coefficients
-ctabfolder = '../3. Ctabs/B222ctabks/'
-outputfolder = '../2. Jmat_loopvals/B222_Jmat_cython/'
 
+ctabfolder = '../3. Ctabs/B222Redshiftctabks/'
+outputfolder = '../2. Jmat_loopvals/B222Redshift_Jmat_cython/'
 
 if not(os.path.exists(outputfolder)):
 	os.makedirs(outputfolder)
@@ -65,28 +64,28 @@ def compute_B222_jmat(filename):
 
 	Jtriantable = np.empty((16,16,16),dtype=float)
 
+	start_time = time.time()
 	for i1 in reversed(range(16)):
 		for i2 in reversed(range(16)):
 			print(i2,i1)
 			for i3 in reversed(range(16)):				
 				computeker(i1, i2, i3, k12, k22, k32, ctab_ns, ctab_coefs, Jtriantable)
 
+	print("--- %s seconds ---" % (time.time() - start_time))
 	# print(Jtriantable.shape)
 
 	# Output the table to csv 
 	out_arr = np.column_stack((np.repeat(np.arange(16),16),Jtriantable.reshape(16**2,-1)))
 	out_df = pd.DataFrame(out_arr)
-	out_filename = outputfolder + 'B222_Jfunc_'+str(float(k1))+'_' + str(float(k2)) + '_' + str(float(k3)) + '_' +'.csv'
+	out_filename = outputfolder + 'B222RedshiftJfunc_'+str(float(k1))+'_' + str(float(k2)) + '_' + str(float(k3)) + '_' +'.csv'
 	out_df.to_csv(out_filename,index = False)
 
-def compute_all_B222():
-	for file in filelist:
-		(k1,k2,k3)=get_ks(file)
-		print(float(k1), float(k2), float(k3))
-		out_filename = outputfolder + 'B222_Jfunc_'+str(float(k1))+'_' + str(float(k2)) + '_' + str(float(k3)) + '_' +'.csv'
-		if k1==k2 and k2==k3:
-			if k1==0.5:
-				if not(os.path.isfile(out_filename)):	
-					start_time = time.time()
-					compute_B222_jmat(file)
-					print("--- %s seconds ---" % (time.time() - start_time))
+for file in filelist:
+	(k1,k2,k3)=get_ks(file)
+	print(float(k1), float(k2), float(k3))
+	out_filename = outputfolder + 'B222RedshiftJfunc_'+str(float(k1))+'_' + str(float(k2)) + '_' + str(float(k3)) + '_' +'.csv'
+	if k1==k2 and k2==k3:
+		if not(os.path.isfile(out_filename)):	
+			start_time = time.time()
+			compute_B222_jmat(file)
+			print("--- %s seconds ---" % (time.time() - start_time))
