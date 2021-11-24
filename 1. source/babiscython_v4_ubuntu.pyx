@@ -1,4 +1,6 @@
-# cython: profile=True
+
+
+# maybe include this: distutils: language = c++
 
 import cython
 cimport cython
@@ -54,7 +56,7 @@ cdef mpfr PI =  GMPy_MPFR_New(PREC, NULL)
 mpfr_const_pi(MPFR(PI), MPFRND)
 
 cdef mpfr SQRT_PI = sqrt(PI)
-
+cdef mpc mpc0 = mpc(0)
 
 # Utility function that checks if two complex numbers are almost equal, given the tolerance tol
 @cython.boundscheck(False)
@@ -129,23 +131,42 @@ cdef num_terms(long long n1, int kmq = True):
 		#	print(term_list[i])
 		#	print(exp_list[i,0],exp_list[i,1],exp_list[i,2])
 			i += 1			
-	return term_list, exp_list
+	return (term_list, exp_list)
 
-@lru_cache(None)
-def coef_dim_gen(long long expnum, long long expden):
+
+coef_dim_gen_cache = {}
+cdef mpfr coef_dim_gen(long long expnum, long long expden):
+	# function to calculate coefficient in dim_gen without using Gamma functions 
+	global coef_dim_gen_cache
+	
+	cdef mpfr lookup_val, val
+		
 	if expden == 1:
-		return (-1)**(expnum + 1)
+		return mpfr((-1)**(expnum + 1))
 	if expden < 1:
 		return 0 
 	if expden > 1:
-		return (coef_dim_gen(expnum, expden-1)*(5 - 2*expden + 2*expnum))/(2 - 2*expden)
+		if (expnum,expden) in coef_dim_gen_cache:
+			return coef_dim_gen_cache[(expnum,expden)]
+		else:
+			val = (coef_dim_gen(expnum, expden-1)*(5 - 2*expden + 2*expnum))/(2 - 2*expden)
+			coef_dim_gen_cache[(expnum,expden)] = val
+			return val
+
+#@cython.boundscheck(False)
+##@cython.wraparound(False)
+#cdef mpc dim_gen(long long expnum, long long expden, mpc m):
+#	if m == mpc0:
+#		return mpc0
+#	return (2.*SQRT_PI)*coef_dim_gen(expnum,expden)*m**(expnum - expden + 1)*sqrt(m)
 
 @cython.boundscheck(False)
 @cython.wraparound(False)
 cdef mpc dim_gen(long long expnum, long long expden, mpc m):
-	if m == 0:
-		return mpc(0)
-	return (2.*SQRT_PI)*coef_dim_gen(expnum,expden)*m**(expnum - expden + 1)*sqrt(m)
+	if m == mpc0:
+		return mpc0
+	return (2./SQRT_PI)*gamma(expnum+mpfr('1.5'))*gamma(expden-expnum-mpfr('1.5'))/gamma(expden)*m**(expnum - expden + 1)*sqrt(m)
+
 
 @cython.boundscheck(False)
 @cython.wraparound(False)
@@ -183,7 +204,7 @@ cdef mpc dim_result(long expkmq2, long expden, mpfr k2, mpc mDen, int kmq = True
 	
 	term_list, exp_list = num_terms(expkmq2,kmq)
 	
-	cdef mpc res_list = mpc(0)
+	cdef mpc res_list = mpc0
 
 	cdef int i = 0
 	for i in range(list_length):
@@ -217,7 +238,7 @@ cdef mpc compute_massive_num(long long expnum, long long expden,
 	cdef long long[:,:] exp_list = np.zeros((list_length,2), dtype = np.longlong)
 	term_list, exp_list = expand_massive_num(expnum)
 	
-	cdef mpc res_list = mpc(0)
+	cdef mpc res_list = mpc0
 
 	cdef Py_ssize_t i
 	for i in range(list_length):
@@ -234,13 +255,13 @@ cdef mpc compute_massive_num(long long expnum, long long expden,
 @cython.wraparound(False)
 cdef mpc TadN(long n, mpc m):
 	if m == 0:
-		return mpc(0)
+		return mpc0
 	if n == 0:
-		return mpc(0)
+		return mpc0
 	if n == 1:
 		return -2 * SQRT_PI * sqrt(m)
 	if n < 0:
-		return mpc(0)
+		return mpc0
 	return dim_gen(0,n,m)
 
 @cython.boundscheck(False)
@@ -452,8 +473,8 @@ cdef mpc tri_dim(long long n1, long long d1, long long d2,
 	cdef long long[:,:] exp_list = np.zeros((list_length,3), dtype = np.longlong)
 	term_list, exp_list = num_terms(n1,True)
 
-	cdef mpc res_list = mpc(0)
-	cdef mpc term = mpc(0)
+	cdef mpc res_list = mpc0
+	cdef mpc term = mpc0
 	
 	cdef Py_ssize_t i 
 	for i in range(list_length):
@@ -557,14 +578,14 @@ cdef num_two_pow(long long d1, long long d2, mpfr denk2, mpc m1, mpc m2):
 cdef num_three_pow(long long d1, long long d2, mpfr denk2, mpc m1, mpc m2):
 	#integral of (k.q)^3/(((q^2+m1)^d1)*((denk+q)^2+m2)^d2) divided by k^3
 
-	cdef mpc aux0=(((3.*(((m1-m2)**2)))+(2.*(denk2*(m1+m2))))-(denk2**2))*(BubN(-1 + d1, d2, denk2, m1, m2))
+	cdef mpc aux0=(((3*(((m1-m2)**2)))+(2.*(denk2*(m1+m2))))-(denk2**2))*(BubN(-1 + d1, d2, denk2, m1, m2))
 	cdef mpc aux1=((denk2**2)+((((m1-m2)**2))+(2.*(denk2*(m1+m2)))))*(BubN(d1, d2, denk2, m1, m2))
-	cdef mpc aux2=(3.*(((denk2+m2)-m1)*(BubN(d1, -2 + d2, denk2, m1, m2))))+(((denk2+m2)-m1)*aux1)
-	cdef mpc aux3=(-2.*((denk2+((-3.*m1)+(3.*m2)))*(BubN(-1 + d1, -1 + d2, denk2, m1, m2))))+(aux0+aux2)
-	cdef mpc aux4=(-3.*(BubN(-2 + d1, -1 + d2, denk2, m1, m2)))+((3.*(BubN(-1 + d1, -2 + d2, denk2, m1, m2)))+aux3)
-	cdef mpc aux5=((3.*(denk2**2))+((-2.*(denk2*(m1+(-3.*m2))))+(3.*(((m1-m2)**2)))))*(BubN(d1, -1 + d2, denk2, m1, m2))
-	cdef mpc aux6=((((BubN(-3 + d1, d2, denk2, m1, m2))+aux4)-aux5)-(BubN(d1, -3 + d2, denk2, m1, m2)))-((denk2+((3.*m1)+(-3.*m2)))*(BubN(-2 + d1, d2, denk2, m1, m2)))
-	cdef mpc coef1=0.1875*((denk2**-1.5)*aux6)
+	cdef mpc aux2=(3*(((denk2+m2)-m1)*(BubN(d1, -2 + d2, denk2, m1, m2))))+(((denk2+m2)-m1)*aux1)
+	cdef mpc aux3=(-2.*((denk2+((-3*m1)+(3*m2)))*(BubN(-1 + d1, -1 + d2, denk2, m1, m2))))+(aux0+aux2)
+	cdef mpc aux4=(-3*(BubN(-2 + d1, -1 + d2, denk2, m1, m2)))+((3*(BubN(-1 + d1, -2 + d2, denk2, m1, m2)))+aux3)
+	cdef mpc aux5=((3*(denk2**2))+((-2.*(denk2*(m1+(-3*m2))))+(3*(((m1-m2)**2)))))*(BubN(d1, -1 + d2, denk2, m1, m2))
+	cdef mpc aux6=((((BubN(-3 + d1, d2, denk2, m1, m2))+aux4)-aux5)-(BubN(d1, -3 + d2, denk2, m1, m2)))-((denk2+((3*m1)+(-3*m2)))*(BubN(-2 + d1, d2, denk2, m1, m2)))
+	cdef mpc coef1=3*aux6/(16 * denk2 * sqrt(denk2))
 
 	cdef mpc coef2 = 1/(2*sqrt(denk2))*(BubN(d1-1,d2-1,denk2,m1,m2) - BubN(d1-2,d2,denk2,m1,m2)
 		-(denk2 + m2 - 2*m1)*BubN(d1-1,d2,denk2,m1,m2) - m1*BubN(d1,d2-1,denk2,m1,m2)
@@ -577,24 +598,24 @@ cdef num_three_pow(long long d1, long long d2, mpfr denk2, mpc m1, mpc m2):
 cdef num_four_pow(long long d1, long long d2, 
 					mpfr denk2, mpc m1, mpc m2):
 
-	cdef mpc aux0=((3.*(((denk2+m1)**2)))+((-2.*((denk2+(3.*m1))*m2))+(3.*(m2**2))))*(BubN(-2 + d1, d2, denk2, m1, m2))
-	cdef mpc aux1=((denk2**2)+((-3.*(((m1-m2)**2)))+(-2.*(denk2*(m1+m2)))))*(BubN(-1 + d1, -1 + d2, denk2, m1, m2))
+	cdef mpc aux0=((3*(((denk2+m1)**2)))+((-2.*((denk2+(3*m1))*m2))+(3*(m2**2))))*(BubN(-2 + d1, d2, denk2, m1, m2))
+	cdef mpc aux1=((denk2**2)+((-3*(((m1-m2)**2)))+(-2.*(denk2*(m1+m2)))))*(BubN(-1 + d1, -1 + d2, denk2, m1, m2))
 	cdef mpc aux2=((denk2**2)+((((m1-m2)**2))+(2.*(denk2*(m1+m2)))))*(BubN(-1 + d1, d2, denk2, m1, m2))
-	cdef mpc aux3=((3.*(denk2**2))+((-2.*(denk2*(m1+(-3.*m2))))+(3.*(((m1-m2)**2)))))*(BubN(d1, -2 + d2, denk2, m1, m2))
+	cdef mpc aux3=((3*(denk2**2))+((-2.*(denk2*(m1+(-3*m2))))+(3*(((m1-m2)**2)))))*(BubN(d1, -2 + d2, denk2, m1, m2))
 	cdef mpc aux4=((denk2**2)+((((m1-m2)**2))+(2.*(denk2*(m1+m2)))))*(BubN(d1, -1 + d2, denk2, m1, m2))
 	cdef mpc aux5=((((denk2**2)+((((m1-m2)**2))+(2.*(denk2*(m1+m2)))))**2))*(BubN(d1, d2, denk2, m1, m2))
 	cdef mpc aux6=(-4.*(((denk2+m2)-m1)*(BubN(d1, -3 + d2, denk2, m1, m2))))+((2.*aux3)+((-4.*(((denk2+m2)-m1)*aux4))+aux5))
 	cdef mpc aux7=(4.*aux1)+((-4.*(((denk2+m1)-m2)*aux2))+((BubN(d1, -4 + d2, denk2, m1, m2))+aux6))
-	cdef mpc aux8=(4.*((denk2+((-3.*m1)+(3.*m2)))*(BubN(-1 + d1, -2 + d2, denk2, m1, m2))))+aux7
-	cdef mpc aux9=(4.*((denk2+((3.*m1)+(-3.*m2)))*(BubN(-2 + d1, -1 + d2, denk2, m1, m2))))+((2.*aux0)+((-4.*(BubN(-1 + d1, -3 + d2, denk2, m1, m2)))+aux8))
+	cdef mpc aux8=(4.*((denk2+((-3*m1)+(3*m2)))*(BubN(-1 + d1, -2 + d2, denk2, m1, m2))))+aux7
+	cdef mpc aux9=(4.*((denk2+((3*m1)+(-3*m2)))*(BubN(-2 + d1, -1 + d2, denk2, m1, m2))))+((2.*aux0)+((-4.*(BubN(-1 + d1, -3 + d2, denk2, m1, m2)))+aux8))
 	cdef mpc aux10=(-4.*(((denk2+m1)-m2)*(BubN(-3 + d1, d2, denk2, m1, m2))))+((6.*(BubN(-2 + d1, -2 + d2, denk2, m1, m2)))+aux9)
 	cdef mpc aux11=(BubN(-4 + d1, d2, denk2, m1, m2))+((-4.*(BubN(-3 + d1, -1 + d2, denk2, m1, m2)))+aux10)
 	cdef mpc coef1=0.0234375*((denk2**(-2))*aux11)
 
 	aux0=((denk2**2)+((-15.*(((m1-m2)**2)))+(-6.*(denk2*(m1+m2)))))*(BubN(-2 + d1, d2, denk2, m1, m2))
-	aux1=-12.*(((3.*denk2)+((-5.*m1)+(5.*m2)))*(BubN(-1 + d1, -2 + d2, denk2, m1, m2)))
-	aux2=((denk2**2)+((-2.*(denk2*(m1+(-3.*m2))))+(5.*(((m1-m2)**2)))))*(BubN(-1 + d1, -1 + d2, denk2, m1, m2))
-	aux3=((denk2**3.)+((5.*((m1-m2)**3.))+(3.*(denk2*((m1-m2)*(m1+(3.*m2)))))))-((denk2**2)*(m1+(3.*m2)))
+	aux1=-12.*(((3*denk2)+((-5.*m1)+(5.*m2)))*(BubN(-1 + d1, -2 + d2, denk2, m1, m2)))
+	aux2=((denk2**2)+((-2.*(denk2*(m1+(-3*m2))))+(5.*(((m1-m2)**2)))))*(BubN(-1 + d1, -1 + d2, denk2, m1, m2))
+	aux3=((denk2**3)+((5.*((m1-m2)**3))+(3*(denk2*((m1-m2)*(m1+(3*m2)))))))-((denk2**2)*(m1+(3*m2)))
 	aux4=((5.*(denk2**2))+((5.*(((m1-m2)**2)))+(denk2*((-6.*m1)+(10.*m2)))))*(BubN(d1, -2 + d2, denk2, m1, m2))
 	aux5=((5.*(denk2**2))+((5.*(((m1-m2)**2)))+(2.*(denk2*(m1+(5.*m2))))))*(BubN(d1, -1 + d2, denk2, m1, m2))
 	aux6=(20.*(((denk2+m2)-m1)*(BubN(d1, -3 + d2, denk2, m1, m2))))+((-6.*aux4)+(4.*(((denk2+m2)-m1)*aux5)))
@@ -607,17 +628,17 @@ cdef num_four_pow(long long d1, long long d2,
 	aux13=(denk2**-2.)*(aux11-(((denk2**2)+((((m1-m2)**2))+(2.*(denk2*(m1+m2)))))*aux12))
 	cdef mpc coef2=0.046875*aux13
 
-	aux0=-60.*(((3.*denk2)+((-7.*m1)+(7.*m2)))*(BubN(-2 + d1, -1 + d2, denk2, m1, m2)))
-	aux1=((3.*(denk2**2))+((-10.*(denk2*(m1+(-3.*m2))))+(35.*(((m1-m2)**2)))))*(BubN(-2 + d1, d2, denk2, m1, m2))
-	aux2=((3.*(denk2**2))+((7.*(((m1-m2)**2)))+(denk2*((-6.*m1)+(10.*m2)))))*(BubN(-1 + d1, -1 + d2, denk2, m1, m2))
-	aux3=(-9.*((denk2**2)*(m1+(-5.*m2))))+((15.*(denk2*((m1+(-5.*m2))*(m1-m2))))+(-35.*((m1-m2)**3.)))
+	aux0=-60.*(((3*denk2)+((-7.*m1)+(7.*m2)))*(BubN(-2 + d1, -1 + d2, denk2, m1, m2)))
+	aux1=((3*(denk2**2))+((-10.*(denk2*(m1+(-3*m2))))+(35.*(((m1-m2)**2)))))*(BubN(-2 + d1, d2, denk2, m1, m2))
+	aux2=((3*(denk2**2))+((7.*(((m1-m2)**2)))+(denk2*((-6.*m1)+(10.*m2)))))*(BubN(-1 + d1, -1 + d2, denk2, m1, m2))
+	aux3=(-9.*((denk2**2)*(m1+(-5.*m2))))+((15.*(denk2*((m1+(-5.*m2))*(m1-m2))))+(-35.*((m1-m2)**3)))
 	aux4=((7.*(denk2**2))+((7.*(((m1-m2)**2)))+(2.*(denk2*((-5.*m1)+(7.*m2))))))*(BubN(d1, -2 + d2, denk2, m1, m2))
 	aux5=((7.*(denk2**2))+((-2.*(denk2*(m1+(-7.*m2))))+(7.*(((m1-m2)**2)))))*(((denk2+m2)-m1)*(BubN(d1, -1 + d2, denk2, m1, m2)))
-	aux6=(35.*((m1-m2)**4.))+(6.*((denk2**2)*((3.*(m1**2))+((-30.*(m1*m2))+(35.*(m2**2))))))
-	aux7=(-20.*((denk2**3.)*(m1+(-7.*m2))))+((-20.*(denk2*((m1+(-7.*m2))*(((m1-m2)**2)))))+aux6)
+	aux6=(35.*((m1-m2)**4.))+(6.*((denk2**2)*((3*(m1**2))+((-30.*(m1*m2))+(35.*(m2**2))))))
+	aux7=(-20.*((denk2**3)*(m1+(-7.*m2))))+((-20.*(denk2*((m1+(-7.*m2))*(((m1-m2)**2)))))+aux6)
 	aux8=(30.*aux4)+((-20.*aux5)+(((35.*(denk2**4.))+aux7)*(BubN(d1, d2, denk2, m1, m2))))
 	aux9=(35.*(BubN(d1, -4 + d2, denk2, m1, m2)))+((-140.*(((denk2+m2)-m1)*(BubN(d1, -3 + d2, denk2, m1, m2))))+aux8)
-	aux10=(-60.*aux2)+((4.*(((5.*(denk2**3.))+aux3)*(BubN(-1 + d1, d2, denk2, m1, m2))))+aux9)
+	aux10=(-60.*aux2)+((4.*(((5.*(denk2**3))+aux3)*(BubN(-1 + d1, d2, denk2, m1, m2))))+aux9)
 	aux11=(60.*(((5.*denk2)+((-7.*m1)+(7.*m2)))*(BubN(-1 + d1, -2 + d2, denk2, m1, m2))))+aux10
 	aux12=(210.*(BubN(-2 + d1, -2 + d2, denk2, m1, m2)))+(aux0+((6.*aux1)+((-140.*(BubN(-1 + d1, -3 + d2, denk2, m1, m2)))+aux11)))
 	aux13=(-140.*(BubN(-3 + d1, -1 + d2, denk2, m1, m2)))+((20.*((denk2+((-7.*m1)+(7.*m2)))*(BubN(-3 + d1, d2, denk2, m1, m2))))+aux12)
@@ -649,8 +670,11 @@ cdef mpc tri_dim_two(long n1, long n2, long d1,
 	cdef long k2exp1 = 0, q2exp1 = 0, k2exp2 = 0, q2exp2 = 0
 	cdef long k2exp, q2exp, kqexp1, kqexp2, kqexp
 	
-	cdef long long[:] term_list1 = np.zeros((list_length_n1,), dtype = np.longlong)
-	cdef long long[:,:] exp_list1 = np.zeros((list_length_n1,3), dtype = np.longlong)
+	term_list1_arr = np.zeros((list_length_n1,), dtype = np.longlong)
+	cdef long long[:] term_list1 = term_list1_arr
+		
+	exp_list1_arr = np.zeros((list_length_n1,3), dtype = np.longlong)
+	cdef long long[:,:] exp_list1 = exp_list1_arr
 
 	cdef long long[:] term_list2 = np.zeros((list_length_n2,), dtype = np.longlong)
 	cdef long long[:,:] exp_list2 = np.zeros((list_length_n2,3), dtype = np.longlong)
@@ -658,8 +682,8 @@ cdef mpc tri_dim_two(long n1, long n2, long d1,
 	term_list1, exp_list1 = num_terms(n1,True)
 	term_list2, exp_list2 = num_terms(n2,False)
 
-	cdef mpc res_list = mpc(0)
-	cdef mpc term = mpc(0)
+	cdef mpc res_list = mpc0
+	cdef mpc term = mpc0
 
 	cdef Py_ssize_t i1, i2
 	for i1 in range(list_length_n1):
@@ -743,11 +767,11 @@ def Ltrian(long n1, long d1, long n2, long d2, long n3, long d3,
 	if n1 == 0 and n2 == 0 and n3 == 0:
 		return TriaN(d1,d2,d3,k21,k22,k23,m1,m2,m3)
 	if d1 == 0 and n1 != 0:
-		return Ltrian(0,-n1,n2,d2,n3,d3,k21,k22,k23,mpc(0),m2,m3)
+		return Ltrian(0,-n1,n2,d2,n3,d3,k21,k22,k23,mpc0,m2,m3)
 	if d2 == 0 and n2 != 0:
-		return Ltrian(n1,d1,0,-n2,n3,d3,k21,k22,k23,m1,mpc(0),m3)
+		return Ltrian(n1,d1,0,-n2,n3,d3,k21,k22,k23,m1,mpc0,m3)
 	if d3 == 0 and n3 != 0:
-		return Ltrian(n1,d1,n2,d2,0,-n3,k21,k22,k23,m1,m2,mpc(0))
+		return Ltrian(n1,d1,n2,d2,0,-n3,k21,k22,k23,m1,m2,mpc0)
 	if n1 > 0:
 		return Ltrian(n1-1,d1-1,n2,d2,n3,d3,k21,k22,k23,m1,m2,m3) - m1*Ltrian(n1-1,d1,n2,d2,n3,d3,k21,k22,k23,m1,m2,m3)
 	if n2 > 0:
@@ -761,6 +785,12 @@ def Ltrian(long n1, long d1, long n2, long d2, long n3, long d3,
 	if n3 < 0:
 		return (Ltrian(n1,d1,n2,d2,n3,d3-1,k21,k22,k23,m1,m2,m3) - Ltrian(n1,d1,n2,d2,n3+1,d3,k21,k22,k23,m1,m2,m3))/m3
 	print("Error: case not considered in Ltrian")
+
+#@cython.boundscheck(False)
+#@cython.wraparound(False)
+#cpdef double complex Ltrian_complex(long n1, long d1, long n2, long d2, long n3, long d3, 
+#		   mpfr k21, mpfr k22, mpfr k23, mpc m1, mpc m2, mpc m3):
+#	return <double complex>Ltrian(n1,d1,n2,d2,n3,d3,k21,k22,k23,m1,m2,m3)
 
 
 # BubMaster does not affect the speed 
@@ -844,7 +874,7 @@ cdef mpc Antideriv(long double x, mpc y1, mpc y2, mpc x0):
 	if x == 1 and almosteq(mpc(1), y2, CHOP_TOL):
 		LimArcTan = 1j * sqrt(-temp**2) * PI/(2*temp)
 		return  prefac * LimArcTan
-	if x == 0 and almosteq(mpc(0), y2, CHOP_TOL):
+	if x == 0 and almosteq(mpc0, y2, CHOP_TOL):
 		LimArcTan = sqrt(temp**2) * PI/(2*temp)
 		return  prefac * LimArcTan
 
