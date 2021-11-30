@@ -7,11 +7,11 @@ import Cython.Compiler.Options
 Cython.Compiler.Options.annotate = True
 
 setup(
-	name = "Jfunc_cython_v4",
+	name = "babiscython_v4_ubuntu_old",
 	ext_modules = cythonize(
 		Extension(
-			"Jfunc_cython_v4",
-			sources = ["Jfunc_cython_v4.pyx"],
+			"babiscython_v4_ubuntu_old",
+			sources = ["babiscython_v4_ubuntu_old.pyx"],
 			include_dirs= [numpy.get_include()],
 			# include_dirs = sys.path,
 			libraries = ['gmp', 'mpfr', 'mpc'],

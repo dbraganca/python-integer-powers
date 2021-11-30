@@ -84,12 +84,12 @@ def compute_all_B222():
 		(k1,k2,k3)=get_ks(file)		
 		out_filename = outputfolder + 'B222_Jfunc_'+str(float(k1))+'_' + str(float(k2)) + '_' + str(float(k3)) + '_' +'.csv'
 		if k1==k2 and k2==k3:
-			if k1==0.5:
-				if not(os.path.isfile(out_filename)):	
-					print(float(k1), float(k2), float(k3))
-					start_time = time.time()
-					compute_B222_jmat(file)
-					print("--- %s seconds ---" % (time.time() - start_time))
+			# if not(os.path.isfile(out_filename)) or float(k1)==0.5:	
+			if k1 == 0.5:
+				print(float(k1), float(k2), float(k3))
+				start_time = time.time()
+				compute_B222_jmat(file)
+				print("--- %s seconds ---" % (time.time() - start_time))
 
 if __name__ == "__main__":
 	compute_all_B222()
