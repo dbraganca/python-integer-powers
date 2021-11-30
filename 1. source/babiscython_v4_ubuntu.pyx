@@ -318,14 +318,13 @@ def BubN(long n1, long n2, mpfr k2, mpc m1, mpc m2):
 		else:
 			# case of NO DENOMINATOR
 			return 0
-			
+	if c000 == 0.:
+		return cpm0*BubN(nu1 + 1, nu2 - 1, k2, m1, m2) + cmp0*BubN(nu1 - 1, nu2 + 1, k2, m1, m2)		
 
 	c000 = c000/jac
 	cmp0 = cmp0/jac
 	cpm0 = cpm0/jac
-	if c000 == 0:
-		return cpm0*BubN(nu1 + 1, nu2 - 1, k2, m1, m2) + cmp0*BubN(nu1 - 1, nu2 + 1, k2, m1, m2)
-
+	
 	return c000*BubN(nu1,nu2,k2,m1,m2) + cpm0*BubN(nu1 + 1, nu2 - 1, k2, m1, m2) + cmp0*BubN(nu1 - 1, nu2 + 1, k2, m1, m2)
  
 @cython.boundscheck(False)
