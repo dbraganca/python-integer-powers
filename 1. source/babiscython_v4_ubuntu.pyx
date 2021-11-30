@@ -134,38 +134,38 @@ cdef num_terms(long long n1, int kmq = True):
 	return (term_list, exp_list)
 
 
-#coef_dim_gen_cache = {}
-#cdef mpfr coef_dim_gen(long long expnum, long long expden):
-#	# function to calculate coefficient in dim_gen without using Gamma functions 
-#	global coef_dim_gen_cache
-#	
-#	cdef mpfr lookup_val, val
-#		
-#	if expden == 1:
-#		return mpfr((-1)**(expnum + 1))
-#	if expden < 1:
-#		return 0 
-#	if expden > 1:
-#		if (expnum,expden) in coef_dim_gen_cache:
-#			return coef_dim_gen_cache[(expnum,expden)]
-#		else:
-#			val = (coef_dim_gen(expnum, expden-1)*(5 - 2*expden + 2*expnum))/(2 - 2*expden)
-#			coef_dim_gen_cache[(expnum,expden)] = val
-#			return val
-
-#@cython.boundscheck(False)
-##@cython.wraparound(False)
-#cdef mpc dim_gen(long long expnum, long long expden, mpc m):
-#	if m == mpc0:
-#		return mpc0
-#	return (2.*SQRT_PI)*coef_dim_gen(expnum,expden)*m**(expnum - expden + 1)*sqrt(m)
+coef_dim_gen_cache = {}
+cdef long double coef_dim_gen(long long expnum, long long expden):
+	# function to calculate coefficient in dim_gen without using Gamma functions 
+	global coef_dim_gen_cache
+	
+	cdef long double lookup_val, val
+		
+	if expden == 1:
+		return ((-1)**(expnum + 1))
+	if expden < 1:
+		return 0 
+	if expden > 1:
+		if (expnum,expden) in coef_dim_gen_cache:
+			return coef_dim_gen_cache[(expnum,expden)]
+		else:
+			val = (coef_dim_gen(expnum, expden-1)*(5. - 2.*expden + 2.*expnum))/(2. - 2.*expden)
+			coef_dim_gen_cache[(expnum,expden)] = val
+			return val
 
 @cython.boundscheck(False)
 @cython.wraparound(False)
 cdef mpc dim_gen(long long expnum, long long expden, mpc m):
 	if m == mpc0:
 		return mpc0
-	return (2./SQRT_PI)*gamma(expnum+mpfr(1.5))*gamma(expden-expnum-mpfr(1.5))/gamma(expden)*m**(expnum - expden + 1)*sqrt(m)
+	return (2.*SQRT_PI)*(coef_dim_gen(expnum,expden)*m**(expnum - expden + 1)*sqrt(m))
+
+#@cython.boundscheck(False)
+#@cython.wraparound(False)
+#cdef mpc dim_gen(long long expnum, long long expden, mpc m):
+#	if m == mpc0:
+#		return mpc0
+#	return (2./SQRT_PI)*gamma(expnum+mpfr(1.5))*gamma(expden-expnum-mpfr(1.5))/gamma(expden)*m**(expnum - expden + 1)*sqrt(m)
 
 
 @cython.boundscheck(False)
