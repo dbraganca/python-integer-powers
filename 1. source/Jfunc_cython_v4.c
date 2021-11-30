@@ -650,7 +650,6 @@ static CYTHON_INLINE float __PYX_NAN() {
 #include "mpfr.h"
 #include "mpc.h"
 #include "gmpy2.h"
-#include "complex.h"
 #include "pythread.h"
 #include <stdlib.h>
 #include "pystate.h"
@@ -21857,7 +21856,7 @@ if (!__Pyx_RefNanny) {
  * from babiscython_v4_ubuntu import Ltrian
  * import time             # <<<<<<<<<<<<<<
  * 
- * cdef extern from "complex.h":
+ * #cdef extern from "complex.h":
  */
   __pyx_t_2 = __Pyx_Import(__pyx_n_s_time, 0, -1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 13, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
@@ -21865,7 +21864,7 @@ if (!__Pyx_RefNanny) {
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
   /* "Jfunc_cython_v4.pyx":18
- * 	double complex conj(double complex z)
+ * #	double complex conj(double complex z)
  * 
  * import_gmpy2()             # <<<<<<<<<<<<<<
  * 

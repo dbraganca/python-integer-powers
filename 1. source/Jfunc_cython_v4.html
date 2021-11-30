@@ -482,8 +482,8 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
   if (<span class='py_c_api'>PyDict_SetItem</span>(__pyx_d, __pyx_n_s_time, __pyx_t_2) &lt; 0) <span class='error_goto'>__PYX_ERR(0, 13, __pyx_L1_error)</span>
   <span class='pyx_macro_api'>__Pyx_DECREF</span>(__pyx_t_2); __pyx_t_2 = 0;
 </pre><pre class="cython line score-0">&#xA0;<span class="">014</span>: </pre>
-<pre class="cython line score-0">&#xA0;<span class="">015</span>: <span class="k">cdef</span> <span class="kr">extern</span> <span class="k">from</span> <span class="s">&quot;complex.h&quot;</span><span class="p">:</span></pre>
-<pre class="cython line score-0">&#xA0;<span class="">016</span>: 	<span class="n">double</span> <span class="nb">complex</span> <span class="n">conj</span><span class="p">(</span><span class="n">double</span> <span class="nb">complex</span> <span class="n">z</span><span class="p">)</span></pre>
+<pre class="cython line score-0">&#xA0;<span class="">015</span>: <span class="c">#cdef extern from &quot;complex.h&quot;:</span></pre>
+<pre class="cython line score-0">&#xA0;<span class="">016</span>: <span class="c">#	double complex conj(double complex z)</span></pre>
 <pre class="cython line score-0">&#xA0;<span class="">017</span>: </pre>
 <pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">018</span>: <span class="n">import_gmpy2</span><span class="p">()</span></pre>
 <pre class='cython code score-0 '>  __pyx_t_3 = import_gmpy2();<span class='error_goto'> if (unlikely(__pyx_t_3 == ((int)-1))) __PYX_ERR(0, 18, __pyx_L1_error)</span>

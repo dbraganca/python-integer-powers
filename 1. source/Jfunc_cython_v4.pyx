@@ -12,8 +12,8 @@ from functools import lru_cache
 from babiscython_v4_ubuntu import Ltrian
 import time
 
-cdef extern from "complex.h":
-	double complex conj(double complex z)
+#cdef extern from "complex.h":
+#	double complex conj(double complex z)
 
 import_gmpy2()
 

@@ -134,24 +134,24 @@ cdef num_terms(long long n1, int kmq = True):
 	return (term_list, exp_list)
 
 
-coef_dim_gen_cache = {}
-cdef mpfr coef_dim_gen(long long expnum, long long expden):
-	# function to calculate coefficient in dim_gen without using Gamma functions 
-	global coef_dim_gen_cache
-	
-	cdef mpfr lookup_val, val
-		
-	if expden == 1:
-		return mpfr((-1)**(expnum + 1))
-	if expden < 1:
-		return 0 
-	if expden > 1:
-		if (expnum,expden) in coef_dim_gen_cache:
-			return coef_dim_gen_cache[(expnum,expden)]
-		else:
-			val = (coef_dim_gen(expnum, expden-1)*(5 - 2*expden + 2*expnum))/(2 - 2*expden)
-			coef_dim_gen_cache[(expnum,expden)] = val
-			return val
+#coef_dim_gen_cache = {}
+#cdef mpfr coef_dim_gen(long long expnum, long long expden):
+#	# function to calculate coefficient in dim_gen without using Gamma functions 
+#	global coef_dim_gen_cache
+#	
+#	cdef mpfr lookup_val, val
+#		
+#	if expden == 1:
+#		return mpfr((-1)**(expnum + 1))
+#	if expden < 1:
+#		return 0 
+#	if expden > 1:
+#		if (expnum,expden) in coef_dim_gen_cache:
+#			return coef_dim_gen_cache[(expnum,expden)]
+#		else:
+#			val = (coef_dim_gen(expnum, expden-1)*(5 - 2*expden + 2*expnum))/(2 - 2*expden)
+#			coef_dim_gen_cache[(expnum,expden)] = val
+#			return val
 
 #@cython.boundscheck(False)
 ##@cython.wraparound(False)
@@ -165,7 +165,7 @@ cdef mpfr coef_dim_gen(long long expnum, long long expden):
 cdef mpc dim_gen(long long expnum, long long expden, mpc m):
 	if m == mpc0:
 		return mpc0
-	return (2./SQRT_PI)*gamma(expnum+mpfr('1.5'))*gamma(expden-expnum-mpfr('1.5'))/gamma(expden)*m**(expnum - expden + 1)*sqrt(m)
+	return (2./SQRT_PI)*gamma(expnum+mpfr(1.5))*gamma(expden-expnum-mpfr(1.5))/gamma(expden)*m**(expnum - expden + 1)*sqrt(m)
 
 
 @cython.boundscheck(False)
@@ -294,7 +294,8 @@ def BubN(long n1, long n2, mpfr k2, mpc m1, mpc m2):
 
 		cpm0 = k1s
 		cmp0 = -2.*m2/nu1*nu2
-		c000 = 2*m2*(1./nu1 * Ndim - 1) + k1s * (1./nu1 * (nu2 - Ndim))
+		c000 = (2.*m2-k1s)/nu1*Ndim - 2.*m2 + (k1s*nu2)/nu1
+		#c000 = 2*m2*(1./nu1 * Ndim - 1) + k1s * (1./nu1 * (nu2 - Ndim))
 	elif n2 > 1:
 		nu1 = n1
 		nu2 = n2-1
@@ -302,7 +303,8 @@ def BubN(long n1, long n2, mpfr k2, mpc m1, mpc m2):
 
 		cpm0 = -2*m1/nu2*nu1
 		cmp0 = k1s
-		c000 = 2*m1*(1./nu2 * Ndim - 1) + k1s * (1./nu2 * (nu1 - Ndim)) 
+		c000 = (2.*m1 - k1s)/nu2*Ndim + (k1s*nu1)/nu2 - 2.*m1
+		#c000 = 2*m1*(1./nu2 * Ndim - 1) + k1s * (1./nu2 * (nu1 - Ndim)) 
 	#code to deal with numerators
 	if n1 < 0 or n2 < 0:
 		if m1 == 0 and m2 == 0:
@@ -317,13 +319,14 @@ def BubN(long n1, long n2, mpfr k2, mpc m1, mpc m2):
 			return compute_massive_num(-n2,n1,k2,m2,m1)
 		else:
 			# case of NO DENOMINATOR
-			return 0
-	if c000 == 0.:
-		return cpm0*BubN(nu1 + 1, nu2 - 1, k2, m1, m2) + cmp0*BubN(nu1 - 1, nu2 + 1, k2, m1, m2)		
+			return 0		
 
 	c000 = c000/jac
 	cmp0 = cmp0/jac
 	cpm0 = cpm0/jac
+
+	if c000 == 0.:
+		return cpm0*BubN(nu1 + 1, nu2 - 1, k2, m1, m2) + cmp0*BubN(nu1 - 1, nu2 + 1, k2, m1, m2)
 	
 	return c000*BubN(nu1,nu2,k2,m1,m2) + cpm0*BubN(nu1 + 1, nu2 - 1, k2, m1, m2) + cmp0*BubN(nu1 - 1, nu2 + 1, k2, m1, m2)
  
