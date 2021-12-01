@@ -434,8 +434,7 @@ cdef double computed1(long[:] d1new, long n1, long n2, long n3, long d1, mpfr k1
 	return result.real/(4 * PI * SQRT_PI)	
 
 
-# cpdef double
-def computeJ(long n1, long n2, long n3, 
+cpdef double computeJ(long n1, long n2, long n3, 
 					long d1, long d2, long d3, 
 					mpfr k1sq, mpfr k2sq, mpfr k3sq):
 	# n1, n2, n3 are the exponents of q, k1pq, k2mq in the denominator
