@@ -1,4 +1,4 @@
-
+# cython: profile=True
 
 # maybe include this: distutils: language = c++
 

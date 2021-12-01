@@ -369,14 +369,14 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
     Click on a line that starts with a "<code>+</code>" to see the C code that Cython generated for it.
 </p>
 <p>Raw output: <a href="babiscython_v4_ubuntu.c">babiscython_v4_ubuntu.c</a></p>
-<div class="cython"><pre class="cython line score-0">&#xA0;<span class="">0001</span>: </pre>
-<pre class="cython line score-0">&#xA0;<span class="">0002</span>: </pre>
-<pre class="cython line score-8" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">0003</span>: <span class="c"># maybe include this: distutils: language = c++</span></pre>
-<pre class='cython code score-8 '>  __pyx_t_4 = <span class='pyx_c_api'>__Pyx_PyDict_NewPresized</span>(0);<span class='error_goto'> if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 3, __pyx_L1_error)</span>
+<div class="cython"><pre class="cython line score-8" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">0001</span>: <span class="c"># cython: profile=True</span></pre>
+<pre class='cython code score-8 '>  __pyx_t_4 = <span class='pyx_c_api'>__Pyx_PyDict_NewPresized</span>(0);<span class='error_goto'> if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1, __pyx_L1_error)</span>
   <span class='refnanny'>__Pyx_GOTREF</span>(__pyx_t_4);
-  if (<span class='py_c_api'>PyDict_SetItem</span>(__pyx_d, __pyx_n_s_test, __pyx_t_4) &lt; 0) <span class='error_goto'>__PYX_ERR(0, 3, __pyx_L1_error)</span>
+  if (<span class='py_c_api'>PyDict_SetItem</span>(__pyx_d, __pyx_n_s_test, __pyx_t_4) &lt; 0) <span class='error_goto'>__PYX_ERR(0, 1, __pyx_L1_error)</span>
   <span class='pyx_macro_api'>__Pyx_DECREF</span>(__pyx_t_4); __pyx_t_4 = 0;
-</pre><pre class="cython line score-0">&#xA0;<span class="">0004</span>: </pre>
+</pre><pre class="cython line score-0">&#xA0;<span class="">0002</span>: </pre>
+<pre class="cython line score-0">&#xA0;<span class="">0003</span>: <span class="c"># maybe include this: distutils: language = c++</span></pre>
+<pre class="cython line score-0">&#xA0;<span class="">0004</span>: </pre>
 <pre class="cython line score-0">&#xA0;<span class="">0005</span>: <span class="k">import</span> <span class="nn">cython</span></pre>
 <pre class="cython line score-0">&#xA0;<span class="">0006</span>: <span class="k">cimport</span> <span class="nn">cython</span></pre>
 <pre class="cython line score-0">&#xA0;<span class="">0007</span>: </pre>
@@ -549,24 +549,26 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
   <span class='refnanny'>__Pyx_GIVEREF</span>(__pyx_t_2);
   __pyx_t_2 = 0;
 </pre><pre class="cython line score-8" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">0059</span>: <span class="k">cdef</span> <span class="kt">mpc</span> <span class="nf">mpc0</span> <span class="o">=</span> <span class="n">mpc</span><span class="p">(</span><span class="mf">0</span><span class="p">)</span></pre>
-<pre class='cython code score-8 '>  __pyx_t_2 = <span class='pyx_c_api'>__Pyx_PyObject_Call</span>(((PyObject *)__pyx_ptype_5gmpy2_5gmpy2_mpc), __pyx_tuple__22, NULL);<span class='error_goto'> if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 59, __pyx_L1_error)</span>
+<pre class='cython code score-8 '>  __pyx_t_2 = <span class='pyx_c_api'>__Pyx_PyObject_Call</span>(((PyObject *)__pyx_ptype_5gmpy2_5gmpy2_mpc), __pyx_tuple__27, NULL);<span class='error_goto'> if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 59, __pyx_L1_error)</span>
   <span class='refnanny'>__Pyx_GOTREF</span>(__pyx_t_2);
   <span class='refnanny'>__Pyx_XGOTREF</span>(((PyObject *)__pyx_v_21babiscython_v4_ubuntu_mpc0));
   <span class='pyx_macro_api'>__Pyx_DECREF_SET</span>(__pyx_v_21babiscython_v4_ubuntu_mpc0, ((MPC_Object *)__pyx_t_2));
   <span class='refnanny'>__Pyx_GIVEREF</span>(__pyx_t_2);
   __pyx_t_2 = 0;
 /* … */
-  __pyx_tuple__22 = <span class='py_c_api'>PyTuple_Pack</span>(1, __pyx_int_0);<span class='error_goto'> if (unlikely(!__pyx_tuple__22)) __PYX_ERR(0, 59, __pyx_L1_error)</span>
-  <span class='refnanny'>__Pyx_GOTREF</span>(__pyx_tuple__22);
-  <span class='refnanny'>__Pyx_GIVEREF</span>(__pyx_tuple__22);
+  __pyx_tuple__27 = <span class='py_c_api'>PyTuple_Pack</span>(1, __pyx_int_0);<span class='error_goto'> if (unlikely(!__pyx_tuple__27)) __PYX_ERR(0, 59, __pyx_L1_error)</span>
+  <span class='refnanny'>__Pyx_GOTREF</span>(__pyx_tuple__27);
+  <span class='refnanny'>__Pyx_GIVEREF</span>(__pyx_tuple__27);
 </pre><pre class="cython line score-0">&#xA0;<span class="">0060</span>: </pre>
 <pre class="cython line score-0">&#xA0;<span class="">0061</span>: <span class="c"># Utility function that checks if two complex numbers are almost equal, given the tolerance tol</span></pre>
 <pre class="cython line score-0">&#xA0;<span class="">0062</span>: <span class="nd">@cython</span><span class="o">.</span><span class="n">boundscheck</span><span class="p">(</span><span class="bp">False</span><span class="p">)</span></pre>
 <pre class="cython line score-4" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">0063</span>: <span class="k">cdef</span> <span class="kt">int</span> <span class="nf">almosteq</span><span class="p">(</span><span class="n">mpc</span> <span class="n">z1</span><span class="p">,</span> <span class="n">mpc</span> <span class="n">z2</span><span class="p">,</span> <span class="n">mpfr</span> <span class="n">tol</span><span class="p">):</span></pre>
 <pre class='cython code score-4 '>static int __pyx_f_21babiscython_v4_ubuntu_almosteq(MPC_Object *__pyx_v_z1, MPC_Object *__pyx_v_z2, MPFR_Object *__pyx_v_tol) {
   int __pyx_r;
+  <span class='trace'>__Pyx_TraceDeclarations</span>
   <span class='refnanny'>__Pyx_RefNannyDeclarations</span>
   <span class='refnanny'>__Pyx_RefNannySetupContext</span>("almosteq", 0);
+  <span class='trace'>__Pyx_TraceCall</span>("almosteq", __pyx_f[0], 63, 0, <span class='error_goto'>__PYX_ERR(0, 63, __pyx_L1_error)</span>);
 /* … */
   /* function exit code */
   __pyx_L1_error:;
@@ -575,6 +577,7 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
   <span class='pyx_c_api'>__Pyx_WriteUnraisable</span>("babiscython_v4_ubuntu.almosteq", __pyx_clineno, __pyx_lineno, __pyx_filename, 1, 0);
   __pyx_r = 0;
   __pyx_L0:;
+  <span class='trace'>__Pyx_TraceReturn</span>(Py_None, 0);
   <span class='refnanny'>__Pyx_RefNannyFinishContext</span>();
   return __pyx_r;
 }
@@ -608,14 +611,17 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
 <pre class="cython line score-2" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">0073</span>: <span class="k">cdef</span> <span class="kt">long</span> <span class="kt">long</span> <span class="nf">binomial_c</span><span class="p">(</span><span class="nb">long</span> <span class="nb">long</span> <span class="n">n</span><span class="p">,</span> <span class="nb">long</span> <span class="nb">long</span> <span class="n">k</span><span class="p">):</span></pre>
 <pre class='cython code score-2 '>static PY_LONG_LONG __pyx_f_21babiscython_v4_ubuntu_binomial_c(PY_LONG_LONG __pyx_v_n, PY_LONG_LONG __pyx_v_k) {
   PY_LONG_LONG __pyx_r;
+  <span class='trace'>__Pyx_TraceDeclarations</span>
   <span class='refnanny'>__Pyx_RefNannyDeclarations</span>
   <span class='refnanny'>__Pyx_RefNannySetupContext</span>("binomial_c", 0);
+  <span class='trace'>__Pyx_TraceCall</span>("binomial_c", __pyx_f[0], 73, 0, <span class='error_goto'>__PYX_ERR(0, 73, __pyx_L1_error)</span>);
 /* … */
   /* function exit code */
   __pyx_L1_error:;
   <span class='pyx_c_api'>__Pyx_WriteUnraisable</span>("babiscython_v4_ubuntu.binomial_c", __pyx_clineno, __pyx_lineno, __pyx_filename, 1, 0);
   __pyx_r = 0;
   __pyx_L0:;
+  <span class='trace'>__Pyx_TraceReturn</span>(Py_None, 0);
   <span class='refnanny'>__Pyx_RefNannyFinishContext</span>();
   return __pyx_r;
 }
@@ -678,14 +684,20 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
 <pre class="cython line score-0">&#xA0;<span class="">0084</span>: <span class="c"># Utility function to calculate trinomial coefficient</span></pre>
 <pre class="cython line score-0">&#xA0;<span class="">0085</span>: <span class="nd">@cython</span><span class="o">.</span><span class="n">boundscheck</span><span class="p">(</span><span class="bp">False</span><span class="p">)</span></pre>
 <pre class="cython line score-0">&#xA0;<span class="">0086</span>: <span class="nd">@cython</span><span class="o">.</span><span class="n">wraparound</span><span class="p">(</span><span class="bp">False</span><span class="p">)</span></pre>
-<pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">0087</span>: <span class="k">cdef</span> <span class="kt">long</span> <span class="kt">long</span> <span class="nf">trinomial</span><span class="p">(</span><span class="nb">long</span> <span class="nb">long</span> <span class="n">n</span><span class="p">,</span> <span class="nb">long</span> <span class="nb">long</span> <span class="n">k</span><span class="p">,</span> <span class="nb">long</span> <span class="nb">long</span> <span class="n">i</span><span class="p">):</span></pre>
-<pre class='cython code score-0 '>static PY_LONG_LONG __pyx_f_21babiscython_v4_ubuntu_trinomial(PY_LONG_LONG __pyx_v_n, PY_LONG_LONG __pyx_v_k, PY_LONG_LONG __pyx_v_i) {
+<pre class="cython line score-2" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">0087</span>: <span class="k">cdef</span> <span class="kt">long</span> <span class="kt">long</span> <span class="nf">trinomial</span><span class="p">(</span><span class="nb">long</span> <span class="nb">long</span> <span class="n">n</span><span class="p">,</span> <span class="nb">long</span> <span class="nb">long</span> <span class="n">k</span><span class="p">,</span> <span class="nb">long</span> <span class="nb">long</span> <span class="n">i</span><span class="p">):</span></pre>
+<pre class='cython code score-2 '>static PY_LONG_LONG __pyx_f_21babiscython_v4_ubuntu_trinomial(PY_LONG_LONG __pyx_v_n, PY_LONG_LONG __pyx_v_k, PY_LONG_LONG __pyx_v_i) {
   PY_LONG_LONG __pyx_r;
+  <span class='trace'>__Pyx_TraceDeclarations</span>
   <span class='refnanny'>__Pyx_RefNannyDeclarations</span>
   <span class='refnanny'>__Pyx_RefNannySetupContext</span>("trinomial", 0);
+  <span class='trace'>__Pyx_TraceCall</span>("trinomial", __pyx_f[0], 87, 0, <span class='error_goto'>__PYX_ERR(0, 87, __pyx_L1_error)</span>);
 /* … */
   /* function exit code */
+  __pyx_L1_error:;
+  <span class='pyx_c_api'>__Pyx_WriteUnraisable</span>("babiscython_v4_ubuntu.trinomial", __pyx_clineno, __pyx_lineno, __pyx_filename, 1, 0);
+  __pyx_r = 0;
   __pyx_L0:;
+  <span class='trace'>__Pyx_TraceReturn</span>(Py_None, 0);
   <span class='refnanny'>__Pyx_RefNannyFinishContext</span>();
   return __pyx_r;
 }
@@ -699,14 +711,20 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
 <pre class="cython line score-0">&#xA0;<span class="">0093</span>: </pre>
 <pre class="cython line score-0">&#xA0;<span class="">0094</span>: <span class="nd">@cython</span><span class="o">.</span><span class="n">boundscheck</span><span class="p">(</span><span class="bp">False</span><span class="p">)</span></pre>
 <pre class="cython line score-0">&#xA0;<span class="">0095</span>: <span class="nd">@cython</span><span class="o">.</span><span class="n">wraparound</span><span class="p">(</span><span class="bp">False</span><span class="p">)</span></pre>
-<pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">0096</span>: <span class="k">cdef</span> <span class="kt">long</span> <span class="kt">long</span> <span class="nf">get_coef_simple</span><span class="p">(</span><span class="nb">long</span> <span class="nb">long</span> <span class="n">n1</span><span class="p">,</span> <span class="nb">long</span> <span class="nb">long</span> <span class="n">kmq2exp</span><span class="p">):</span></pre>
-<pre class='cython code score-0 '>static PY_LONG_LONG __pyx_f_21babiscython_v4_ubuntu_get_coef_simple(PY_LONG_LONG __pyx_v_n1, PY_LONG_LONG __pyx_v_kmq2exp) {
+<pre class="cython line score-2" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">0096</span>: <span class="k">cdef</span> <span class="kt">long</span> <span class="kt">long</span> <span class="nf">get_coef_simple</span><span class="p">(</span><span class="nb">long</span> <span class="nb">long</span> <span class="n">n1</span><span class="p">,</span> <span class="nb">long</span> <span class="nb">long</span> <span class="n">kmq2exp</span><span class="p">):</span></pre>
+<pre class='cython code score-2 '>static PY_LONG_LONG __pyx_f_21babiscython_v4_ubuntu_get_coef_simple(PY_LONG_LONG __pyx_v_n1, PY_LONG_LONG __pyx_v_kmq2exp) {
   PY_LONG_LONG __pyx_r;
+  <span class='trace'>__Pyx_TraceDeclarations</span>
   <span class='refnanny'>__Pyx_RefNannyDeclarations</span>
   <span class='refnanny'>__Pyx_RefNannySetupContext</span>("get_coef_simple", 0);
+  <span class='trace'>__Pyx_TraceCall</span>("get_coef_simple", __pyx_f[0], 96, 0, <span class='error_goto'>__PYX_ERR(0, 96, __pyx_L1_error)</span>);
 /* … */
   /* function exit code */
+  __pyx_L1_error:;
+  <span class='pyx_c_api'>__Pyx_WriteUnraisable</span>("babiscython_v4_ubuntu.get_coef_simple", __pyx_clineno, __pyx_lineno, __pyx_filename, 1, 0);
+  __pyx_r = 0;
   __pyx_L0:;
+  <span class='trace'>__Pyx_TraceReturn</span>(Py_None, 0);
   <span class='refnanny'>__Pyx_RefNannyFinishContext</span>();
   return __pyx_r;
 }
@@ -719,14 +737,16 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
 </pre><pre class="cython line score-0">&#xA0;<span class="">0101</span>: </pre>
 <pre class="cython line score-0">&#xA0;<span class="">0102</span>: <span class="nd">@cython</span><span class="o">.</span><span class="n">boundscheck</span><span class="p">(</span><span class="bp">False</span><span class="p">)</span></pre>
 <pre class="cython line score-0">&#xA0;<span class="">0103</span>: <span class="nd">@cython</span><span class="o">.</span><span class="n">wraparound</span><span class="p">(</span><span class="bp">False</span><span class="p">)</span></pre>
-<pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">0104</span>: <span class="k">cdef</span> <span class="kt">long</span> <span class="kt">long</span> <span class="nf">get_coef</span><span class="p">(</span><span class="nb">long</span> <span class="nb">long</span> <span class="n">n1</span><span class="p">,</span> <span class="nb">long</span> <span class="nb">long</span> <span class="n">k2exp</span><span class="p">,</span> <span class="nb">long</span> <span class="nb">long</span> <span class="n">q2exp</span><span class="p">,</span> <span class="nb">int</span> <span class="n">kmq</span> <span class="o">=</span> <span class="bp">True</span><span class="p">):</span></pre>
-<pre class='cython code score-0 '>static PY_LONG_LONG __pyx_f_21babiscython_v4_ubuntu_get_coef(PY_LONG_LONG __pyx_v_n1, PY_LONG_LONG __pyx_v_k2exp, PY_LONG_LONG __pyx_v_q2exp, struct __pyx_opt_args_21babiscython_v4_ubuntu_get_coef *__pyx_optional_args) {
+<pre class="cython line score-2" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">0104</span>: <span class="k">cdef</span> <span class="kt">long</span> <span class="kt">long</span> <span class="nf">get_coef</span><span class="p">(</span><span class="nb">long</span> <span class="nb">long</span> <span class="n">n1</span><span class="p">,</span> <span class="nb">long</span> <span class="nb">long</span> <span class="n">k2exp</span><span class="p">,</span> <span class="nb">long</span> <span class="nb">long</span> <span class="n">q2exp</span><span class="p">,</span> <span class="nb">int</span> <span class="n">kmq</span> <span class="o">=</span> <span class="bp">True</span><span class="p">):</span></pre>
+<pre class='cython code score-2 '>static PY_LONG_LONG __pyx_f_21babiscython_v4_ubuntu_get_coef(PY_LONG_LONG __pyx_v_n1, PY_LONG_LONG __pyx_v_k2exp, PY_LONG_LONG __pyx_v_q2exp, struct __pyx_opt_args_21babiscython_v4_ubuntu_get_coef *__pyx_optional_args) {
   int __pyx_v_kmq = ((int)1);
   PY_LONG_LONG __pyx_v_kqexp;
   PY_LONG_LONG __pyx_v_sign;
   PY_LONG_LONG __pyx_r;
+  <span class='trace'>__Pyx_TraceDeclarations</span>
   <span class='refnanny'>__Pyx_RefNannyDeclarations</span>
   <span class='refnanny'>__Pyx_RefNannySetupContext</span>("get_coef", 0);
+  <span class='trace'>__Pyx_TraceCall</span>("get_coef", __pyx_f[0], 104, 0, <span class='error_goto'>__PYX_ERR(0, 104, __pyx_L1_error)</span>);
   if (__pyx_optional_args) {
     if (__pyx_optional_args-&gt;__pyx_n &gt; 0) {
       __pyx_v_kmq = __pyx_optional_args-&gt;kmq;
@@ -734,7 +754,11 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
   }
 /* … */
   /* function exit code */
+  __pyx_L1_error:;
+  <span class='pyx_c_api'>__Pyx_WriteUnraisable</span>("babiscython_v4_ubuntu.get_coef", __pyx_clineno, __pyx_lineno, __pyx_filename, 1, 0);
+  __pyx_r = 0;
   __pyx_L0:;
+  <span class='trace'>__Pyx_TraceReturn</span>(Py_None, 0);
   <span class='refnanny'>__Pyx_RefNannyFinishContext</span>();
   return __pyx_r;
 }
@@ -772,8 +796,10 @@ struct __pyx_opt_args_21babiscython_v4_ubuntu_get_coef {
   __Pyx_memviewslice __pyx_v_exp_list = { 0, 0, { 0 }, { 0 }, { 0 } };
   int __pyx_v_i;
   PyObject *__pyx_r = NULL;
+  <span class='trace'>__Pyx_TraceDeclarations</span>
   <span class='refnanny'>__Pyx_RefNannyDeclarations</span>
   <span class='refnanny'>__Pyx_RefNannySetupContext</span>("num_terms", 0);
+  <span class='trace'>__Pyx_TraceCall</span>("num_terms", __pyx_f[0], 115, 0, <span class='error_goto'>__PYX_ERR(0, 115, __pyx_L1_error)</span>);
   if (__pyx_optional_args) {
     if (__pyx_optional_args-&gt;__pyx_n &gt; 0) {
       __pyx_v_kmq = __pyx_optional_args-&gt;kmq;
@@ -795,6 +821,7 @@ struct __pyx_opt_args_21babiscython_v4_ubuntu_get_coef {
   __PYX_XDEC_MEMVIEW(&amp;__pyx_v_term_list, 1);
   __PYX_XDEC_MEMVIEW(&amp;__pyx_v_exp_list, 1);
   <span class='refnanny'>__Pyx_XGIVEREF</span>(__pyx_r);
+  <span class='trace'>__Pyx_TraceReturn</span>(__pyx_r, 0);
   <span class='refnanny'>__Pyx_RefNannyFinishContext</span>();
   return __pyx_r;
 }
@@ -953,8 +980,10 @@ struct __pyx_opt_args_21babiscython_v4_ubuntu_num_terms {
 <pre class='cython code score-7 '>static long double __pyx_f_21babiscython_v4_ubuntu_coef_dim_gen(PY_LONG_LONG __pyx_v_expnum, PY_LONG_LONG __pyx_v_expden) {
   long double __pyx_v_val;
   long double __pyx_r;
+  <span class='trace'>__Pyx_TraceDeclarations</span>
   <span class='refnanny'>__Pyx_RefNannyDeclarations</span>
   <span class='refnanny'>__Pyx_RefNannySetupContext</span>("coef_dim_gen", 0);
+  <span class='trace'>__Pyx_TraceCall</span>("coef_dim_gen", __pyx_f[0], 138, 0, <span class='error_goto'>__PYX_ERR(0, 138, __pyx_L1_error)</span>);
 /* … */
   /* function exit code */
   __pyx_r = 0;
@@ -968,6 +997,7 @@ struct __pyx_opt_args_21babiscython_v4_ubuntu_num_terms {
   <span class='pyx_c_api'>__Pyx_WriteUnraisable</span>("babiscython_v4_ubuntu.coef_dim_gen", __pyx_clineno, __pyx_lineno, __pyx_filename, 1, 0);
   __pyx_r = 0;
   __pyx_L0:;
+  <span class='trace'>__Pyx_TraceReturn</span>(Py_None, 0);
   <span class='refnanny'>__Pyx_RefNannyFinishContext</span>();
   return __pyx_r;
 }
@@ -1083,8 +1113,10 @@ struct __pyx_opt_args_21babiscython_v4_ubuntu_num_terms {
 <pre class="cython line score-7" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">0158</span>: <span class="k">cdef</span> <span class="kt">mpc</span> <span class="nf">dim_gen</span><span class="p">(</span><span class="nb">long</span> <span class="nb">long</span> <span class="n">expnum</span><span class="p">,</span> <span class="nb">long</span> <span class="nb">long</span> <span class="n">expden</span><span class="p">,</span> <span class="n">mpc</span> <span class="n">m</span><span class="p">):</span></pre>
 <pre class='cython code score-7 '>static MPC_Object *__pyx_f_21babiscython_v4_ubuntu_dim_gen(PY_LONG_LONG __pyx_v_expnum, PY_LONG_LONG __pyx_v_expden, MPC_Object *__pyx_v_m) {
   MPC_Object *__pyx_r = NULL;
+  <span class='trace'>__Pyx_TraceDeclarations</span>
   <span class='refnanny'>__Pyx_RefNannyDeclarations</span>
   <span class='refnanny'>__Pyx_RefNannySetupContext</span>("dim_gen", 0);
+  <span class='trace'>__Pyx_TraceCall</span>("dim_gen", __pyx_f[0], 158, 0, <span class='error_goto'>__PYX_ERR(0, 158, __pyx_L1_error)</span>);
 /* … */
   /* function exit code */
   __pyx_L1_error:;
@@ -1097,6 +1129,7 @@ struct __pyx_opt_args_21babiscython_v4_ubuntu_num_terms {
   __pyx_r = 0;
   __pyx_L0:;
   <span class='refnanny'>__Pyx_XGIVEREF</span>((PyObject *)__pyx_r);
+  <span class='trace'>__Pyx_TraceReturn</span>(__pyx_r, 0);
   <span class='refnanny'>__Pyx_RefNannyFinishContext</span>();
   return __pyx_r;
 }
@@ -1175,8 +1208,10 @@ struct __pyx_opt_args_21babiscython_v4_ubuntu_num_terms {
   __Pyx_memviewslice __pyx_v_term_list = { 0, 0, { 0 }, { 0 }, { 0 } };
   __Pyx_memviewslice __pyx_v_exp_list = { 0, 0, { 0 }, { 0 }, { 0 } };
   PyObject *__pyx_r = NULL;
+  <span class='trace'>__Pyx_TraceDeclarations</span>
   <span class='refnanny'>__Pyx_RefNannyDeclarations</span>
   <span class='refnanny'>__Pyx_RefNannySetupContext</span>("expand_massive_num", 0);
+  <span class='trace'>__Pyx_TraceCall</span>("expand_massive_num", __pyx_f[0], 173, 0, <span class='error_goto'>__PYX_ERR(0, 173, __pyx_L1_error)</span>);
 /* … */
   /* function exit code */
   __pyx_L1_error:;
@@ -1193,6 +1228,7 @@ struct __pyx_opt_args_21babiscython_v4_ubuntu_num_terms {
   __PYX_XDEC_MEMVIEW(&amp;__pyx_v_term_list, 1);
   __PYX_XDEC_MEMVIEW(&amp;__pyx_v_exp_list, 1);
   <span class='refnanny'>__Pyx_XGIVEREF</span>(__pyx_r);
+  <span class='trace'>__Pyx_TraceReturn</span>(__pyx_r, 0);
   <span class='refnanny'>__Pyx_RefNannyFinishContext</span>();
   return __pyx_r;
 }
@@ -1337,8 +1373,10 @@ struct __pyx_opt_args_21babiscython_v4_ubuntu_num_terms {
   MPC_Object *__pyx_v_res_list = 0;
   Py_ssize_t __pyx_v_i;
   MPC_Object *__pyx_r = NULL;
+  <span class='trace'>__Pyx_TraceDeclarations</span>
   <span class='refnanny'>__Pyx_RefNannyDeclarations</span>
   <span class='refnanny'>__Pyx_RefNannySetupContext</span>("dim_result", 0);
+  <span class='trace'>__Pyx_TraceCall</span>("dim_result", __pyx_f[0], 195, 0, <span class='error_goto'>__PYX_ERR(0, 195, __pyx_L1_error)</span>);
   if (__pyx_optional_args) {
     if (__pyx_optional_args-&gt;__pyx_n &gt; 0) {
       __pyx_v_kmq = __pyx_optional_args-&gt;kmq;
@@ -1361,6 +1399,7 @@ struct __pyx_opt_args_21babiscython_v4_ubuntu_num_terms {
   __PYX_XDEC_MEMVIEW(&amp;__pyx_v_exp_list, 1);
   <span class='pyx_macro_api'>__Pyx_XDECREF</span>((PyObject *)__pyx_v_res_list);
   <span class='refnanny'>__Pyx_XGIVEREF</span>((PyObject *)__pyx_r);
+  <span class='trace'>__Pyx_TraceReturn</span>(__pyx_r, 0);
   <span class='refnanny'>__Pyx_RefNannyFinishContext</span>();
   return __pyx_r;
 }
@@ -1636,8 +1675,10 @@ struct __pyx_opt_args_21babiscython_v4_ubuntu_dim_result {
   MPC_Object *__pyx_v_res_list = 0;
   Py_ssize_t __pyx_v_i;
   MPC_Object *__pyx_r = NULL;
+  <span class='trace'>__Pyx_TraceDeclarations</span>
   <span class='refnanny'>__Pyx_RefNannyDeclarations</span>
   <span class='refnanny'>__Pyx_RefNannySetupContext</span>("compute_massive_num", 0);
+  <span class='trace'>__Pyx_TraceCall</span>("compute_massive_num", __pyx_f[0], 225, 0, <span class='error_goto'>__PYX_ERR(0, 225, __pyx_L1_error)</span>);
   if (__pyx_optional_args) {
   }
 /* … */
@@ -1657,6 +1698,7 @@ struct __pyx_opt_args_21babiscython_v4_ubuntu_dim_result {
   __PYX_XDEC_MEMVIEW(&amp;__pyx_v_exp_list, 1);
   <span class='pyx_macro_api'>__Pyx_XDECREF</span>((PyObject *)__pyx_v_res_list);
   <span class='refnanny'>__Pyx_XGIVEREF</span>((PyObject *)__pyx_r);
+  <span class='trace'>__Pyx_TraceReturn</span>(__pyx_r, 0);
   <span class='refnanny'>__Pyx_RefNannyFinishContext</span>();
   return __pyx_r;
 }
@@ -1889,8 +1931,10 @@ struct __pyx_opt_args_21babiscython_v4_ubuntu_compute_massive_num {
 <pre class="cython line score-5" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">0256</span>: <span class="k">cdef</span> <span class="kt">mpc</span> <span class="nf">TadN</span><span class="p">(</span><span class="nb">long</span> <span class="n">n</span><span class="p">,</span> <span class="n">mpc</span> <span class="n">m</span><span class="p">):</span></pre>
 <pre class='cython code score-5 '>static MPC_Object *__pyx_f_21babiscython_v4_ubuntu_TadN(long __pyx_v_n, MPC_Object *__pyx_v_m) {
   MPC_Object *__pyx_r = NULL;
+  <span class='trace'>__Pyx_TraceDeclarations</span>
   <span class='refnanny'>__Pyx_RefNannyDeclarations</span>
   <span class='refnanny'>__Pyx_RefNannySetupContext</span>("TadN", 0);
+  <span class='trace'>__Pyx_TraceCall</span>("TadN", __pyx_f[0], 256, 0, <span class='error_goto'>__PYX_ERR(0, 256, __pyx_L1_error)</span>);
 /* … */
   /* function exit code */
   __pyx_L1_error:;
@@ -1901,6 +1945,7 @@ struct __pyx_opt_args_21babiscython_v4_ubuntu_compute_massive_num {
   __pyx_r = 0;
   __pyx_L0:;
   <span class='refnanny'>__Pyx_XGIVEREF</span>((PyObject *)__pyx_r);
+  <span class='trace'>__Pyx_TraceReturn</span>(__pyx_r, 0);
   <span class='refnanny'>__Pyx_RefNannyFinishContext</span>();
   return __pyx_r;
 }
@@ -1983,13 +2028,13 @@ struct __pyx_opt_args_21babiscython_v4_ubuntu_compute_massive_num {
 <pre class="cython line score-20" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">0269</span>: <span class="nd">@lru_cache</span><span class="p">(</span><span class="bp">None</span><span class="p">)</span></pre>
 <pre class='cython code score-20 '>  <span class='pyx_c_api'>__Pyx_GetModuleGlobalName</span>(__pyx_t_2, __pyx_n_s_lru_cache);<span class='error_goto'> if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 269, __pyx_L1_error)</span>
   <span class='refnanny'>__Pyx_GOTREF</span>(__pyx_t_2);
-  __pyx_t_1 = <span class='pyx_c_api'>__Pyx_PyObject_Call</span>(__pyx_t_2, __pyx_tuple__23, NULL);<span class='error_goto'> if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 269, __pyx_L1_error)</span>
+  __pyx_t_1 = <span class='pyx_c_api'>__Pyx_PyObject_Call</span>(__pyx_t_2, __pyx_tuple__28, NULL);<span class='error_goto'> if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 269, __pyx_L1_error)</span>
   <span class='refnanny'>__Pyx_GOTREF</span>(__pyx_t_1);
   <span class='pyx_macro_api'>__Pyx_DECREF</span>(__pyx_t_2); __pyx_t_2 = 0;
 /* … */
-  __pyx_tuple__23 = <span class='py_c_api'>PyTuple_Pack</span>(1, Py_None);<span class='error_goto'> if (unlikely(!__pyx_tuple__23)) __PYX_ERR(0, 269, __pyx_L1_error)</span>
-  <span class='refnanny'>__Pyx_GOTREF</span>(__pyx_tuple__23);
-  <span class='refnanny'>__Pyx_GIVEREF</span>(__pyx_tuple__23);
+  __pyx_tuple__28 = <span class='py_c_api'>PyTuple_Pack</span>(1, Py_None);<span class='error_goto'> if (unlikely(!__pyx_tuple__28)) __PYX_ERR(0, 269, __pyx_L1_error)</span>
+  <span class='refnanny'>__Pyx_GOTREF</span>(__pyx_tuple__28);
+  <span class='refnanny'>__Pyx_GIVEREF</span>(__pyx_tuple__28);
 /* … */
   __pyx_t_4 = <span class='pyx_c_api'>__Pyx_PyObject_CallOneArg</span>(__pyx_t_1, __pyx_t_2);<span class='error_goto'> if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 269, __pyx_L1_error)</span>
   <span class='refnanny'>__Pyx_GOTREF</span>(__pyx_t_4);
@@ -2114,8 +2159,11 @@ static PyObject *__pyx_pf_21babiscython_v4_ubuntu_BubN(CYTHON_UNUSED PyObject *_
   PY_LONG_LONG __pyx_v_nu2;
   PY_LONG_LONG __pyx_v_Ndim;
   PyObject *__pyx_r = NULL;
+  <span class='trace'>__Pyx_TraceDeclarations</span>
+  <span class='trace'>__Pyx_TraceFrameInit</span>(__pyx_codeobj_)
   <span class='refnanny'>__Pyx_RefNannyDeclarations</span>
   <span class='refnanny'>__Pyx_RefNannySetupContext</span>("BubN", 0);
+  <span class='trace'>__Pyx_TraceCall</span>("BubN", __pyx_f[0], 270, 0, <span class='error_goto'>__PYX_ERR(0, 270, __pyx_L1_error)</span>);
 /* … */
   /* function exit code */
   __pyx_L1_error:;
@@ -2135,17 +2183,18 @@ static PyObject *__pyx_pf_21babiscython_v4_ubuntu_BubN(CYTHON_UNUSED PyObject *_
   <span class='pyx_macro_api'>__Pyx_XDECREF</span>((PyObject *)__pyx_v_cmp0);
   <span class='pyx_macro_api'>__Pyx_XDECREF</span>((PyObject *)__pyx_v_c000);
   <span class='refnanny'>__Pyx_XGIVEREF</span>(__pyx_r);
+  <span class='trace'>__Pyx_TraceReturn</span>(__pyx_r, 0);
   <span class='refnanny'>__Pyx_RefNannyFinishContext</span>();
   return __pyx_r;
 }
 /* … */
-  __pyx_tuple__24 = <span class='py_c_api'>PyTuple_Pack</span>(14, __pyx_n_s_n1, __pyx_n_s_n2, __pyx_n_s_k2, __pyx_n_s_m1, __pyx_n_s_m2, __pyx_n_s_k1s, __pyx_n_s_jac, __pyx_n_s_cpm0, __pyx_n_s_cmp0, __pyx_n_s_c000, __pyx_n_s_dim, __pyx_n_s_nu1, __pyx_n_s_nu2, __pyx_n_s_Ndim);<span class='error_goto'> if (unlikely(!__pyx_tuple__24)) __PYX_ERR(0, 270, __pyx_L1_error)</span>
-  <span class='refnanny'>__Pyx_GOTREF</span>(__pyx_tuple__24);
-  <span class='refnanny'>__Pyx_GIVEREF</span>(__pyx_tuple__24);
+  __pyx_tuple__29 = <span class='py_c_api'>PyTuple_Pack</span>(14, __pyx_n_s_n1, __pyx_n_s_n2, __pyx_n_s_k2, __pyx_n_s_m1, __pyx_n_s_m2, __pyx_n_s_k1s, __pyx_n_s_jac, __pyx_n_s_cpm0, __pyx_n_s_cmp0, __pyx_n_s_c000, __pyx_n_s_dim, __pyx_n_s_nu1, __pyx_n_s_nu2, __pyx_n_s_Ndim);<span class='error_goto'> if (unlikely(!__pyx_tuple__29)) __PYX_ERR(0, 270, __pyx_L1_error)</span>
+  <span class='refnanny'>__Pyx_GOTREF</span>(__pyx_tuple__29);
+  <span class='refnanny'>__Pyx_GIVEREF</span>(__pyx_tuple__29);
 /* … */
   __pyx_t_2 = PyCFunction_NewEx(&amp;__pyx_mdef_21babiscython_v4_ubuntu_1BubN, NULL, __pyx_n_s_babiscython_v4_ubuntu);<span class='error_goto'> if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 270, __pyx_L1_error)</span>
   <span class='refnanny'>__Pyx_GOTREF</span>(__pyx_t_2);
-  __pyx_codeobj__25 = (PyObject*)<span class='pyx_c_api'>__Pyx_PyCode_New</span>(5, 0, 14, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__24, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_babiscython_v4_ubuntu_pyx, __pyx_n_s_BubN, 270, __pyx_empty_bytes);<span class='error_goto'> if (unlikely(!__pyx_codeobj__25)) __PYX_ERR(0, 270, __pyx_L1_error)</span>
+  __pyx_codeobj_ = (PyObject*)<span class='pyx_c_api'>__Pyx_PyCode_New</span>(5, 0, 14, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__29, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_babiscython_v4_ubuntu_pyx, __pyx_n_s_BubN, 270, __pyx_empty_bytes);<span class='error_goto'> if (unlikely(!__pyx_codeobj_)) __PYX_ERR(0, 270, __pyx_L1_error)</span>
 </pre><pre class="cython line score-0">&#xA0;<span class="">0271</span>: </pre>
 <pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">0272</span>: 	<span class="k">if</span> <span class="n">n1</span> <span class="o">==</span> <span class="mf">0</span><span class="p">:</span></pre>
 <pre class='cython code score-0 '>  __pyx_t_1 = ((__pyx_v_n1 == 0) != 0);
@@ -2863,7 +2912,7 @@ static PyObject *__pyx_pf_21babiscython_v4_ubuntu_BubN(CYTHON_UNUSED PyObject *_
 <pre class="cython line score-15" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">0335</span>: <span class="nd">@lru_cache</span><span class="p">(</span><span class="bp">None</span><span class="p">)</span></pre>
 <pre class='cython code score-15 '>  <span class='pyx_c_api'>__Pyx_GetModuleGlobalName</span>(__pyx_t_4, __pyx_n_s_lru_cache);<span class='error_goto'> if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 335, __pyx_L1_error)</span>
   <span class='refnanny'>__Pyx_GOTREF</span>(__pyx_t_4);
-  __pyx_t_2 = <span class='pyx_c_api'>__Pyx_PyObject_Call</span>(__pyx_t_4, __pyx_tuple__23, NULL);<span class='error_goto'> if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 335, __pyx_L1_error)</span>
+  __pyx_t_2 = <span class='pyx_c_api'>__Pyx_PyObject_Call</span>(__pyx_t_4, __pyx_tuple__28, NULL);<span class='error_goto'> if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 335, __pyx_L1_error)</span>
   <span class='refnanny'>__Pyx_GOTREF</span>(__pyx_t_2);
   <span class='pyx_macro_api'>__Pyx_DECREF</span>(__pyx_t_4); __pyx_t_4 = 0;
 /* … */
@@ -3005,8 +3054,11 @@ static PyObject *__pyx_pf_21babiscython_v4_ubuntu_2TrianKinem(CYTHON_UNUSED PyOb
   MPC_Object *__pyx_v_ks31 = 0;
   MPC_Object *__pyx_v_ks33 = 0;
   PyObject *__pyx_r = NULL;
+  <span class='trace'>__Pyx_TraceDeclarations</span>
+  <span class='trace'>__Pyx_TraceFrameInit</span>(__pyx_codeobj__2)
   <span class='refnanny'>__Pyx_RefNannyDeclarations</span>
   <span class='refnanny'>__Pyx_RefNannySetupContext</span>("TrianKinem", 0);
+  <span class='trace'>__Pyx_TraceCall</span>("TrianKinem", __pyx_f[0], 336, 0, <span class='error_goto'>__PYX_ERR(0, 336, __pyx_L1_error)</span>);
 /* … */
   /* function exit code */
   __pyx_L1_error:;
@@ -3028,17 +3080,18 @@ static PyObject *__pyx_pf_21babiscython_v4_ubuntu_2TrianKinem(CYTHON_UNUSED PyOb
   <span class='pyx_macro_api'>__Pyx_XDECREF</span>((PyObject *)__pyx_v_ks31);
   <span class='pyx_macro_api'>__Pyx_XDECREF</span>((PyObject *)__pyx_v_ks33);
   <span class='refnanny'>__Pyx_XGIVEREF</span>(__pyx_r);
+  <span class='trace'>__Pyx_TraceReturn</span>(__pyx_r, 0);
   <span class='refnanny'>__Pyx_RefNannyFinishContext</span>();
   return __pyx_r;
 }
 /* … */
-  __pyx_tuple__26 = <span class='py_c_api'>PyTuple_Pack</span>(16, __pyx_n_s_k21, __pyx_n_s_k22, __pyx_n_s_k23, __pyx_n_s_m1, __pyx_n_s_m2, __pyx_n_s_m3, __pyx_n_s_k1s, __pyx_n_s_k2s, __pyx_n_s_k3s, __pyx_n_s_jac, __pyx_n_s_ks11, __pyx_n_s_ks12, __pyx_n_s_ks22, __pyx_n_s_ks23, __pyx_n_s_ks31, __pyx_n_s_ks33);<span class='error_goto'> if (unlikely(!__pyx_tuple__26)) __PYX_ERR(0, 336, __pyx_L1_error)</span>
-  <span class='refnanny'>__Pyx_GOTREF</span>(__pyx_tuple__26);
-  <span class='refnanny'>__Pyx_GIVEREF</span>(__pyx_tuple__26);
+  __pyx_tuple__30 = <span class='py_c_api'>PyTuple_Pack</span>(16, __pyx_n_s_k21, __pyx_n_s_k22, __pyx_n_s_k23, __pyx_n_s_m1, __pyx_n_s_m2, __pyx_n_s_m3, __pyx_n_s_k1s, __pyx_n_s_k2s, __pyx_n_s_k3s, __pyx_n_s_jac, __pyx_n_s_ks11, __pyx_n_s_ks12, __pyx_n_s_ks22, __pyx_n_s_ks23, __pyx_n_s_ks31, __pyx_n_s_ks33);<span class='error_goto'> if (unlikely(!__pyx_tuple__30)) __PYX_ERR(0, 336, __pyx_L1_error)</span>
+  <span class='refnanny'>__Pyx_GOTREF</span>(__pyx_tuple__30);
+  <span class='refnanny'>__Pyx_GIVEREF</span>(__pyx_tuple__30);
 /* … */
   __pyx_t_4 = PyCFunction_NewEx(&amp;__pyx_mdef_21babiscython_v4_ubuntu_3TrianKinem, NULL, __pyx_n_s_babiscython_v4_ubuntu);<span class='error_goto'> if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 336, __pyx_L1_error)</span>
   <span class='refnanny'>__Pyx_GOTREF</span>(__pyx_t_4);
-  __pyx_codeobj__27 = (PyObject*)<span class='pyx_c_api'>__Pyx_PyCode_New</span>(6, 0, 16, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__26, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_babiscython_v4_ubuntu_pyx, __pyx_n_s_TrianKinem, 336, __pyx_empty_bytes);<span class='error_goto'> if (unlikely(!__pyx_codeobj__27)) __PYX_ERR(0, 336, __pyx_L1_error)</span>
+  __pyx_codeobj__2 = (PyObject*)<span class='pyx_c_api'>__Pyx_PyCode_New</span>(6, 0, 16, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__30, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_babiscython_v4_ubuntu_pyx, __pyx_n_s_TrianKinem, 336, __pyx_empty_bytes);<span class='error_goto'> if (unlikely(!__pyx_codeobj__2)) __PYX_ERR(0, 336, __pyx_L1_error)</span>
 </pre><pre class="cython line score-0">&#xA0;<span class="">0337</span>: 				<span class="n">mpc</span> <span class="n">m1</span><span class="p">,</span> <span class="n">mpc</span> <span class="n">m2</span><span class="p">,</span> <span class="n">mpc</span> <span class="n">m3</span><span class="p">):</span></pre>
 <pre class="cython line score-0">&#xA0;<span class="">0338</span>: </pre>
 <pre class="cython line score-0">&#xA0;<span class="">0339</span>: 	<span class="k">cdef</span> <span class="kt">mpc</span> <span class="nf">k1s</span><span class="p">,</span> <span class="nf">k2s</span><span class="p">,</span> <span class="nf">k3s</span><span class="p">,</span> <span class="nf">jac</span><span class="p">,</span> <span class="nf">ks11</span><span class="p">,</span> <span class="nf">ks12</span><span class="p">,</span> <span class="nf">ks22</span><span class="p">,</span> <span class="nf">ks23</span><span class="p">,</span> <span class="nf">ks31</span><span class="p">,</span> <span class="nf">ks33</span></pre>
@@ -3290,7 +3343,7 @@ static PyObject *__pyx_pf_21babiscython_v4_ubuntu_2TrianKinem(CYTHON_UNUSED PyOb
 <pre class="cython line score-15" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">0362</span>: <span class="nd">@lru_cache</span><span class="p">(</span><span class="bp">None</span><span class="p">)</span></pre>
 <pre class='cython code score-15 '>  <span class='pyx_c_api'>__Pyx_GetModuleGlobalName</span>(__pyx_t_1, __pyx_n_s_lru_cache);<span class='error_goto'> if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 362, __pyx_L1_error)</span>
   <span class='refnanny'>__Pyx_GOTREF</span>(__pyx_t_1);
-  __pyx_t_4 = <span class='pyx_c_api'>__Pyx_PyObject_Call</span>(__pyx_t_1, __pyx_tuple__23, NULL);<span class='error_goto'> if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 362, __pyx_L1_error)</span>
+  __pyx_t_4 = <span class='pyx_c_api'>__Pyx_PyObject_Call</span>(__pyx_t_1, __pyx_tuple__28, NULL);<span class='error_goto'> if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 362, __pyx_L1_error)</span>
   <span class='refnanny'>__Pyx_GOTREF</span>(__pyx_t_4);
   <span class='pyx_macro_api'>__Pyx_DECREF</span>(__pyx_t_1); __pyx_t_1 = 0;
 /* … */
@@ -3474,8 +3527,11 @@ static PyObject *__pyx_pf_21babiscython_v4_ubuntu_4TriaN(CYTHON_UNUSED PyObject 
   MPC_Object *__pyx_v_c000 = 0;
   __Pyx_memviewslice __pyx_v_kinem = { 0, 0, { 0 }, { 0 }, { 0 } };
   PyObject *__pyx_r = NULL;
+  <span class='trace'>__Pyx_TraceDeclarations</span>
+  <span class='trace'>__Pyx_TraceFrameInit</span>(__pyx_codeobj__3)
   <span class='refnanny'>__Pyx_RefNannyDeclarations</span>
   <span class='refnanny'>__Pyx_RefNannySetupContext</span>("TriaN", 0);
+  <span class='trace'>__Pyx_TraceCall</span>("TriaN", __pyx_f[0], 363, 0, <span class='error_goto'>__PYX_ERR(0, 363, __pyx_L1_error)</span>);
 /* … */
   /* function exit code */
   __pyx_L1_error:;
@@ -3506,17 +3562,18 @@ static PyObject *__pyx_pf_21babiscython_v4_ubuntu_4TriaN(CYTHON_UNUSED PyObject 
   <span class='pyx_macro_api'>__Pyx_XDECREF</span>((PyObject *)__pyx_v_c000);
   __PYX_XDEC_MEMVIEW(&amp;__pyx_v_kinem, 1);
   <span class='refnanny'>__Pyx_XGIVEREF</span>(__pyx_r);
+  <span class='trace'>__Pyx_TraceReturn</span>(__pyx_r, 0);
   <span class='refnanny'>__Pyx_RefNannyFinishContext</span>();
   return __pyx_r;
 }
 /* … */
-  __pyx_tuple__28 = <span class='py_c_api'>PyTuple_Pack</span>(28, __pyx_n_s_n1, __pyx_n_s_n2, __pyx_n_s_n3, __pyx_n_s_k21, __pyx_n_s_k22, __pyx_n_s_k23, __pyx_n_s_m1, __pyx_n_s_m2, __pyx_n_s_m3, __pyx_n_s_nu1, __pyx_n_s_nu2, __pyx_n_s_nu3, __pyx_n_s_Ndim, __pyx_n_s_dim, __pyx_n_s_ks11, __pyx_n_s_ks22, __pyx_n_s_ks33, __pyx_n_s_ks12, __pyx_n_s_ks23, __pyx_n_s_ks31, __pyx_n_s_cpm0, __pyx_n_s_cmp0, __pyx_n_s_cm0p, __pyx_n_s_cp0m, __pyx_n_s_c0pm, __pyx_n_s_c0mp, __pyx_n_s_c000, __pyx_n_s_kinem);<span class='error_goto'> if (unlikely(!__pyx_tuple__28)) __PYX_ERR(0, 363, __pyx_L1_error)</span>
-  <span class='refnanny'>__Pyx_GOTREF</span>(__pyx_tuple__28);
-  <span class='refnanny'>__Pyx_GIVEREF</span>(__pyx_tuple__28);
+  __pyx_tuple__31 = <span class='py_c_api'>PyTuple_Pack</span>(28, __pyx_n_s_n1, __pyx_n_s_n2, __pyx_n_s_n3, __pyx_n_s_k21, __pyx_n_s_k22, __pyx_n_s_k23, __pyx_n_s_m1, __pyx_n_s_m2, __pyx_n_s_m3, __pyx_n_s_nu1, __pyx_n_s_nu2, __pyx_n_s_nu3, __pyx_n_s_Ndim, __pyx_n_s_dim, __pyx_n_s_ks11, __pyx_n_s_ks22, __pyx_n_s_ks33, __pyx_n_s_ks12, __pyx_n_s_ks23, __pyx_n_s_ks31, __pyx_n_s_cpm0, __pyx_n_s_cmp0, __pyx_n_s_cm0p, __pyx_n_s_cp0m, __pyx_n_s_c0pm, __pyx_n_s_c0mp, __pyx_n_s_c000, __pyx_n_s_kinem);<span class='error_goto'> if (unlikely(!__pyx_tuple__31)) __PYX_ERR(0, 363, __pyx_L1_error)</span>
+  <span class='refnanny'>__Pyx_GOTREF</span>(__pyx_tuple__31);
+  <span class='refnanny'>__Pyx_GIVEREF</span>(__pyx_tuple__31);
 /* … */
   __pyx_t_1 = PyCFunction_NewEx(&amp;__pyx_mdef_21babiscython_v4_ubuntu_5TriaN, NULL, __pyx_n_s_babiscython_v4_ubuntu);<span class='error_goto'> if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 363, __pyx_L1_error)</span>
   <span class='refnanny'>__Pyx_GOTREF</span>(__pyx_t_1);
-  __pyx_codeobj__29 = (PyObject*)<span class='pyx_c_api'>__Pyx_PyCode_New</span>(9, 0, 28, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__28, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_babiscython_v4_ubuntu_pyx, __pyx_n_s_TriaN, 363, __pyx_empty_bytes);<span class='error_goto'> if (unlikely(!__pyx_codeobj__29)) __PYX_ERR(0, 363, __pyx_L1_error)</span>
+  __pyx_codeobj__3 = (PyObject*)<span class='pyx_c_api'>__Pyx_PyCode_New</span>(9, 0, 28, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__31, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_babiscython_v4_ubuntu_pyx, __pyx_n_s_TriaN, 363, __pyx_empty_bytes);<span class='error_goto'> if (unlikely(!__pyx_codeobj__3)) __PYX_ERR(0, 363, __pyx_L1_error)</span>
 </pre><pre class="cython line score-0">&#xA0;<span class="">0364</span>: 			<span class="n">mpfr</span> <span class="n">k21</span><span class="p">,</span> <span class="n">mpfr</span> <span class="n">k22</span><span class="p">,</span> <span class="n">mpfr</span> <span class="n">k23</span><span class="p">,</span></pre>
 <pre class="cython line score-0">&#xA0;<span class="">0365</span>: 			<span class="n">mpc</span> <span class="n">m1</span><span class="p">,</span> <span class="n">mpc</span> <span class="n">m2</span><span class="p">,</span> <span class="n">mpc</span> <span class="n">m3</span><span class="p">):</span></pre>
 <pre class="cython line score-0">&#xA0;<span class="">0366</span>: 	<span class="c"># print(&quot;n1, n2, n3&quot;, n1, n2, n3)</span></pre>
@@ -5116,8 +5173,10 @@ static PyObject *__pyx_pf_21babiscython_v4_ubuntu_4TriaN(CYTHON_UNUSED PyObject 
   PyObject *__pyx_v_coef2 = NULL;
   PyObject *__pyx_v_coef3 = NULL;
   MPC_Object *__pyx_r = NULL;
+  <span class='trace'>__Pyx_TraceDeclarations</span>
   <span class='refnanny'>__Pyx_RefNannyDeclarations</span>
   <span class='refnanny'>__Pyx_RefNannySetupContext</span>("tri_dim", 0);
+  <span class='trace'>__Pyx_TraceCall</span>("tri_dim", __pyx_f[0], 463, 0, <span class='error_goto'>__PYX_ERR(0, 463, __pyx_L1_error)</span>);
 /* … */
   /* function exit code */
   __pyx_L1_error:;
@@ -5148,6 +5207,7 @@ static PyObject *__pyx_pf_21babiscython_v4_ubuntu_4TriaN(CYTHON_UNUSED PyObject 
   <span class='pyx_macro_api'>__Pyx_XDECREF</span>(__pyx_v_coef2);
   <span class='pyx_macro_api'>__Pyx_XDECREF</span>(__pyx_v_coef3);
   <span class='refnanny'>__Pyx_XGIVEREF</span>((PyObject *)__pyx_r);
+  <span class='trace'>__Pyx_TraceReturn</span>(__pyx_r, 0);
   <span class='refnanny'>__Pyx_RefNannyFinishContext</span>();
   return __pyx_r;
 }
@@ -7523,8 +7583,10 @@ static PyObject *__pyx_pf_21babiscython_v4_ubuntu_4TriaN(CYTHON_UNUSED PyObject 
 <pre class='cython code score-11 '>static MPC_Object *__pyx_f_21babiscython_v4_ubuntu_num_one_pow(PY_LONG_LONG __pyx_v_d1, PY_LONG_LONG __pyx_v_d2, MPFR_Object *__pyx_v_denk2, MPC_Object *__pyx_v_m1, MPC_Object *__pyx_v_m2) {
   MPC_Object *__pyx_v_coef = 0;
   MPC_Object *__pyx_r = NULL;
+  <span class='trace'>__Pyx_TraceDeclarations</span>
   <span class='refnanny'>__Pyx_RefNannyDeclarations</span>
   <span class='refnanny'>__Pyx_RefNannySetupContext</span>("num_one_pow", 0);
+  <span class='trace'>__Pyx_TraceCall</span>("num_one_pow", __pyx_f[0], 560, 0, <span class='error_goto'>__PYX_ERR(0, 560, __pyx_L1_error)</span>);
 /* … */
   /* function exit code */
   __pyx_L1_error:;
@@ -7541,6 +7603,7 @@ static PyObject *__pyx_pf_21babiscython_v4_ubuntu_4TriaN(CYTHON_UNUSED PyObject 
   __pyx_L0:;
   <span class='pyx_macro_api'>__Pyx_XDECREF</span>((PyObject *)__pyx_v_coef);
   <span class='refnanny'>__Pyx_XGIVEREF</span>((PyObject *)__pyx_r);
+  <span class='trace'>__Pyx_TraceReturn</span>(__pyx_r, 0);
   <span class='refnanny'>__Pyx_RefNannyFinishContext</span>();
   return __pyx_r;
 }
@@ -7781,8 +7844,10 @@ static PyObject *__pyx_pf_21babiscython_v4_ubuntu_4TriaN(CYTHON_UNUSED PyObject 
   MPC_Object *__pyx_v_coef1 = 0;
   MPC_Object *__pyx_v_coef2 = 0;
   PyObject *__pyx_r = NULL;
+  <span class='trace'>__Pyx_TraceDeclarations</span>
   <span class='refnanny'>__Pyx_RefNannyDeclarations</span>
   <span class='refnanny'>__Pyx_RefNannySetupContext</span>("num_two_pow", 0);
+  <span class='trace'>__Pyx_TraceCall</span>("num_two_pow", __pyx_f[0], 569, 0, <span class='error_goto'>__PYX_ERR(0, 569, __pyx_L1_error)</span>);
 /* … */
   /* function exit code */
   __pyx_L1_error:;
@@ -7800,6 +7865,7 @@ static PyObject *__pyx_pf_21babiscython_v4_ubuntu_4TriaN(CYTHON_UNUSED PyObject 
   <span class='pyx_macro_api'>__Pyx_XDECREF</span>((PyObject *)__pyx_v_coef1);
   <span class='pyx_macro_api'>__Pyx_XDECREF</span>((PyObject *)__pyx_v_coef2);
   <span class='refnanny'>__Pyx_XGIVEREF</span>(__pyx_r);
+  <span class='trace'>__Pyx_TraceReturn</span>(__pyx_r, 0);
   <span class='refnanny'>__Pyx_RefNannyFinishContext</span>();
   return __pyx_r;
 }
@@ -8583,8 +8649,10 @@ static PyObject *__pyx_pf_21babiscython_v4_ubuntu_4TriaN(CYTHON_UNUSED PyObject 
   MPC_Object *__pyx_v_coef1 = 0;
   MPC_Object *__pyx_v_coef2 = 0;
   PyObject *__pyx_r = NULL;
+  <span class='trace'>__Pyx_TraceDeclarations</span>
   <span class='refnanny'>__Pyx_RefNannyDeclarations</span>
   <span class='refnanny'>__Pyx_RefNannySetupContext</span>("num_three_pow", 0);
+  <span class='trace'>__Pyx_TraceCall</span>("num_three_pow", __pyx_f[0], 580, 0, <span class='error_goto'>__PYX_ERR(0, 580, __pyx_L1_error)</span>);
 /* … */
   /* function exit code */
   __pyx_L1_error:;
@@ -8610,6 +8678,7 @@ static PyObject *__pyx_pf_21babiscython_v4_ubuntu_4TriaN(CYTHON_UNUSED PyObject 
   <span class='pyx_macro_api'>__Pyx_XDECREF</span>((PyObject *)__pyx_v_coef1);
   <span class='pyx_macro_api'>__Pyx_XDECREF</span>((PyObject *)__pyx_v_coef2);
   <span class='refnanny'>__Pyx_XGIVEREF</span>(__pyx_r);
+  <span class='trace'>__Pyx_TraceReturn</span>(__pyx_r, 0);
   <span class='refnanny'>__Pyx_RefNannyFinishContext</span>();
   return __pyx_r;
 }
@@ -9970,8 +10039,10 @@ static PyObject *__pyx_pf_21babiscython_v4_ubuntu_4TriaN(CYTHON_UNUSED PyObject 
   MPC_Object *__pyx_v_coef2 = 0;
   MPC_Object *__pyx_v_coef3 = 0;
   PyObject *__pyx_r = NULL;
+  <span class='trace'>__Pyx_TraceDeclarations</span>
   <span class='refnanny'>__Pyx_RefNannyDeclarations</span>
   <span class='refnanny'>__Pyx_RefNannySetupContext</span>("num_four_pow", 0);
+  <span class='trace'>__Pyx_TraceCall</span>("num_four_pow", __pyx_f[0], 617, 0, <span class='error_goto'>__PYX_ERR(0, 617, __pyx_L1_error)</span>);
 /* … */
   /* function exit code */
   __pyx_L1_error:;
@@ -10005,6 +10076,7 @@ static PyObject *__pyx_pf_21babiscython_v4_ubuntu_4TriaN(CYTHON_UNUSED PyObject 
   <span class='pyx_macro_api'>__Pyx_XDECREF</span>((PyObject *)__pyx_v_coef2);
   <span class='pyx_macro_api'>__Pyx_XDECREF</span>((PyObject *)__pyx_v_coef3);
   <span class='refnanny'>__Pyx_XGIVEREF</span>(__pyx_r);
+  <span class='trace'>__Pyx_TraceReturn</span>(__pyx_r, 0);
   <span class='refnanny'>__Pyx_RefNannyFinishContext</span>();
   return __pyx_r;
 }
@@ -14335,8 +14407,10 @@ static PyObject *__pyx_pf_21babiscython_v4_ubuntu_4TriaN(CYTHON_UNUSED PyObject 
   Py_ssize_t __pyx_v_i1;
   Py_ssize_t __pyx_v_i2;
   MPC_Object *__pyx_r = NULL;
+  <span class='trace'>__Pyx_TraceDeclarations</span>
   <span class='refnanny'>__Pyx_RefNannyDeclarations</span>
   <span class='refnanny'>__Pyx_RefNannySetupContext</span>("tri_dim_two", 0);
+  <span class='trace'>__Pyx_TraceCall</span>("tri_dim_two", __pyx_f[0], 675, 0, <span class='error_goto'>__PYX_ERR(0, 675, __pyx_L1_error)</span>);
 /* … */
   /* function exit code */
   __pyx_L1_error:;
@@ -14359,6 +14433,7 @@ static PyObject *__pyx_pf_21babiscython_v4_ubuntu_4TriaN(CYTHON_UNUSED PyObject 
   <span class='pyx_macro_api'>__Pyx_XDECREF</span>((PyObject *)__pyx_v_res_list);
   <span class='pyx_macro_api'>__Pyx_XDECREF</span>((PyObject *)__pyx_v_term);
   <span class='refnanny'>__Pyx_XGIVEREF</span>((PyObject *)__pyx_r);
+  <span class='trace'>__Pyx_TraceReturn</span>(__pyx_r, 0);
   <span class='refnanny'>__Pyx_RefNannyFinishContext</span>();
   return __pyx_r;
 }
@@ -15431,8 +15506,10 @@ static PyObject *__pyx_pf_21babiscython_v4_ubuntu_4TriaN(CYTHON_UNUSED PyObject 
 <pre class="cython line score-4" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">0777</span>: <span class="k">cdef</span> <span class="kt">mpfr</span> <span class="nf">k1dotk2</span><span class="p">(</span><span class="n">mpfr</span> <span class="n">k21</span><span class="p">,</span> <span class="n">mpfr</span> <span class="n">k22</span><span class="p">,</span> <span class="n">mpfr</span> <span class="n">ksum2</span><span class="p">):</span></pre>
 <pre class='cython code score-4 '>static MPFR_Object *__pyx_f_21babiscython_v4_ubuntu_k1dotk2(MPFR_Object *__pyx_v_k21, MPFR_Object *__pyx_v_k22, MPFR_Object *__pyx_v_ksum2) {
   MPFR_Object *__pyx_r = NULL;
+  <span class='trace'>__Pyx_TraceDeclarations</span>
   <span class='refnanny'>__Pyx_RefNannyDeclarations</span>
   <span class='refnanny'>__Pyx_RefNannySetupContext</span>("k1dotk2", 0);
+  <span class='trace'>__Pyx_TraceCall</span>("k1dotk2", __pyx_f[0], 777, 0, <span class='error_goto'>__PYX_ERR(0, 777, __pyx_L1_error)</span>);
 /* … */
   /* function exit code */
   __pyx_L1_error:;
@@ -15442,6 +15519,7 @@ static PyObject *__pyx_pf_21babiscython_v4_ubuntu_4TriaN(CYTHON_UNUSED PyObject 
   __pyx_r = 0;
   __pyx_L0:;
   <span class='refnanny'>__Pyx_XGIVEREF</span>((PyObject *)__pyx_r);
+  <span class='trace'>__Pyx_TraceReturn</span>(__pyx_r, 0);
   <span class='refnanny'>__Pyx_RefNannyFinishContext</span>();
   return __pyx_r;
 }
@@ -15466,7 +15544,7 @@ static PyObject *__pyx_pf_21babiscython_v4_ubuntu_4TriaN(CYTHON_UNUSED PyObject 
 <pre class="cython line score-15" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">0783</span>: <span class="nd">@lru_cache</span><span class="p">(</span><span class="bp">None</span><span class="p">)</span></pre>
 <pre class='cython code score-15 '>  <span class='pyx_c_api'>__Pyx_GetModuleGlobalName</span>(__pyx_t_2, __pyx_n_s_lru_cache);<span class='error_goto'> if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 783, __pyx_L1_error)</span>
   <span class='refnanny'>__Pyx_GOTREF</span>(__pyx_t_2);
-  __pyx_t_1 = <span class='pyx_c_api'>__Pyx_PyObject_Call</span>(__pyx_t_2, __pyx_tuple__23, NULL);<span class='error_goto'> if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 783, __pyx_L1_error)</span>
+  __pyx_t_1 = <span class='pyx_c_api'>__Pyx_PyObject_Call</span>(__pyx_t_2, __pyx_tuple__28, NULL);<span class='error_goto'> if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 783, __pyx_L1_error)</span>
   <span class='refnanny'>__Pyx_GOTREF</span>(__pyx_t_1);
   <span class='pyx_macro_api'>__Pyx_DECREF</span>(__pyx_t_2); __pyx_t_2 = 0;
 /* … */
@@ -15664,8 +15742,11 @@ static PyObject *__pyx_pw_21babiscython_v4_ubuntu_7Ltrian(PyObject *__pyx_self, 
 
 static PyObject *__pyx_pf_21babiscython_v4_ubuntu_6Ltrian(CYTHON_UNUSED PyObject *__pyx_self, long __pyx_v_n1, long __pyx_v_d1, long __pyx_v_n2, long __pyx_v_d2, long __pyx_v_n3, long __pyx_v_d3, MPFR_Object *__pyx_v_k21, MPFR_Object *__pyx_v_k22, MPFR_Object *__pyx_v_k23, MPC_Object *__pyx_v_m1, MPC_Object *__pyx_v_m2, MPC_Object *__pyx_v_m3) {
   PyObject *__pyx_r = NULL;
+  <span class='trace'>__Pyx_TraceDeclarations</span>
+  <span class='trace'>__Pyx_TraceFrameInit</span>(__pyx_codeobj__4)
   <span class='refnanny'>__Pyx_RefNannyDeclarations</span>
   <span class='refnanny'>__Pyx_RefNannySetupContext</span>("Ltrian", 0);
+  <span class='trace'>__Pyx_TraceCall</span>("Ltrian", __pyx_f[0], 784, 0, <span class='error_goto'>__PYX_ERR(0, 784, __pyx_L1_error)</span>);
 /* … */
   /* function exit code */
   __pyx_r = Py_None; <span class='pyx_macro_api'>__Pyx_INCREF</span>(Py_None);
@@ -15686,17 +15767,18 @@ static PyObject *__pyx_pf_21babiscython_v4_ubuntu_6Ltrian(CYTHON_UNUSED PyObject
   __pyx_r = NULL;
   __pyx_L0:;
   <span class='refnanny'>__Pyx_XGIVEREF</span>(__pyx_r);
+  <span class='trace'>__Pyx_TraceReturn</span>(__pyx_r, 0);
   <span class='refnanny'>__Pyx_RefNannyFinishContext</span>();
   return __pyx_r;
 }
 /* … */
-  __pyx_tuple__30 = <span class='py_c_api'>PyTuple_Pack</span>(12, __pyx_n_s_n1, __pyx_n_s_d1, __pyx_n_s_n2, __pyx_n_s_d2, __pyx_n_s_n3, __pyx_n_s_d3, __pyx_n_s_k21, __pyx_n_s_k22, __pyx_n_s_k23, __pyx_n_s_m1, __pyx_n_s_m2, __pyx_n_s_m3);<span class='error_goto'> if (unlikely(!__pyx_tuple__30)) __PYX_ERR(0, 784, __pyx_L1_error)</span>
-  <span class='refnanny'>__Pyx_GOTREF</span>(__pyx_tuple__30);
-  <span class='refnanny'>__Pyx_GIVEREF</span>(__pyx_tuple__30);
+  __pyx_tuple__32 = <span class='py_c_api'>PyTuple_Pack</span>(12, __pyx_n_s_n1, __pyx_n_s_d1, __pyx_n_s_n2, __pyx_n_s_d2, __pyx_n_s_n3, __pyx_n_s_d3, __pyx_n_s_k21, __pyx_n_s_k22, __pyx_n_s_k23, __pyx_n_s_m1, __pyx_n_s_m2, __pyx_n_s_m3);<span class='error_goto'> if (unlikely(!__pyx_tuple__32)) __PYX_ERR(0, 784, __pyx_L1_error)</span>
+  <span class='refnanny'>__Pyx_GOTREF</span>(__pyx_tuple__32);
+  <span class='refnanny'>__Pyx_GIVEREF</span>(__pyx_tuple__32);
 /* … */
   __pyx_t_2 = PyCFunction_NewEx(&amp;__pyx_mdef_21babiscython_v4_ubuntu_7Ltrian, NULL, __pyx_n_s_babiscython_v4_ubuntu);<span class='error_goto'> if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 784, __pyx_L1_error)</span>
   <span class='refnanny'>__Pyx_GOTREF</span>(__pyx_t_2);
-  __pyx_codeobj__31 = (PyObject*)<span class='pyx_c_api'>__Pyx_PyCode_New</span>(12, 0, 12, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__30, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_babiscython_v4_ubuntu_pyx, __pyx_n_s_Ltrian, 784, __pyx_empty_bytes);<span class='error_goto'> if (unlikely(!__pyx_codeobj__31)) __PYX_ERR(0, 784, __pyx_L1_error)</span>
+  __pyx_codeobj__4 = (PyObject*)<span class='pyx_c_api'>__Pyx_PyCode_New</span>(12, 0, 12, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__32, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_babiscython_v4_ubuntu_pyx, __pyx_n_s_Ltrian, 784, __pyx_empty_bytes);<span class='error_goto'> if (unlikely(!__pyx_codeobj__4)) __PYX_ERR(0, 784, __pyx_L1_error)</span>
 </pre><pre class="cython line score-0">&#xA0;<span class="">0785</span>: 		   <span class="n">mpfr</span> <span class="n">k21</span><span class="p">,</span> <span class="n">mpfr</span> <span class="n">k22</span><span class="p">,</span> <span class="n">mpfr</span> <span class="n">k23</span><span class="p">,</span> <span class="n">mpc</span> <span class="n">m1</span><span class="p">,</span> <span class="n">mpc</span> <span class="n">m2</span><span class="p">,</span> <span class="n">mpc</span> <span class="n">m3</span><span class="p">):</span></pre>
 <pre class="cython line score-0">&#xA0;<span class="">0786</span>: </pre>
 <pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">0787</span>: 	<span class="k">if</span> <span class="n">n1</span> <span class="o">==</span> <span class="mf">0</span> <span class="ow">and</span> <span class="n">n2</span> <span class="o">==</span> <span class="mf">0</span> <span class="ow">and</span> <span class="n">n3</span> <span class="o">==</span> <span class="mf">0</span><span class="p">:</span></pre>
@@ -17484,8 +17566,10 @@ static PyObject *__pyx_pf_21babiscython_v4_ubuntu_6Ltrian(CYTHON_UNUSED PyObject
   MPC_Object *__pyx_v_arglog0 = 0;
   MPC_Object *__pyx_v_arglog1 = 0;
   MPC_Object *__pyx_r = NULL;
+  <span class='trace'>__Pyx_TraceDeclarations</span>
   <span class='refnanny'>__Pyx_RefNannyDeclarations</span>
   <span class='refnanny'>__Pyx_RefNannySetupContext</span>("BubMaster", 0);
+  <span class='trace'>__Pyx_TraceCall</span>("BubMaster", __pyx_f[0], 819, 0, <span class='error_goto'>__PYX_ERR(0, 819, __pyx_L1_error)</span>);
 /* … */
   /* function exit code */
   __pyx_L1_error:;
@@ -17504,6 +17588,7 @@ static PyObject *__pyx_pf_21babiscython_v4_ubuntu_6Ltrian(CYTHON_UNUSED PyObject
   <span class='pyx_macro_api'>__Pyx_XDECREF</span>((PyObject *)__pyx_v_arglog0);
   <span class='pyx_macro_api'>__Pyx_XDECREF</span>((PyObject *)__pyx_v_arglog1);
   <span class='refnanny'>__Pyx_XGIVEREF</span>((PyObject *)__pyx_r);
+  <span class='trace'>__Pyx_TraceReturn</span>(__pyx_r, 0);
   <span class='refnanny'>__Pyx_RefNannyFinishContext</span>();
   return __pyx_r;
 }
@@ -17731,8 +17816,10 @@ static PyObject *__pyx_pf_21babiscython_v4_ubuntu_6Ltrian(CYTHON_UNUSED PyObject
 <pre class="cython line score-5" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">0839</span>: <span class="k">cdef</span> <span class="kt">mpc</span> <span class="nf">Diakr</span><span class="p">(</span><span class="n">mpfr</span> <span class="n">a</span><span class="p">,</span> <span class="n">mpc</span> <span class="n">b</span><span class="p">,</span> <span class="n">mpc</span> <span class="n">c</span><span class="p">):</span></pre>
 <pre class='cython code score-5 '>static MPC_Object *__pyx_f_21babiscython_v4_ubuntu_Diakr(MPFR_Object *__pyx_v_a, MPC_Object *__pyx_v_b, MPC_Object *__pyx_v_c) {
   MPC_Object *__pyx_r = NULL;
+  <span class='trace'>__Pyx_TraceDeclarations</span>
   <span class='refnanny'>__Pyx_RefNannyDeclarations</span>
   <span class='refnanny'>__Pyx_RefNannySetupContext</span>("Diakr", 0);
+  <span class='trace'>__Pyx_TraceCall</span>("Diakr", __pyx_f[0], 839, 0, <span class='error_goto'>__PYX_ERR(0, 839, __pyx_L1_error)</span>);
 /* … */
   /* function exit code */
   __pyx_L1_error:;
@@ -17743,6 +17830,7 @@ static PyObject *__pyx_pf_21babiscython_v4_ubuntu_6Ltrian(CYTHON_UNUSED PyObject
   __pyx_r = 0;
   __pyx_L0:;
   <span class='refnanny'>__Pyx_XGIVEREF</span>((PyObject *)__pyx_r);
+  <span class='trace'>__Pyx_TraceReturn</span>(__pyx_r, 0);
   <span class='refnanny'>__Pyx_RefNannyFinishContext</span>();
   return __pyx_r;
 }
@@ -17771,8 +17859,10 @@ static PyObject *__pyx_pf_21babiscython_v4_ubuntu_6Ltrian(CYTHON_UNUSED PyObject
   MPFR_Object *__pyx_v_y2re = 0;
   MPFR_Object *__pyx_v_y1re = 0;
   MPC_Object *__pyx_r = NULL;
+  <span class='trace'>__Pyx_TraceDeclarations</span>
   <span class='refnanny'>__Pyx_RefNannyDeclarations</span>
   <span class='refnanny'>__Pyx_RefNannySetupContext</span>("Prefactor", 0);
+  <span class='trace'>__Pyx_TraceCall</span>("Prefactor", __pyx_f[0], 844, 0, <span class='error_goto'>__PYX_ERR(0, 844, __pyx_L1_error)</span>);
 /* … */
   /* function exit code */
   __pyx_r = ((MPC_Object *)Py_None); <span class='pyx_macro_api'>__Pyx_INCREF</span>(Py_None);
@@ -17789,6 +17879,7 @@ static PyObject *__pyx_pf_21babiscython_v4_ubuntu_6Ltrian(CYTHON_UNUSED PyObject
   <span class='pyx_macro_api'>__Pyx_XDECREF</span>((PyObject *)__pyx_v_y2re);
   <span class='pyx_macro_api'>__Pyx_XDECREF</span>((PyObject *)__pyx_v_y1re);
   <span class='refnanny'>__Pyx_XGIVEREF</span>((PyObject *)__pyx_r);
+  <span class='trace'>__Pyx_TraceReturn</span>(__pyx_r, 0);
   <span class='refnanny'>__Pyx_RefNannyFinishContext</span>();
   return __pyx_r;
 }
@@ -18591,8 +18682,10 @@ static PyObject *__pyx_pf_21babiscython_v4_ubuntu_6Ltrian(CYTHON_UNUSED PyObject
   MPC_Object *__pyx_v_temp = 0;
   MPC_Object *__pyx_v_LimArcTan = 0;
   MPC_Object *__pyx_r = NULL;
+  <span class='trace'>__Pyx_TraceDeclarations</span>
   <span class='refnanny'>__Pyx_RefNannyDeclarations</span>
   <span class='refnanny'>__Pyx_RefNannySetupContext</span>("Antideriv", 0);
+  <span class='trace'>__Pyx_TraceCall</span>("Antideriv", __pyx_f[0], 877, 0, <span class='error_goto'>__PYX_ERR(0, 877, __pyx_L1_error)</span>);
 /* … */
   /* function exit code */
   __pyx_L1_error:;
@@ -18609,6 +18702,7 @@ static PyObject *__pyx_pf_21babiscython_v4_ubuntu_6Ltrian(CYTHON_UNUSED PyObject
   <span class='pyx_macro_api'>__Pyx_XDECREF</span>((PyObject *)__pyx_v_temp);
   <span class='pyx_macro_api'>__Pyx_XDECREF</span>((PyObject *)__pyx_v_LimArcTan);
   <span class='refnanny'>__Pyx_XGIVEREF</span>((PyObject *)__pyx_r);
+  <span class='trace'>__Pyx_TraceReturn</span>(__pyx_r, 0);
   <span class='refnanny'>__Pyx_RefNannyFinishContext</span>();
   return __pyx_r;
 }
@@ -18879,7 +18973,7 @@ static PyObject *__pyx_pf_21babiscython_v4_ubuntu_6Ltrian(CYTHON_UNUSED PyObject
     __pyx_t_2 = __pyx_t_7;
     goto __pyx_L7_bool_binop_done;
   }
-  __pyx_t_5 = <span class='pyx_c_api'>__Pyx_PyObject_Call</span>(((PyObject *)__pyx_ptype_5gmpy2_5gmpy2_mpc), __pyx_tuple_, NULL);<span class='error_goto'> if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 894, __pyx_L1_error)</span>
+  __pyx_t_5 = <span class='pyx_c_api'>__Pyx_PyObject_Call</span>(((PyObject *)__pyx_ptype_5gmpy2_5gmpy2_mpc), __pyx_tuple__5, NULL);<span class='error_goto'> if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 894, __pyx_L1_error)</span>
   <span class='refnanny'>__Pyx_GOTREF</span>(__pyx_t_5);
   __pyx_t_6 = ((PyObject *)__pyx_v_21babiscython_v4_ubuntu_CHOP_TOL);
   <span class='pyx_macro_api'>__Pyx_INCREF</span>(__pyx_t_6);
@@ -18892,9 +18986,9 @@ static PyObject *__pyx_pf_21babiscython_v4_ubuntu_6Ltrian(CYTHON_UNUSED PyObject
 /* … */
   }
 /* … */
-  __pyx_tuple_ = <span class='py_c_api'>PyTuple_Pack</span>(1, __pyx_int_1);<span class='error_goto'> if (unlikely(!__pyx_tuple_)) __PYX_ERR(0, 894, __pyx_L1_error)</span>
-  <span class='refnanny'>__Pyx_GOTREF</span>(__pyx_tuple_);
-  <span class='refnanny'>__Pyx_GIVEREF</span>(__pyx_tuple_);
+  __pyx_tuple__5 = <span class='py_c_api'>PyTuple_Pack</span>(1, __pyx_int_1);<span class='error_goto'> if (unlikely(!__pyx_tuple__5)) __PYX_ERR(0, 894, __pyx_L1_error)</span>
+  <span class='refnanny'>__Pyx_GOTREF</span>(__pyx_tuple__5);
+  <span class='refnanny'>__Pyx_GIVEREF</span>(__pyx_tuple__5);
 </pre><pre class="cython line score-57" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">0895</span>: 		<span class="n">LimArcTan</span> <span class="o">=</span> <span class="mf">1</span><span class="n">j</span> <span class="o">*</span> <span class="n">sqrt</span><span class="p">(</span><span class="o">-</span><span class="n">temp</span><span class="o">**</span><span class="mf">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">PI</span><span class="o">/</span><span class="p">(</span><span class="mf">2</span><span class="o">*</span><span class="n">temp</span><span class="p">)</span></pre>
 <pre class='cython code score-57 '>    __pyx_t_6 = <span class='py_c_api'>PyComplex_FromDoubles</span>(0.0, 1.0);<span class='error_goto'> if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 895, __pyx_L1_error)</span>
     <span class='refnanny'>__Pyx_GOTREF</span>(__pyx_t_6);
@@ -19097,8 +19191,10 @@ static PyObject *__pyx_pf_21babiscython_v4_ubuntu_6Ltrian(CYTHON_UNUSED PyObject
   PyObject *__pyx_v_x = NULL;
   PyObject *__pyx_v_atanarg = NULL;
   MPC_Object *__pyx_r = NULL;
+  <span class='trace'>__Pyx_TraceDeclarations</span>
   <span class='refnanny'>__Pyx_RefNannyDeclarations</span>
   <span class='refnanny'>__Pyx_RefNannySetupContext</span>("Fint", 0);
+  <span class='trace'>__Pyx_TraceCall</span>("Fint", __pyx_f[0], 908, 0, <span class='error_goto'>__PYX_ERR(0, 908, __pyx_L1_error)</span>);
 /* … */
   /* function exit code */
   __pyx_L1_error:;
@@ -19141,6 +19237,7 @@ static PyObject *__pyx_pf_21babiscython_v4_ubuntu_6Ltrian(CYTHON_UNUSED PyObject
   <span class='pyx_macro_api'>__Pyx_XDECREF</span>(__pyx_v_x);
   <span class='pyx_macro_api'>__Pyx_XDECREF</span>(__pyx_v_atanarg);
   <span class='refnanny'>__Pyx_XGIVEREF</span>((PyObject *)__pyx_r);
+  <span class='trace'>__Pyx_TraceReturn</span>(__pyx_r, 0);
   <span class='refnanny'>__Pyx_RefNannyFinishContext</span>();
   return __pyx_r;
 }
@@ -19947,7 +20044,7 @@ static PyObject *__pyx_pf_21babiscython_v4_ubuntu_6Ltrian(CYTHON_UNUSED PyObject
       __pyx_t_3 = __pyx_t_6;
       goto __pyx_L16_bool_binop_done;
     }
-    __pyx_t_4 = <span class='pyx_c_api'>__Pyx_PyObject_Call</span>(((PyObject *)__pyx_ptype_5gmpy2_5gmpy2_mpfr), __pyx_tuple_, NULL);<span class='error_goto'> if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 965, __pyx_L1_error)</span>
+    __pyx_t_4 = <span class='pyx_c_api'>__Pyx_PyObject_Call</span>(((PyObject *)__pyx_ptype_5gmpy2_5gmpy2_mpfr), __pyx_tuple__5, NULL);<span class='error_goto'> if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 965, __pyx_L1_error)</span>
     <span class='refnanny'>__Pyx_GOTREF</span>(__pyx_t_4);
     __pyx_t_9 = <span class='py_c_api'>PyNumber_Subtract</span>(__pyx_t_4, ((PyObject *)__pyx_v_21babiscython_v4_ubuntu_CHOP_TOL));<span class='error_goto'> if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 965, __pyx_L1_error)</span>
     <span class='refnanny'>__Pyx_GOTREF</span>(__pyx_t_9);
@@ -20519,8 +20616,10 @@ static PyObject *__pyx_pf_21babiscython_v4_ubuntu_6Ltrian(CYTHON_UNUSED PyObject
   MPC_Object *__pyx_v_solR1 = 0;
   MPC_Object *__pyx_v_solR2 = 0;
   MPC_Object *__pyx_r = NULL;
+  <span class='trace'>__Pyx_TraceDeclarations</span>
   <span class='refnanny'>__Pyx_RefNannyDeclarations</span>
   <span class='refnanny'>__Pyx_RefNannySetupContext</span>("TrMxy", 0);
+  <span class='trace'>__Pyx_TraceCall</span>("TrMxy", __pyx_f[0], 996, 0, <span class='error_goto'>__PYX_ERR(0, 996, __pyx_L1_error)</span>);
 /* … */
   /* function exit code */
   __pyx_L1_error:;
@@ -20548,6 +20647,7 @@ static PyObject *__pyx_pf_21babiscython_v4_ubuntu_6Ltrian(CYTHON_UNUSED PyObject
   <span class='pyx_macro_api'>__Pyx_XDECREF</span>((PyObject *)__pyx_v_solR1);
   <span class='pyx_macro_api'>__Pyx_XDECREF</span>((PyObject *)__pyx_v_solR2);
   <span class='refnanny'>__Pyx_XGIVEREF</span>((PyObject *)__pyx_r);
+  <span class='trace'>__Pyx_TraceReturn</span>(__pyx_r, 0);
   <span class='refnanny'>__Pyx_RefNannyFinishContext</span>();
   return __pyx_r;
 }
@@ -21105,8 +21205,10 @@ static PyObject *__pyx_pf_21babiscython_v4_ubuntu_6Ltrian(CYTHON_UNUSED PyObject
 <pre class="cython line score-6" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">1031</span>: <span class="k">cdef</span> <span class="kt">mpc</span> <span class="nf">TriaMasterZeroMasses</span><span class="p">(</span><span class="n">mpfr</span> <span class="n">k21</span><span class="p">,</span> <span class="n">mpfr</span> <span class="n">k22</span><span class="p">,</span> <span class="n">mpfr</span> <span class="n">k23</span><span class="p">):</span></pre>
 <pre class='cython code score-6 '>static MPC_Object *__pyx_f_21babiscython_v4_ubuntu_TriaMasterZeroMasses(MPFR_Object *__pyx_v_k21, MPFR_Object *__pyx_v_k22, MPFR_Object *__pyx_v_k23) {
   MPC_Object *__pyx_r = NULL;
+  <span class='trace'>__Pyx_TraceDeclarations</span>
   <span class='refnanny'>__Pyx_RefNannyDeclarations</span>
   <span class='refnanny'>__Pyx_RefNannySetupContext</span>("TriaMasterZeroMasses", 0);
+  <span class='trace'>__Pyx_TraceCall</span>("TriaMasterZeroMasses", __pyx_f[0], 1031, 0, <span class='error_goto'>__PYX_ERR(0, 1031, __pyx_L1_error)</span>);
 /* … */
   /* function exit code */
   __pyx_L1_error:;
@@ -21118,6 +21220,7 @@ static PyObject *__pyx_pf_21babiscython_v4_ubuntu_6Ltrian(CYTHON_UNUSED PyObject
   __pyx_r = 0;
   __pyx_L0:;
   <span class='refnanny'>__Pyx_XGIVEREF</span>((PyObject *)__pyx_r);
+  <span class='trace'>__Pyx_TraceReturn</span>(__pyx_r, 0);
   <span class='refnanny'>__Pyx_RefNannyFinishContext</span>();
   return __pyx_r;
 }
@@ -21201,8 +21304,10 @@ static PyObject *__pyx_pf_21babiscython_v4_ubuntu_6Ltrian(CYTHON_UNUSED PyObject
 <pre class="cython line score-5" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">1037</span>: <span class="k">cdef</span> <span class="kt">mpc</span> <span class="nf">TriaMaster</span><span class="p">(</span><span class="n">mpfr</span> <span class="n">k21</span><span class="p">,</span> <span class="n">mpfr</span> <span class="n">k22</span><span class="p">,</span> <span class="n">mpfr</span> <span class="n">k23</span><span class="p">,</span> <span class="n">mpc</span> <span class="n">M1</span><span class="p">,</span> <span class="n">mpc</span> <span class="n">M2</span><span class="p">,</span> <span class="n">mpc</span> <span class="n">M3</span><span class="p">):</span></pre>
 <pre class='cython code score-5 '>static MPC_Object *__pyx_f_21babiscython_v4_ubuntu_TriaMaster(MPFR_Object *__pyx_v_k21, MPFR_Object *__pyx_v_k22, MPFR_Object *__pyx_v_k23, MPC_Object *__pyx_v_M1, MPC_Object *__pyx_v_M2, MPC_Object *__pyx_v_M3) {
   MPC_Object *__pyx_r = NULL;
+  <span class='trace'>__Pyx_TraceDeclarations</span>
   <span class='refnanny'>__Pyx_RefNannyDeclarations</span>
   <span class='refnanny'>__Pyx_RefNannySetupContext</span>("TriaMaster", 0);
+  <span class='trace'>__Pyx_TraceCall</span>("TriaMaster", __pyx_f[0], 1037, 0, <span class='error_goto'>__PYX_ERR(0, 1037, __pyx_L1_error)</span>);
 /* … */
   /* function exit code */
   __pyx_L1_error:;
@@ -21213,6 +21318,7 @@ static PyObject *__pyx_pf_21babiscython_v4_ubuntu_6Ltrian(CYTHON_UNUSED PyObject
   __pyx_r = 0;
   __pyx_L0:;
   <span class='refnanny'>__Pyx_XGIVEREF</span>((PyObject *)__pyx_r);
+  <span class='trace'>__Pyx_TraceReturn</span>(__pyx_r, 0);
   <span class='refnanny'>__Pyx_RefNannyFinishContext</span>();
   return __pyx_r;
 }
