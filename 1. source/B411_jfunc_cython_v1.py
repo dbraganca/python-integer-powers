@@ -3,10 +3,8 @@ import os
 import sys
 from functools import lru_cache
 import pandas as pd
-
-# from babiscython_v4_ubuntu import Ltrian as L
 from Jfunc_cython_v4 import computeJ as J
-# from computeJ_Guido import computeJ as J
+
 import gmpy2 as gm
 from gmpy2 import *
 import time
@@ -94,16 +92,14 @@ def compute_B411_jmat(filename):
 	# np.set_printoptions(precision=GLOBAL_PREC)
 	out_df = pd.DataFrame(Jtriantable, dtype = object)
 	print(k1,k2,k3)
-	# out_filename = outputfolder + 'B411_Jfunc_'+str(float(k1))+'_' + str(float(k2)) + '_' + str(float(k3)) + '_' +'.csv'
-	out_filename = outputfolder + 'B411Redshift_Jfunc_'+str(float(k1))+'_' + str(float(k2)) + '_' + str(float(k3)) + '_' +'.csv'
+	out_filename = outputfolder + 'B411_Jfunc_'+str(float(k1))+'_' + str(float(k2)) + '_' + str(float(k3)) + '_' +'.csv'
 	out_df.to_csv(out_filename, index = False)
 	
 start_time = time.time()
 for file in filelist:
 	(k1,k2,k3)=get_ks(file)
 	print(float(k1), float(k2), float(k3))
-	# out_filename = outputfolder + 'B411_Jfunc_'+str(float(k1))+'_' + str(float(k2)) + '_' + str(float(k3)) + '_' +'.csv'
-	out_filename = outputfolder + 'B411Redshift_Jfunc_'+str(float(k1))+'_' + str(float(k2)) + '_' + str(float(k3)) + '_' +'.csv'
+	out_filename = outputfolder + 'B411_Jfunc_'+str(float(k1))+'_' + str(float(k2)) + '_' + str(float(k3)) + '_' +'.csv'
 	if not(os.path.isfile(out_filename)):	
 		if k1==k2 and k2==k3:
 			start_time = time.time()
