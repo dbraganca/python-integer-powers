@@ -1,4 +1,3 @@
-# cython: profile=True
 
 # maybe include this: distutils: language = c++
 
@@ -594,29 +593,11 @@ cdef num_three_pow(long long d1, long long d2, mpfr denk2, mpc m1, mpc m2):
 		+(denk2 + m2 - m1)*m1*BubN(d1,d2,denk2,m1,m2))-5*coef1/3
 	return coef1, coef2
 
-#@cython.boundscheck(False)
-#@cython.wraparound(False)
-#cdef num_three_pow(long long d1, long long d2, mpfr denk2, mpc m1, mpc m2):
-#	#integral of (k.q)^3/(((q^2+m1)^d1)*((denk+q)^2+m2)^d2) divided by k^3
-#
-#	cdef mpc coef1 = 3/(16 * denk2*sqrt(denk2))*(BubN(d1-3,d2,denk2,m1,m2)-3*BubN(d1-2,d2-1,denk2,m1,m2) - 4*denk2*BubN(d1-2,d2,denk2,m1,m2)
-#		+ 3*(denk2 + m2 - m1)*BubN(d1-2,d2,denk2,m1,m2) + 3*BubN(d1-1,d2-2,denk2,m1,m2)
-#		+ 4*denk2*BubN(d1-1,d2-1,denk2,m1,m2) - 6*(denk2 + m2 - m1)*BubN(d1-1,d2-1,denk2,m1,m2)
-#		-4*denk2*(denk2 + m2 - m1)*BubN(d1-1,d2,denk2,m1,m2) + 3*(denk2 + m2 - m1)**2*BubN(d1-1,d2,denk2,m1,m2)
-#		+ 4* denk2*m1*BubN(d1-1,d2,denk2,m1,m2) - BubN(d1,d2-3,denk2,m1,m2) + 3*(denk2 + m2 - m1)*BubN(d1,d2-2,denk2,m1,m2)
-#		-3*(denk2 + m2 - m1)**2*BubN(d1,d2-1,denk2,m1,m2) - 4*denk2*m1*BubN(d1,d2-1,denk2,m1,m2)
-#		+(denk2 + m2 - m1)**3*BubN(d1,d2,denk2,m1,m2) + 4*denk2*(denk2 + m2 - m1)*m1*BubN(d1,d2,denk2,m1,m2))
-#	
-#	cdef mpc coef2 = 1/(2*sqrt(denk2))*(BubN(d1-1,d2-1,denk2,m1,m2) - BubN(d1-2,d2,denk2,m1,m2)
-#		-(denk2 + m2 - m1)*BubN(d1-1,d2,denk2,m1,m2) + m1*BubN(d1-1,d2,denk2,m1,m2) - m1*BubN(d1,d2-1,denk2,m1,m2)
-#		+(denk2 + m2 - m1)*m1*BubN(d1,d2,denk2,m1,m2))-5*coef1/3
-#	return coef1, coef2
 
 @cython.boundscheck(False)
 @cython.wraparound(False)
 cdef num_four_pow(long long d1, long long d2, 
 					mpfr denk2, mpc m1, mpc m2):
-	print('going num_four_pow')
 
 	cdef mpc aux0=((3*(((denk2+m1)**2)))+((-2.*((denk2+(3*m1))*m2))+(3*(m2**2))))*(BubN(-2 + d1, d2, denk2, m1, m2))
 	cdef mpc aux1=((denk2**2)+((-3*(((m1-m2)**2)))+(-2.*(denk2*(m1+m2)))))*(BubN(-1 + d1, -1 + d2, denk2, m1, m2))
