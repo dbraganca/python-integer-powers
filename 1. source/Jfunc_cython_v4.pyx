@@ -157,7 +157,6 @@ cdef double computeL(long[:] d1new, long[:] d2basis, long[:] d3basis, long n1, l
 
 	cdef double complex Ltrain_temp = 0j
 	
-	cdef double complex add_result 
 	cdef double complex result = 0j
 	cdef double complex result_temp_d2 = 0j
 	cdef double complex result_temp_d3 = 0j
@@ -200,8 +199,6 @@ cdef double computeL(long[:] d1new, long[:] d2basis, long[:] d3basis, long n1, l
 		result = result + coef_d1_indx1 * result_temp_d2
 	
 	return result.real/(4 * PI * SQRT_PI)	
-	#return 2*np.real(np.einsum('ijk, i, j, k', matmul, matcoefs[d1][::2], matcoefs[d2], matcoefs[d3]))/(8 * PI * SQRT_PI)	
-
 
 @cython.boundscheck(False)
 @cython.wraparound(False)
