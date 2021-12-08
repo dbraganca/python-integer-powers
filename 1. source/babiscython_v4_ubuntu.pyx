@@ -1,4 +1,4 @@
-
+# cython: profile=True
 # maybe include this: distutils: language = c++
 
 import cython
@@ -758,34 +758,96 @@ cdef mpc tri_dim_two(long n1, long n2, long d1,
 cdef mpfr k1dotk2(mpfr k21, mpfr k22, mpfr ksum2):
 	return (ksum2 - k21 - k22)/2.
 
+
+
+@cython.boundscheck(False)
+@cython.wraparound(False)
+cdef mpc Ltrian(long n1, long d1, long n2, long d2, long n3, long d3, 
+		   mpfr k21, mpfr k22, mpfr k23, mpc m1, mpc m2, mpc m3, long m1_ind, long m2_ind, long m3_ind, dict Ltrian_cache):
+	
+	#arg_list_bin = str(hash((n1,d1,n2,d2,n3,d3,m1_ind,m2_ind,m3_ind)))
+	arg_list_bin = (n1,d1,n2,d2,n3,d3,m1_ind,m2_ind,m3_ind)
+	# check if value exists in cache
+	if arg_list_bin in Ltrian_cache:
+		#print('hit cache! Args:',n1,d1,n2,d2,n3,d3,m1_ind,m2_ind,m3_ind)
+		return Ltrian_cache[arg_list_bin]
+	
+	cdef mpc result
+
+	if n1 == 0 and n2 == 0 and n3 == 0:
+		result = mpc(TriaN(d1,d2,d3,k21,k22,k23,m1,m2,m3))
+		Ltrian_cache[arg_list_bin] = result
+		return result
+	if d1 == 0 and n1 != 0:
+		result = Ltrian(0,-n1,n2,d2,n3,d3,k21,k22,k23,mpc0,m2,m3, 0, m2_ind, m3_ind, Ltrian_cache)
+		Ltrian_cache[arg_list_bin] = result
+		return result
+	if d2 == 0 and n2 != 0:
+		result = Ltrian(n1,d1,0,-n2,n3,d3,k21,k22,k23,m1,mpc0,m3, m1_ind, 0, m3_ind,Ltrian_cache)
+		Ltrian_cache[arg_list_bin] = result
+		return result	
+	if d3 == 0 and n3 != 0:
+		result = Ltrian(n1,d1,n2,d2,0,-n3,k21,k22,k23,m1,m2,mpc0, m1_ind, m2_ind, 0,Ltrian_cache)
+		Ltrian_cache[arg_list_bin] = result
+		return result
+	if n1 > 0:
+		result = Ltrian(n1-1,d1-1,n2,d2,n3,d3,k21,k22,k23,m1,m2,m3,m1_ind,m2_ind,m3_ind, Ltrian_cache) - m1*Ltrian(n1-1,d1,n2,d2,n3,d3,k21,k22,k23,m1,m2,m3,m1_ind,m2_ind,m3_ind, Ltrian_cache)
+		Ltrian_cache[arg_list_bin] = result
+		return result
+	if n2 > 0:
+		result = Ltrian(n1,d1,n2-1,d2-1,n3,d3,k21,k22,k23,m1,m2,m3,m1_ind,m2_ind,m3_ind, Ltrian_cache) - m2*Ltrian(n1,d1,n2-1,d2,n3,d3,k21,k22,k23,m1,m2,m3,m1_ind,m2_ind,m3_ind, Ltrian_cache)
+		Ltrian_cache[arg_list_bin] = result
+		return result
+	if n3 > 0:
+		result = Ltrian(n1,d1,n2,d2,n3-1,d3-1,k21,k22,k23,m1,m2,m3,m1_ind,m2_ind,m3_ind, Ltrian_cache) - m3*Ltrian(n1,d1,n2,d2,n3-1,d3,k21,k22,k23,m1,m2,m3,m1_ind,m2_ind,m3_ind, Ltrian_cache)
+		Ltrian_cache[arg_list_bin] = result
+		return result
+	if n1 < 0 :
+		result = (Ltrian(n1,d1-1,n2,d2,n3,d3,k21,k22,k23,m1,m2,m3,m1_ind,m2_ind,m3_ind, Ltrian_cache) - Ltrian(n1+1,d1,n2,d2,n3,d3,k21,k22,k23,m1,m2,m3,m1_ind,m2_ind,m3_ind, Ltrian_cache))/m1
+		Ltrian_cache[arg_list_bin] = result
+		return result
+	if n2 < 0 :
+		result = (Ltrian(n1,d1,n2,d2-1,n3,d3,k21,k22,k23,m1,m2,m3,m1_ind,m2_ind,m3_ind, Ltrian_cache) - Ltrian(n1,d1,n2+1,d2,n3,d3,k21,k22,k23,m1,m2,m3,m1_ind,m2_ind,m3_ind, Ltrian_cache))/m2
+		Ltrian_cache[arg_list_bin] = result
+		return result
+	if n3 < 0:
+		result = (Ltrian(n1,d1,n2,d2,n3,d3-1,k21,k22,k23,m1,m2,m3,m1_ind,m2_ind,m3_ind, Ltrian_cache) - Ltrian(n1,d1,n2,d2,n3+1,d3,k21,k22,k23,m1,m2,m3,m1_ind,m2_ind,m3_ind, Ltrian_cache))/m3
+		Ltrian_cache[arg_list_bin] = result
+		return result
+	else:
+		print("Error: case not considered in Ltrian")
+
+
+
 # This recursion AFFECTS SPEED, overall time ~6 times slower
 #@cython.boundscheck(False)
 #@cython.wraparound(False)
-@lru_cache(None)
-def Ltrian(long n1, long d1, long n2, long d2, long n3, long d3, 
-		   mpfr k21, mpfr k22, mpfr k23, mpc m1, mpc m2, mpc m3):
 
-	if n1 == 0 and n2 == 0 and n3 == 0:
-		return TriaN(d1,d2,d3,k21,k22,k23,m1,m2,m3)
-	if d1 == 0 and n1 != 0:
-		return Ltrian(0,-n1,n2,d2,n3,d3,k21,k22,k23,mpc0,m2,m3)
-	if d2 == 0 and n2 != 0:
-		return Ltrian(n1,d1,0,-n2,n3,d3,k21,k22,k23,m1,mpc0,m3)
-	if d3 == 0 and n3 != 0:
-		return Ltrian(n1,d1,n2,d2,0,-n3,k21,k22,k23,m1,m2,mpc0)
-	if n1 > 0:
-		return Ltrian(n1-1,d1-1,n2,d2,n3,d3,k21,k22,k23,m1,m2,m3) - m1*Ltrian(n1-1,d1,n2,d2,n3,d3,k21,k22,k23,m1,m2,m3)
-	if n2 > 0:
-		return Ltrian(n1,d1,n2-1,d2-1,n3,d3,k21,k22,k23,m1,m2,m3) - m2*Ltrian(n1,d1,n2-1,d2,n3,d3,k21,k22,k23,m1,m2,m3)
-	if n3 > 0:
-		return Ltrian(n1,d1,n2,d2,n3-1,d3-1,k21,k22,k23,m1,m2,m3) - m3*Ltrian(n1,d1,n2,d2,n3-1,d3,k21,k22,k23,m1,m2,m3)
-	if n1 < 0:
-		return (Ltrian(n1,d1-1,n2,d2,n3,d3,k21,k22,k23,m1,m2,m3) - Ltrian(n1+1,d1,n2,d2,n3,d3,k21,k22,k23,m1,m2,m3))/m1
-	if n2 < 0:
-		return (Ltrian(n1,d1,n2,d2-1,n3,d3,k21,k22,k23,m1,m2,m3) - Ltrian(n1,d1,n2+1,d2,n3,d3,k21,k22,k23,m1,m2,m3))/m2
-	if n3 < 0:
-		return (Ltrian(n1,d1,n2,d2,n3,d3-1,k21,k22,k23,m1,m2,m3) - Ltrian(n1,d1,n2,d2,n3+1,d3,k21,k22,k23,m1,m2,m3))/m3
-	print("Error: case not considered in Ltrian")
+#@lru_cache(None)
+#def Ltrian(long n1, long d1, long n2, long d2, long n3, long d3, 
+#		   mpfr k21, mpfr k22, mpfr k23, mpc m1, mpc m2, mpc m3):
+#
+#	if n1 == 0 and n2 == 0 and n3 == 0:
+#		return TriaN(d1,d2,d3,k21,k22,k23,m1,m2,m3)
+#	if d1 == 0 and n1 != 0:
+#		return Ltrian(0,-n1,n2,d2,n3,d3,k21,k22,k23,mpc0,m2,m3)
+#	if d2 == 0 and n2 != 0:
+#		return Ltrian(n1,d1,0,-n2,n3,d3,k21,k22,k23,m1,mpc0,m3)
+#	if d3 == 0 and n3 != 0:
+#		return Ltrian(n1,d1,n2,d2,0,-n3,k21,k22,k23,m1,m2,mpc0)
+#	if n1 > 0:
+#		return Ltrian(n1-1,d1-1,n2,d2,n3,d3,k21,k22,k23,m1,m2,m3) - m1*Ltrian(n1-1,d1,n2,d2,n3,d3,k21,k22,k23,m1,m2,m3)
+#	if n2 > 0:
+#		return Ltrian(n1,d1,n2-1,d2-1,n3,d3,k21,k22,k23,m1,m2,m3) - m2*Ltrian(n1,d1,n2-1,d2,n3,d3,k21,k22,k23,m1,m2,m3)
+#	if n3 > 0:
+#		return Ltrian(n1,d1,n2,d2,n3-1,d3-1,k21,k22,k23,m1,m2,m3) - m3*Ltrian(n1,d1,n2,d2,n3-1,d3,k21,k22,k23,m1,m2,m3)
+#	if n1 < 0:
+#		return (Ltrian(n1,d1-1,n2,d2,n3,d3,k21,k22,k23,m1,m2,m3) - Ltrian(n1+1,d1,n2,d2,n3,d3,k21,k22,k23,m1,m2,m3))/m1
+#	if n2 < 0:
+#		return (Ltrian(n1,d1,n2,d2-1,n3,d3,k21,k22,k23,m1,m2,m3) - Ltrian(n1,d1,n2+1,d2,n3,d3,k21,k22,k23,m1,m2,m3))/m2
+#	if n3 < 0:
+#		return (Ltrian(n1,d1,n2,d2,n3,d3-1,k21,k22,k23,m1,m2,m3) - Ltrian(n1,d1,n2,d2,n3+1,d3,k21,k22,k23,m1,m2,m3))/m3
+#	print("Error: case not considered in Ltrian")
 
 #@cython.boundscheck(False)
 #@cython.wraparound(False)
