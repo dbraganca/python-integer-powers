@@ -13,7 +13,7 @@ from gmpy2 import atan, log, sqrt, gamma
 from gmpy2 cimport *
 
 from functools import lru_cache
-from config import Ltrian_complex_cache, Ltrian_cache
+from config import Ltrian_complex_cache, Ltrian_cache, TriaN_cache
 
 cdef extern from "complex.h":
 	double complex conj(double complex z)
@@ -359,15 +359,13 @@ def TrianKinem(mpfr k21, mpfr k22, mpfr k23,
 
 # this functions AFFECTS SPEED: decreases speed by 1/3
 
-cdef dict TriaN_cache = {}
-
 @cython.boundscheck(False)
 @cython.wraparound(False)
 #@lru_cache(None)
 cdef mpc TriaN(long n1, long n2, long n3, 
 			mpfr k21, mpfr k22, mpfr k23, 
 			mpc m1, mpc m2, mpc m3, 
-			long m1_ind, long m2_ind, long m3_ind, dict TriaN_cache):
+			long m1_ind, long m2_ind, long m3_ind):
 	# print("n1, n2, n3", n1, n2, n3)
 	# print(n1,d1,n2,d2,n3,d3,m1,m2,m3)
 
@@ -478,13 +476,13 @@ cdef mpc TriaN(long n1, long n2, long n3,
 		c0mp = -ks31
 		c000 = -(-nu3 + Ndim)*ks11/nu3 + (-nu1 + Ndim)*ks12/nu3 + (-nu2 + Ndim)*ks31/nu3
 	
-	result = (c000*TriaN(nu1, nu2, nu3, k21,k22,k23,m1,m2,m3,m1_ind,m2_ind,m3_ind,TriaN_cache) 
-			+ c0mp*TriaN(nu1, nu2-1, nu3+1, k21,k22,k23,m1,m2,m3,m1_ind,m2_ind,m3_ind,TriaN_cache) 
-			+ c0pm*TriaN(nu1, nu2+1, nu3-1, k21,k22,k23,m1,m2,m3,m1_ind,m2_ind,m3_ind,TriaN_cache)
-			+ cm0p*TriaN(nu1-1, nu2, nu3+1, k21,k22,k23,m1,m2,m3,m1_ind,m2_ind,m3_ind,TriaN_cache)
-			+ cp0m*TriaN(nu1+1, nu2, nu3-1, k21,k22,k23,m1,m2,m3,m1_ind,m2_ind,m3_ind,TriaN_cache) 
-			+ cmp0*TriaN(nu1-1, nu2+1, nu3, k21,k22,k23,m1,m2,m3,m1_ind,m2_ind,m3_ind,TriaN_cache)
-			+ cpm0*TriaN(nu1+1, nu2-1, nu3, k21,k22,k23,m1,m2,m3,m1_ind,m2_ind,m3_ind,TriaN_cache))
+	result = (c000*TriaN(nu1, nu2, nu3, k21,k22,k23,m1,m2,m3,m1_ind,m2_ind,m3_ind) 
+			+ c0mp*TriaN(nu1, nu2-1, nu3+1, k21,k22,k23,m1,m2,m3,m1_ind,m2_ind,m3_ind) 
+			+ c0pm*TriaN(nu1, nu2+1, nu3-1, k21,k22,k23,m1,m2,m3,m1_ind,m2_ind,m3_ind)
+			+ cm0p*TriaN(nu1-1, nu2, nu3+1, k21,k22,k23,m1,m2,m3,m1_ind,m2_ind,m3_ind)
+			+ cp0m*TriaN(nu1+1, nu2, nu3-1, k21,k22,k23,m1,m2,m3,m1_ind,m2_ind,m3_ind) 
+			+ cmp0*TriaN(nu1-1, nu2+1, nu3, k21,k22,k23,m1,m2,m3,m1_ind,m2_ind,m3_ind)
+			+ cpm0*TriaN(nu1+1, nu2-1, nu3, k21,k22,k23,m1,m2,m3,m1_ind,m2_ind,m3_ind))
 
 	TriaN_cache[arg_list] = result
 	return result
@@ -809,7 +807,7 @@ cdef mpc Ltrian(long n1, long d1, long n2, long d2, long n3, long d3,
 
 	cdef mpc result
 	if n1 == 0 and n2 == 0 and n3 == 0:
-		result = TriaN(d1,d2,d3,k21,k22,k23,m1,m2,m3,m1_ind,m2_ind,m3_ind, TriaN_cache)
+		result = TriaN(d1,d2,d3,k21,k22,k23,m1,m2,m3,m1_ind,m2_ind,m3_ind)
 		Ltrian_cache[arg_list_bin] = result
 		return result
 	if d1 == 0 and n1 != 0:

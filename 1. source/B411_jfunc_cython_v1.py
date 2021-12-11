@@ -9,6 +9,8 @@ import gmpy2 as gm
 from gmpy2 import *
 import time
 
+from config import Ltrian_cache, TriaN_cache
+
 gm.get_context().precision = 190
 gm.get_context().allow_complex = True
 
@@ -81,12 +83,15 @@ def compute_B411_jmat(filename):
 
 	Jtriantable = np.empty((16,),dtype=float)
 
+	# clear cache
+	Ltrian_cache.clear()
+	TriaN_cache.clear()
+
 	start_time = time.time()
 	for i1 in range(16):
 		print(i1)
 		computeker(i1, k12, k22, k32, ctab_ns, ctab_coefs, Jtriantable)
 	print("--- %s seconds ---" % (time.time() - start_time))
-
 
 	# pd.set_option("precision", GLOBAL_PREC)
 	# np.set_printoptions(precision=GLOBAL_PREC)
@@ -94,14 +99,20 @@ def compute_B411_jmat(filename):
 	print(k1,k2,k3)
 	out_filename = outputfolder + 'B411_Jfunc_'+str(float(k1))+'_' + str(float(k2)) + '_' + str(float(k3)) + '_' +'.csv'
 	out_df.to_csv(out_filename, index = False)
-	
-start_time = time.time()
-for file in filelist:
-	(k1,k2,k3)=get_ks(file)
-	print(float(k1), float(k2), float(k3))
-	out_filename = outputfolder + 'B411_Jfunc_'+str(float(k1))+'_' + str(float(k2)) + '_' + str(float(k3)) + '_' +'.csv'
-	if not(os.path.isfile(out_filename)):	
-		if k1==k2 and k2==k3:
-			start_time = time.time()
-			compute_B411_jmat(file)
-print("--- %s seconds ---" % (time.time() - start_time))
+
+
+
+def compute_all_B411():	
+	start_time = time.time()
+	for file in filelist:
+		(k1,k2,k3)=get_ks(file)
+		print(float(k1), float(k2), float(k3))
+		out_filename = outputfolder + 'B411_Jfunc_'+str(float(k1))+'_' + str(float(k2)) + '_' + str(float(k3)) + '_' +'.csv'
+		if not(os.path.isfile(out_filename)):	
+			if k1==k2 and k2==k3:
+				start_time = time.time()
+				compute_B411_jmat(file)
+	print("--- %s seconds ---" % (time.time() - start_time))
+
+if __name__ == "__main__":
+	compute_all_B411()

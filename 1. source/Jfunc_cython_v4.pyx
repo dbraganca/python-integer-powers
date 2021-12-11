@@ -18,7 +18,7 @@ import sys
 from babiscython_v4_ubuntu cimport Ltrian
 from babiscython_v4_ubuntu cimport Ltrian_complex
 import time
-from config import Ltrian_cache, Ltrian_complex_cache
+#from config import Ltrian_cache, Ltrian_complex_cache
 
 cdef extern from "complex.h":
 	double complex conj(double complex z)
@@ -168,13 +168,13 @@ cdef double computefull(long[:] d1new, long[:] d2basis, long[:] d3basis, long n1
 
 	cdef long exp_num_i, exp_num_j, exp_num_l
 	cdef long exp_den_i, exp_den_j, exp_den_l
-	#cdef mpc mass_i 
+	cdef mpc mass_i 
 	cdef int mass_ind_i
 
-	#cdef mpc mass_j 
+	cdef mpc mass_j 
 	cdef int mass_ind_j
 
-	#cdef mpc mass_l 
+	cdef mpc mass_l 
 	cdef int mass_ind_l
 
 	cdef double complex Ltrian_temp = 0j
@@ -188,7 +188,7 @@ cdef double computefull(long[:] d1new, long[:] d2basis, long[:] d3basis, long n1
 		coef_d1_indx1 = coef_babis_d1_even[indx1]
 		exp_num_i = -n1 + fbabisparamtab_exps[i][0]
 		exp_den_i =  fbabisparamtab_exps[i][1]
-		#mass_i = fbabisparamtab_masses[i]
+		mass_i = fbabisparamtab_masses[i]
 		mass_ind_i = fbabisparamtab_mass_ind[i]
 
 		result_temp_d2 = 0j
@@ -206,12 +206,12 @@ cdef double computefull(long[:] d1new, long[:] d2basis, long[:] d3basis, long n1
 				coef_d3_indx3 = coef_babis_d3[indx3]
 				exp_num_l = - n3 + fbabisparamtab_exps[l][0]
 				exp_den_l =  fbabisparamtab_exps[l][1]
-				#mass_l = fbabisparamtab_masses[l]
+				mass_l = fbabisparamtab_masses[l]
 				mass_ind_l = fbabisparamtab_mass_ind[l]
 
-				Ltrian_temp = Ltrian_complex(exp_num_j, exp_den_j, exp_num_i, exp_den_i, exp_num_l, exp_den_l, 
+				Ltrian_temp = <double complex>Ltrian(exp_num_j, exp_den_j, exp_num_i, exp_den_i, exp_num_l, exp_den_l, 
 							k1sq, k2sq, k3sq,
-							fbabisparamtab_masses[j], fbabisparamtab_masses[i], fbabisparamtab_masses[l],
+							mass_j, mass_i, mass_l,
 							mass_ind_j, mass_ind_i, mass_ind_l)
 
 				result_temp_d3 = result_temp_d3 + coef_d3_indx3 * Ltrian_temp
@@ -268,7 +268,7 @@ cdef double computed1zero(long[:] d2new, long[:] d3basis, long n1, long n2, long
 			mass_j = fbabisparamtab_masses[j]
 			mass_ind_j = fbabisparamtab_mass_ind[j]
 
-			Ltrian_temp = Ltrian_complex(exp_num_i, exp_den_i, -n1, 0, exp_num_j, exp_den_j, 
+			Ltrian_temp = <double complex>Ltrian(exp_num_i, exp_den_i, -n1, 0, exp_num_j, exp_den_j, 
 			k1sq, k2sq, k3sq, mass_i, mpc0, mass_j, mass_ind_i, 0, mass_ind_j)
 
 			result_temp_d3 = result_temp_d3 + coef_d3_indx3 * Ltrian_temp
@@ -322,7 +322,7 @@ cdef double computed2zero(long[:] d1new, long[:] d3basis, long n1, long n2, long
 			mass_j = fbabisparamtab_masses[j]
 			mass_ind_j = fbabisparamtab_mass_ind[j]
 
-			Ltrian_temp = Ltrian_complex(-n2, 0, exp_num_i, exp_den_i, exp_num_j, exp_den_j, k1sq,
+			Ltrian_temp = <double complex>Ltrian(-n2, 0, exp_num_i, exp_den_i, exp_num_j, exp_den_j, k1sq,
 							 k2sq, k3sq, mpc0, mass_i, mass_j, 0, mass_ind_i, mass_ind_j)
 
 			result_temp_d3 = result_temp_d3 + coef_d3_indx3 * Ltrian_temp
@@ -377,7 +377,7 @@ cdef double computed3zero(long[:] d1new, long[:] d2basis, long n1, long n2, long
 			mass_j = fbabisparamtab_masses[j]
 			mass_ind_j = fbabisparamtab_mass_ind[j]
 
-			Ltrian_temp = Ltrian_complex(exp_num_j, exp_den_j, exp_num_i, exp_den_i, -n3, 0, 
+			Ltrian_temp = <double complex>Ltrian(exp_num_j, exp_den_j, exp_num_i, exp_den_i, -n3, 0, 
 			k1sq, k2sq, k3sq, mass_j, mass_i, mpc0, mass_ind_j, mass_ind_i, 0)
 
 			result_temp_d2 = result_temp_d2 + coef_d2_indx2 * Ltrian_temp
@@ -414,7 +414,7 @@ cdef double computed3(long[:] d3new, long n1, long n2, long n3, long d3, mpfr k1
 		mass_i = fbabisparamtab_masses[i]
 		mass_ind_i = fbabisparamtab_mass_ind[i]
 		
-		Ltrian_temp = Ltrian_complex(-n2, 0, -n1, 0, exp_num_i, exp_den_i, k1sq, k2sq, k3sq, 
+		Ltrian_temp = <double complex>Ltrian(-n2, 0, -n1, 0, exp_num_i, exp_den_i, k1sq, k2sq, k3sq, 
 		mpc0, mpc0, mass_i, 0, 0, mass_ind_i)
 
 
@@ -449,7 +449,7 @@ cdef double computed2(long[:] d2new, long n1, long n2, long n3, long d2, mpfr k1
 		mass_i = fbabisparamtab_masses[i]
 		mass_ind_i = fbabisparamtab_mass_ind[i]
 		
-		Ltrian_temp = Ltrian_complex(exp_num_i, exp_den_i, -n1, 0, -n3, 0, k1sq, k2sq, k3sq, 
+		Ltrian_temp = <double complex>Ltrian(exp_num_i, exp_den_i, -n1, 0, -n3, 0, k1sq, k2sq, k3sq, 
 		mass_i, mpc0, mpc0, mass_ind_i, 0, 0)
 
 		result = result + coef_d2_indx * Ltrian_temp
@@ -483,7 +483,7 @@ cdef double computed1(long[:] d1new, long n1, long n2, long n3, long d1, mpfr k1
 		mass_i = fbabisparamtab_masses[i]
 		mass_ind_i = fbabisparamtab_mass_ind[i]
 		
-		Ltrian_temp = Ltrian_complex(-n2, 0, exp_num_i, exp_den_i, -n3, 0, k1sq, k2sq, k3sq, 
+		Ltrian_temp = <double complex>Ltrian(-n2, 0, exp_num_i, exp_den_i, -n3, 0, k1sq, k2sq, k3sq, 
 		mpc0, mass_i, mpc0, 0, mass_ind_i, 0)
 
 		result = result + coef_d1_indx * Ltrian_temp
@@ -523,7 +523,7 @@ cpdef double computeJ(long n1, long n2, long n3,
 		return computed3(d3basis[::2], n1, n2, n3, d3, k1sq, k2sq, k3sq)
 
 	if d1 == 0 and d2 == 0 and d3 == 0:
-		return Ltrian(-n2, 0, -n1, 0, -n3, 0, k1sq, k2sq, k3sq, mpc0, mpc0, mpc0,0,0,0).real/(8  * PI * SQRT_PI)
+		return <double>Ltrian(-n2, 0, -n1, 0, -n3, 0, k1sq, k2sq, k3sq, mpc0, mpc0, mpc0,0,0,0).real/(8  * PI * SQRT_PI)
 	
 	print("Case not considered in ComputeJ")
 	
