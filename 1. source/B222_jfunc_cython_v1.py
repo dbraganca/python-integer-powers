@@ -10,6 +10,8 @@ import gmpy2 as gm
 from gmpy2 import *
 import time
 
+from config import Ltrian_cache, Ltrian_complex_cache
+
 gm.get_context().precision = 190
 gm.get_context().allow_complex = True
 
@@ -65,13 +67,14 @@ def compute_B222_jmat(filename):
 
 	Jtriantable = np.empty((16,16,16),dtype=float)
 
+	# clear cache
+	#Ltrian_cache.clear()
+
 	for i1 in reversed(range(16)):
 		for i2 in reversed(range(16)):
 			print(i2,i1)
 			for i3 in reversed(range(16)):				
 				computeker(i1, i2, i3, k12, k22, k32, ctab_ns, ctab_coefs, Jtriantable)
-
-	# print(Jtriantable.shape)
 
 	# Output the table to csv 
 	out_arr = np.column_stack((np.repeat(np.arange(16),16),Jtriantable.reshape(16**2,-1)))

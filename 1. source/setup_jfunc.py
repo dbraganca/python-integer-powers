@@ -15,6 +15,8 @@ setup(
 			include_dirs= [numpy.get_include()],
 			# include_dirs = sys.path,
 			libraries = ['gmp', 'mpfr', 'mpc'],
+			#extra_compile_args=['-fopenmp'],
+        	#extra_link_args=['-fopenmp'],
 		),
 		annotate = True),
 	install_requires = ["numpy"],

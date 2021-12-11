@@ -1,7 +1,10 @@
-# cython: profile=True
+
+
+# without this -  cython: profile=True
 
 import cython
 cimport cython
+#from cython.parallel import prange
 import numpy as np
 cimport numpy as np
 import gmpy2 as gm
@@ -13,7 +16,9 @@ import sys
 #from babiscython_v4_ubuntu_old import Ltrian
 #from babiscython_v4_ubuntu import Ltrian
 from babiscython_v4_ubuntu cimport Ltrian
+from babiscython_v4_ubuntu cimport Ltrian_complex
 import time
+from config import Ltrian_cache, Ltrian_complex_cache
 
 cdef extern from "complex.h":
 	double complex conj(double complex z)
@@ -26,7 +31,6 @@ gm.get_context().allow_complex = True
 cdef long double PI = acos(-1)
 cdef long double SQRT_PI = sqrt(PI)
 cdef mpc mpc0 = mpc(0)
-cdef dict Ltrian_cache = {}
 
 cdef mpfr kpeak1 = mpfr(str(-0.034))
 cdef mpfr kpeak2 = mpfr(str(-0.001))
@@ -149,31 +153,31 @@ cdef double computefull(long[:] d1new, long[:] d2basis, long[:] d3basis, long n1
 	cdef long lend3 = len(d3basis)
 
 	cdef Py_ssize_t indx1, indx2, indx3, i, j, l
-	coef_babis_d1_even_arr = np.array(matcoefs[d1][::2], dtype= complex)
-	
+
+	coef_babis_d1_even_arr = matcoefs[d1][::2]
 	cdef double complex[:] coef_babis_d1_even = coef_babis_d1_even_arr
 	cdef double complex coef_d1_indx1
 
-	coef_babis_d2_arr =  np.array(matcoefs[d2], dtype= complex)
+	coef_babis_d2_arr =  matcoefs[d2]
 	cdef double complex[:] coef_babis_d2 = coef_babis_d2_arr
 	cdef double complex coef_d2_indx2
 
-	coef_babis_d3_arr =  np.array(matcoefs[d3], dtype= complex)
+	coef_babis_d3_arr =  matcoefs[d3]
 	cdef double complex[:] coef_babis_d3 = coef_babis_d3_arr
 	cdef double complex coef_d3_indx3
 
 	cdef long exp_num_i, exp_num_j, exp_num_l
 	cdef long exp_den_i, exp_den_j, exp_den_l
-	cdef mpc mass_i 
+	#cdef mpc mass_i 
 	cdef int mass_ind_i
 
-	cdef mpc mass_j 
+	#cdef mpc mass_j 
 	cdef int mass_ind_j
 
-	cdef mpc mass_l 
+	#cdef mpc mass_l 
 	cdef int mass_ind_l
 
-	cdef double complex Ltrain_temp = 0j
+	cdef double complex Ltrian_temp = 0j
 	
 	cdef double complex result = 0j
 	cdef double complex result_temp_d2 = 0j
@@ -184,7 +188,7 @@ cdef double computefull(long[:] d1new, long[:] d2basis, long[:] d3basis, long n1
 		coef_d1_indx1 = coef_babis_d1_even[indx1]
 		exp_num_i = -n1 + fbabisparamtab_exps[i][0]
 		exp_den_i =  fbabisparamtab_exps[i][1]
-		mass_i = fbabisparamtab_masses[i]
+		#mass_i = fbabisparamtab_masses[i]
 		mass_ind_i = fbabisparamtab_mass_ind[i]
 
 		result_temp_d2 = 0j
@@ -202,11 +206,13 @@ cdef double computefull(long[:] d1new, long[:] d2basis, long[:] d3basis, long n1
 				coef_d3_indx3 = coef_babis_d3[indx3]
 				exp_num_l = - n3 + fbabisparamtab_exps[l][0]
 				exp_den_l =  fbabisparamtab_exps[l][1]
-				mass_l = fbabisparamtab_masses[l]
+				#mass_l = fbabisparamtab_masses[l]
 				mass_ind_l = fbabisparamtab_mass_ind[l]
 
-				Ltrian_temp = <double complex>Ltrian(exp_num_j, exp_den_j, exp_num_i, exp_den_i, exp_num_l, exp_den_l, 
-							k1sq, k2sq, k3sq, mass_j, mass_i, mass_l, mass_ind_j, mass_ind_i, mass_ind_l, Ltrian_cache)
+				Ltrian_temp = Ltrian_complex(exp_num_j, exp_den_j, exp_num_i, exp_den_i, exp_num_l, exp_den_l, 
+							k1sq, k2sq, k3sq,
+							fbabisparamtab_masses[j], fbabisparamtab_masses[i], fbabisparamtab_masses[l],
+							mass_ind_j, mass_ind_i, mass_ind_l)
 
 				result_temp_d3 = result_temp_d3 + coef_d3_indx3 * Ltrian_temp
 
@@ -221,7 +227,8 @@ cdef double computefull(long[:] d1new, long[:] d2basis, long[:] d3basis, long n1
 cdef double computed1zero(long[:] d2new, long[:] d3basis, long n1, long n2, long n3, 
 		long d2, long d3, mpfr k1sq, mpfr k2sq, mpfr k3sq):
 
-	cdef double complex Ltrain_temp = 0j
+	cdef double complex Ltrian_temp = 0
+		
 	cdef long lend2 = len(d2new), lend3 = len(d3basis)
 	cdef Py_ssize_t indx2, indx3, i, j
 
@@ -261,8 +268,8 @@ cdef double computed1zero(long[:] d2new, long[:] d3basis, long n1, long n2, long
 			mass_j = fbabisparamtab_masses[j]
 			mass_ind_j = fbabisparamtab_mass_ind[j]
 
-			Ltrian_temp = <double complex>Ltrian(exp_num_i, exp_den_i, -n1, 0, exp_num_j, exp_den_j, 
-			k1sq, k2sq, k3sq, mass_i, mpc0, mass_j, mass_ind_i, 0, mass_ind_j, Ltrian_cache)
+			Ltrian_temp = Ltrian_complex(exp_num_i, exp_den_i, -n1, 0, exp_num_j, exp_den_j, 
+			k1sq, k2sq, k3sq, mass_i, mpc0, mass_j, mass_ind_i, 0, mass_ind_j)
 
 			result_temp_d3 = result_temp_d3 + coef_d3_indx3 * Ltrian_temp
 
@@ -275,7 +282,8 @@ cdef double computed1zero(long[:] d2new, long[:] d3basis, long n1, long n2, long
 cdef double computed2zero(long[:] d1new, long[:] d3basis, long n1, long n2, long n3, 
 		long d1, long d3, mpfr k1sq, mpfr k2sq, mpfr k3sq):
 
-	cdef double complex Ltrain_temp = 0j
+	cdef double complex Ltrian_temp = 0
+	
 	cdef long lend1 = len(d1new), lend3 = len(d3basis)
 	cdef Py_ssize_t indx1, indx3, i, j
 
@@ -314,8 +322,8 @@ cdef double computed2zero(long[:] d1new, long[:] d3basis, long n1, long n2, long
 			mass_j = fbabisparamtab_masses[j]
 			mass_ind_j = fbabisparamtab_mass_ind[j]
 
-			Ltrian_temp = <double complex>Ltrian(-n2, 0, exp_num_i, exp_den_i, exp_num_j, exp_den_j, k1sq,
-							 k2sq, k3sq, mpc0, mass_i, mass_j, 0, mass_ind_i, mass_ind_j,Ltrian_cache)
+			Ltrian_temp = Ltrian_complex(-n2, 0, exp_num_i, exp_den_i, exp_num_j, exp_den_j, k1sq,
+							 k2sq, k3sq, mpc0, mass_i, mass_j, 0, mass_ind_i, mass_ind_j)
 
 			result_temp_d3 = result_temp_d3 + coef_d3_indx3 * Ltrian_temp
 
@@ -329,7 +337,8 @@ cdef double computed2zero(long[:] d1new, long[:] d3basis, long n1, long n2, long
 cdef double computed3zero(long[:] d1new, long[:] d2basis, long n1, long n2, long n3, 
 		long d1, long d2, mpfr k1sq, mpfr k2sq, mpfr k3sq):
 
-	cdef double complex Ltrain_temp = 0j
+	cdef double complex Ltrian_temp = 0j
+		
 	cdef long lend1 = len(d1new), lend2 = len(d2basis)
 	cdef Py_ssize_t indx1, indx2, i, j
 
@@ -368,8 +377,8 @@ cdef double computed3zero(long[:] d1new, long[:] d2basis, long n1, long n2, long
 			mass_j = fbabisparamtab_masses[j]
 			mass_ind_j = fbabisparamtab_mass_ind[j]
 
-			Ltrian_temp = <double complex>Ltrian(exp_num_j, exp_den_j, exp_num_i, exp_den_i, -n3, 0, 
-			k1sq, k2sq, k3sq, mass_j, mass_i, mpc0, mass_ind_j, mass_ind_i, 0,Ltrian_cache)
+			Ltrian_temp = Ltrian_complex(exp_num_j, exp_den_j, exp_num_i, exp_den_i, -n3, 0, 
+			k1sq, k2sq, k3sq, mass_j, mass_i, mpc0, mass_ind_j, mass_ind_i, 0)
 
 			result_temp_d2 = result_temp_d2 + coef_d2_indx2 * Ltrian_temp
 
@@ -382,7 +391,8 @@ cdef double computed3zero(long[:] d1new, long[:] d2basis, long n1, long n2, long
 @cython.wraparound(False)
 cdef double computed3(long[:] d3new, long n1, long n2, long n3, long d3, mpfr k1sq, mpfr k2sq, mpfr k3sq):
 
-	cdef double complex Ltrain_temp = 0j
+	cdef double complex Ltrian_temp = 0j
+		
 	cdef long lend3 = len(d3new)
 	cdef Py_ssize_t indx, i
 
@@ -404,8 +414,8 @@ cdef double computed3(long[:] d3new, long n1, long n2, long n3, long d3, mpfr k1
 		mass_i = fbabisparamtab_masses[i]
 		mass_ind_i = fbabisparamtab_mass_ind[i]
 		
-		Ltrian_temp = <double complex>Ltrian(-n2, 0, -n1, 0, exp_num_i, exp_den_i, k1sq, k2sq, k3sq, 
-		mpc0, mpc0, mass_i, 0, 0, mass_ind_i, Ltrian_cache)
+		Ltrian_temp = Ltrian_complex(-n2, 0, -n1, 0, exp_num_i, exp_den_i, k1sq, k2sq, k3sq, 
+		mpc0, mpc0, mass_i, 0, 0, mass_ind_i)
 
 
 		result = result + coef_d3_indx * Ltrian_temp
@@ -416,7 +426,8 @@ cdef double computed3(long[:] d3new, long n1, long n2, long n3, long d3, mpfr k1
 @cython.wraparound(False)
 cdef double computed2(long[:] d2new, long n1, long n2, long n3, long d2, mpfr k1sq, mpfr k2sq, mpfr k3sq):
 
-	cdef double complex Ltrain_temp = 0j
+	cdef double complex Ltrian_temp = 0j
+		
 	cdef long lend2 = len(d2new)
 	cdef Py_ssize_t indx, i
 
@@ -438,8 +449,8 @@ cdef double computed2(long[:] d2new, long n1, long n2, long n3, long d2, mpfr k1
 		mass_i = fbabisparamtab_masses[i]
 		mass_ind_i = fbabisparamtab_mass_ind[i]
 		
-		Ltrian_temp = <double complex>Ltrian(exp_num_i, exp_den_i, -n1, 0, -n3, 0, k1sq, k2sq, k3sq, 
-		mass_i, mpc0, mpc0, mass_ind_i, 0, 0, Ltrian_cache)
+		Ltrian_temp = Ltrian_complex(exp_num_i, exp_den_i, -n1, 0, -n3, 0, k1sq, k2sq, k3sq, 
+		mass_i, mpc0, mpc0, mass_ind_i, 0, 0)
 
 		result = result + coef_d2_indx * Ltrian_temp
 
@@ -461,7 +472,8 @@ cdef double computed1(long[:] d1new, long n1, long n2, long n3, long d1, mpfr k1
 	cdef mpc mass_i 
 	cdef int mass_ind_i
 
-	cdef double complex Ltrain_temp = 0j
+	cdef double complex Ltrian_temp = 0j
+		
 	cdef double complex result = 0j
 	for indx in range(lend1):
 		i = d1new[indx]
@@ -471,8 +483,8 @@ cdef double computed1(long[:] d1new, long n1, long n2, long n3, long d1, mpfr k1
 		mass_i = fbabisparamtab_masses[i]
 		mass_ind_i = fbabisparamtab_mass_ind[i]
 		
-		Ltrian_temp = <double complex>Ltrian(-n2, 0, exp_num_i, exp_den_i, -n3, 0, k1sq, k2sq, k3sq, 
-		mpc0, mass_i, mpc0, 0, mass_ind_i, 0, Ltrian_cache)
+		Ltrian_temp = Ltrian_complex(-n2, 0, exp_num_i, exp_den_i, -n3, 0, k1sq, k2sq, k3sq, 
+		mpc0, mass_i, mpc0, 0, mass_ind_i, 0)
 
 		result = result + coef_d1_indx * Ltrian_temp
 
@@ -511,7 +523,7 @@ cpdef double computeJ(long n1, long n2, long n3,
 		return computed3(d3basis[::2], n1, n2, n3, d3, k1sq, k2sq, k3sq)
 
 	if d1 == 0 and d2 == 0 and d3 == 0:
-		return <double>Ltrian(-n2, 0, -n1, 0, -n3, 0, k1sq, k2sq, k3sq, mpc0, mpc0, mpc0,0,0,0,Ltrian_cache).real/(8  * PI * SQRT_PI)
+		return Ltrian(-n2, 0, -n1, 0, -n3, 0, k1sq, k2sq, k3sq, mpc0, mpc0, mpc0,0,0,0).real/(8  * PI * SQRT_PI)
 	
 	print("Case not considered in ComputeJ")
 	

@@ -25,4 +25,6 @@ cdef extern from "mpc.h":
 
 import_gmpy2()
 
-cdef mpc Ltrian(long, long, long, long, long, long, mpfr, mpfr, mpfr, mpc, mpc, mpc, long, long, long, dict)
+cdef mpc Ltrian(long, long, long, long, long, long, mpfr, mpfr, mpfr, mpc, mpc, mpc, long, long, long)
+
+cdef double complex Ltrian_complex(long, long, long, long, long, long, mpfr, mpfr, mpfr, mpc, mpc, mpc, long, long, long)

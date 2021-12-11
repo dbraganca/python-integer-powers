@@ -1,4 +1,5 @@
-# cython: profile=True
+
+# without this - cython: profile=True
 # maybe include this: distutils: language = c++
 
 import cython
@@ -12,6 +13,7 @@ from gmpy2 import atan, log, sqrt, gamma
 from gmpy2 cimport *
 
 from functools import lru_cache
+from config import Ltrian_complex_cache, Ltrian_cache
 
 cdef extern from "complex.h":
 	double complex conj(double complex z)
@@ -307,7 +309,7 @@ def BubN(long n1, long n2, mpfr k2, mpc m1, mpc m2):
 	#code to deal with numerators
 	if n1 < 0 or n2 < 0:
 		if m1 == mpc0 and m2 == mpc0:
-			return 0
+			return mpc0
 		if n1 < 0 and n2 > 0:
 			# m1 is the mass in the numerator
 			# m2 is the mass in the denominator 
@@ -356,15 +358,25 @@ def TrianKinem(mpfr k21, mpfr k22, mpfr k23,
 	return  np.array([jac,ks11,ks22,ks33,ks12,ks23,ks31], dtype = mpc)
 
 # this functions AFFECTS SPEED: decreases speed by 1/3
+
+cdef dict TriaN_cache = {}
+
 @cython.boundscheck(False)
 @cython.wraparound(False)
-@lru_cache(None)
-def TriaN(long n1, long n2, long n3, 
+#@lru_cache(None)
+cdef mpc TriaN(long n1, long n2, long n3, 
 			mpfr k21, mpfr k22, mpfr k23, 
-			mpc m1, mpc m2, mpc m3):
+			mpc m1, mpc m2, mpc m3, 
+			long m1_ind, long m2_ind, long m3_ind, dict TriaN_cache):
 	# print("n1, n2, n3", n1, n2, n3)
 	# print(n1,d1,n2,d2,n3,d3,m1,m2,m3)
 
+	arg_list = (n1,n2,n3,m1_ind,m2_ind,m3_ind)
+	# check cache
+	if arg_list in TriaN_cache:
+		return TriaN_cache[arg_list]
+
+	# reduce to Bubble integral
 	if n1 == 0:
 		return BubN(n2, n3, k22, m2, m3)
 	if n2 == 0:
@@ -380,19 +392,31 @@ def TriaN(long n1, long n2, long n3,
 			print('ERROR: case not considered -  n1, n2, n3', n1,n2,n3)
 		if n1 < 0:
 			if n2 > 0 and n3 > 0:
-				return tri_dim(-n1,n2,n3,k21,k22,k23,m2,m3)
+				result = tri_dim(-n1,n2,n3,k21,k22,k23,m2,m3)
+				TriaN_cache[arg_list] = result
+				return result
 			elif n2 < 0: 
-				return tri_dim_two(-n2,-n1,n3,k22,k23,k21,m3)
+				result = tri_dim_two(-n2,-n1,n3,k22,k23,k21,m3)
+				TriaN_cache[arg_list] = result
+				return result
 			else:
-				return tri_dim_two(-n1,-n3,n2,k21,k22,k23,m2)
+				result = tri_dim_two(-n1,-n3,n2,k21,k22,k23,m2)
+				TriaN_cache[arg_list] = result
+				return result
 		if n2 < 0:
 			if n1 > 0 and n3 > 0:
-				return tri_dim(-n2,n1,n3,k21,k23,k22,m1,m3)
+				result = tri_dim(-n2,n1,n3,k21,k23,k22,m1,m3)
+				TriaN_cache[arg_list] = result
+				return result
 			if n3 < 0:
-				return tri_dim_two(-n3,-n2,n1,k23,k21,k22,m1)
+				result =  tri_dim_two(-n3,-n2,n1,k23,k21,k22,m1)
+				TriaN_cache[arg_list] = result
+				return result
 		if n3 < 0:
 			if n1 > 0 and n2 > 0:
-				return tri_dim(-n3,n1,n2,k23,k21,k22,m1,m2)	
+				result = tri_dim(-n3,n1,n2,k23,k21,k22,m1,m2)	
+				TriaN_cache[arg_list] = result
+				return result
 			print('ERROR: case not considered')
 
 	cdef long long nu1, nu2, nu3, Ndim, dim = 3
@@ -454,9 +478,17 @@ def TriaN(long n1, long n2, long n3,
 		c0mp = -ks31
 		c000 = -(-nu3 + Ndim)*ks11/nu3 + (-nu1 + Ndim)*ks12/nu3 + (-nu2 + Ndim)*ks31/nu3
 	
-	return  c000*TriaN(nu1, nu2, nu3, k21,k22,k23,m1,m2,m3) + c0mp*TriaN(nu1, nu2-1, nu3+1, k21,k22,k23,m1,m2,m3) +c0pm*TriaN(nu1, nu2+1, nu3-1, k21,k22,k23,m1,m2,m3)+cm0p*TriaN(nu1-1, nu2, nu3+1, k21,k22,k23,m1,m2,m3)+cp0m*TriaN(nu1+1, nu2, nu3-1, k21,k22,k23,m1,m2,m3)+cmp0*TriaN(nu1-1, nu2+1, nu3, k21,k22,k23,m1,m2,m3)+cpm0*TriaN(nu1+1, nu2-1, nu3, k21,k22,k23,m1,m2,m3)
+	result = (c000*TriaN(nu1, nu2, nu3, k21,k22,k23,m1,m2,m3,m1_ind,m2_ind,m3_ind,TriaN_cache) 
+			+ c0mp*TriaN(nu1, nu2-1, nu3+1, k21,k22,k23,m1,m2,m3,m1_ind,m2_ind,m3_ind,TriaN_cache) 
+			+ c0pm*TriaN(nu1, nu2+1, nu3-1, k21,k22,k23,m1,m2,m3,m1_ind,m2_ind,m3_ind,TriaN_cache)
+			+ cm0p*TriaN(nu1-1, nu2, nu3+1, k21,k22,k23,m1,m2,m3,m1_ind,m2_ind,m3_ind,TriaN_cache)
+			+ cp0m*TriaN(nu1+1, nu2, nu3-1, k21,k22,k23,m1,m2,m3,m1_ind,m2_ind,m3_ind,TriaN_cache) 
+			+ cmp0*TriaN(nu1-1, nu2+1, nu3, k21,k22,k23,m1,m2,m3,m1_ind,m2_ind,m3_ind,TriaN_cache)
+			+ cpm0*TriaN(nu1+1, nu2-1, nu3, k21,k22,k23,m1,m2,m3,m1_ind,m2_ind,m3_ind,TriaN_cache))
 
-# @lru_cache(None)
+	TriaN_cache[arg_list] = result
+	return result
+
 @cython.boundscheck(False)
 @cython.wraparound(False)
 cdef mpc tri_dim(long long n1, long long d1, long long d2, 
@@ -625,8 +657,8 @@ cdef num_four_pow(long long d1, long long d2,
 	aux9=(12.*((denk2+((-5.*m1)+(5.*m2)))*(BubN(-2 + d1, -1 + d2, denk2, m1, m2))))+aux8
 	aux10=(4.*((denk2+((5.*m1)+(-5.*m2)))*(BubN(-3 + d1, d2, denk2, m1, m2))))+((-30.*(BubN(-2 + d1, -2 + d2, denk2, m1, m2)))+aux9)
 	aux11=(-5.*(BubN(-4 + d1, d2, denk2, m1, m2)))+((20.*(BubN(-3 + d1, -1 + d2, denk2, m1, m2)))+aux10)
-	aux12=((5.*(denk2**2))+((5.*(((m1-m2)**2)))+(denk2*((-6.*m1)+(10.*m2)))))*(BubN(d1, d2, denk2, m1, m2))
-	aux13=(denk2**-2.)*(aux11-(((denk2**2)+((((m1-m2)**2))+(2.*(denk2*(m1+m2)))))*aux12))
+	cdef mpc aux12=((5.*(denk2**2))+((5.*(((m1-m2)**2)))+(denk2*((-6.*m1)+(10.*m2)))))*(BubN(d1, d2, denk2, m1, m2))
+	cdef mpc aux13=(denk2**-2.)*(aux11-(((denk2**2)+((((m1-m2)**2))+(2.*(denk2*(m1+m2)))))*aux12))
 	cdef mpc coef2=3*aux13/64
 
 	aux0=-60.*(((3*denk2)+((-7.*m1)+(7.*m2)))*(BubN(-2 + d1, -1 + d2, denk2, m1, m2)))
@@ -763,55 +795,57 @@ cdef mpfr k1dotk2(mpfr k21, mpfr k22, mpfr ksum2):
 @cython.boundscheck(False)
 @cython.wraparound(False)
 cdef mpc Ltrian(long n1, long d1, long n2, long d2, long n3, long d3, 
-		   mpfr k21, mpfr k22, mpfr k23, mpc m1, mpc m2, mpc m3, long m1_ind, long m2_ind, long m3_ind, dict Ltrian_cache):
+		   mpfr k21, mpfr k22, mpfr k23, mpc m1, mpc m2, mpc m3, long m1_ind, long m2_ind, long m3_ind):
 	
-	#arg_list_bin = str(hash((n1,d1,n2,d2,n3,d3,m1_ind,m2_ind,m3_ind)))
+	#note that using hash gives a bug in python version 3.7. Need to use version 3.8 or above
 	arg_list_bin = (n1,d1,n2,d2,n3,d3,m1_ind,m2_ind,m3_ind)
-	# check if value exists in cache
-	if arg_list_bin in Ltrian_cache:
-		#print('hit cache! Args:',n1,d1,n2,d2,n3,d3,m1_ind,m2_ind,m3_ind)
-		return Ltrian_cache[arg_list_bin]
-	
-	cdef mpc result
 
+	# check if value exists in cache
+	cached_result = Ltrian_cache.get(arg_list_bin)
+	if cached_result:
+		return cached_result	
+	#if arg_list_bin in Ltrian_cache:
+	#	return Ltrian_cache[arg_list_bin]
+
+	cdef mpc result
 	if n1 == 0 and n2 == 0 and n3 == 0:
-		result = mpc(TriaN(d1,d2,d3,k21,k22,k23,m1,m2,m3))
+		result = TriaN(d1,d2,d3,k21,k22,k23,m1,m2,m3,m1_ind,m2_ind,m3_ind, TriaN_cache)
 		Ltrian_cache[arg_list_bin] = result
 		return result
 	if d1 == 0 and n1 != 0:
-		result = Ltrian(0,-n1,n2,d2,n3,d3,k21,k22,k23,mpc0,m2,m3, 0, m2_ind, m3_ind, Ltrian_cache)
+		result = Ltrian(0,-n1,n2,d2,n3,d3,k21,k22,k23,mpc0,m2,m3, 0, m2_ind, m3_ind)
 		Ltrian_cache[arg_list_bin] = result
 		return result
 	if d2 == 0 and n2 != 0:
-		result = Ltrian(n1,d1,0,-n2,n3,d3,k21,k22,k23,m1,mpc0,m3, m1_ind, 0, m3_ind,Ltrian_cache)
+		result = Ltrian(n1,d1,0,-n2,n3,d3,k21,k22,k23,m1,mpc0,m3, m1_ind, 0, m3_ind)
 		Ltrian_cache[arg_list_bin] = result
 		return result	
 	if d3 == 0 and n3 != 0:
-		result = Ltrian(n1,d1,n2,d2,0,-n3,k21,k22,k23,m1,m2,mpc0, m1_ind, m2_ind, 0,Ltrian_cache)
+		result = Ltrian(n1,d1,n2,d2,0,-n3,k21,k22,k23,m1,m2,mpc0, m1_ind, m2_ind, 0)
 		Ltrian_cache[arg_list_bin] = result
 		return result
 	if n1 > 0:
-		result = Ltrian(n1-1,d1-1,n2,d2,n3,d3,k21,k22,k23,m1,m2,m3,m1_ind,m2_ind,m3_ind, Ltrian_cache) - m1*Ltrian(n1-1,d1,n2,d2,n3,d3,k21,k22,k23,m1,m2,m3,m1_ind,m2_ind,m3_ind, Ltrian_cache)
+		result = Ltrian(n1-1,d1-1,n2,d2,n3,d3,k21,k22,k23,m1,m2,m3,m1_ind,m2_ind,m3_ind) - m1*Ltrian(n1-1,d1,n2,d2,n3,d3,k21,k22,k23,m1,m2,m3,m1_ind,m2_ind,m3_ind)
 		Ltrian_cache[arg_list_bin] = result
 		return result
 	if n2 > 0:
-		result = Ltrian(n1,d1,n2-1,d2-1,n3,d3,k21,k22,k23,m1,m2,m3,m1_ind,m2_ind,m3_ind, Ltrian_cache) - m2*Ltrian(n1,d1,n2-1,d2,n3,d3,k21,k22,k23,m1,m2,m3,m1_ind,m2_ind,m3_ind, Ltrian_cache)
+		result = Ltrian(n1,d1,n2-1,d2-1,n3,d3,k21,k22,k23,m1,m2,m3,m1_ind,m2_ind,m3_ind) - m2*Ltrian(n1,d1,n2-1,d2,n3,d3,k21,k22,k23,m1,m2,m3,m1_ind,m2_ind,m3_ind)
 		Ltrian_cache[arg_list_bin] = result
 		return result
 	if n3 > 0:
-		result = Ltrian(n1,d1,n2,d2,n3-1,d3-1,k21,k22,k23,m1,m2,m3,m1_ind,m2_ind,m3_ind, Ltrian_cache) - m3*Ltrian(n1,d1,n2,d2,n3-1,d3,k21,k22,k23,m1,m2,m3,m1_ind,m2_ind,m3_ind, Ltrian_cache)
+		result = Ltrian(n1,d1,n2,d2,n3-1,d3-1,k21,k22,k23,m1,m2,m3,m1_ind,m2_ind,m3_ind) - m3*Ltrian(n1,d1,n2,d2,n3-1,d3,k21,k22,k23,m1,m2,m3,m1_ind,m2_ind,m3_ind)
 		Ltrian_cache[arg_list_bin] = result
 		return result
 	if n1 < 0 :
-		result = (Ltrian(n1,d1-1,n2,d2,n3,d3,k21,k22,k23,m1,m2,m3,m1_ind,m2_ind,m3_ind, Ltrian_cache) - Ltrian(n1+1,d1,n2,d2,n3,d3,k21,k22,k23,m1,m2,m3,m1_ind,m2_ind,m3_ind, Ltrian_cache))/m1
+		result = (Ltrian(n1,d1-1,n2,d2,n3,d3,k21,k22,k23,m1,m2,m3,m1_ind,m2_ind,m3_ind) - Ltrian(n1+1,d1,n2,d2,n3,d3,k21,k22,k23,m1,m2,m3,m1_ind,m2_ind,m3_ind))/m1
 		Ltrian_cache[arg_list_bin] = result
 		return result
 	if n2 < 0 :
-		result = (Ltrian(n1,d1,n2,d2-1,n3,d3,k21,k22,k23,m1,m2,m3,m1_ind,m2_ind,m3_ind, Ltrian_cache) - Ltrian(n1,d1,n2+1,d2,n3,d3,k21,k22,k23,m1,m2,m3,m1_ind,m2_ind,m3_ind, Ltrian_cache))/m2
+		result = (Ltrian(n1,d1,n2,d2-1,n3,d3,k21,k22,k23,m1,m2,m3,m1_ind,m2_ind,m3_ind) - Ltrian(n1,d1,n2+1,d2,n3,d3,k21,k22,k23,m1,m2,m3,m1_ind,m2_ind,m3_ind))/m2
 		Ltrian_cache[arg_list_bin] = result
 		return result
 	if n3 < 0:
-		result = (Ltrian(n1,d1,n2,d2,n3,d3-1,k21,k22,k23,m1,m2,m3,m1_ind,m2_ind,m3_ind, Ltrian_cache) - Ltrian(n1,d1,n2,d2,n3+1,d3,k21,k22,k23,m1,m2,m3,m1_ind,m2_ind,m3_ind, Ltrian_cache))/m3
+		result = (Ltrian(n1,d1,n2,d2,n3,d3-1,k21,k22,k23,m1,m2,m3,m1_ind,m2_ind,m3_ind) - Ltrian(n1,d1,n2,d2,n3+1,d3,k21,k22,k23,m1,m2,m3,m1_ind,m2_ind,m3_ind))/m3
 		Ltrian_cache[arg_list_bin] = result
 		return result
 	else:
@@ -849,11 +883,20 @@ cdef mpc Ltrian(long n1, long d1, long n2, long d2, long n3, long d3,
 #		return (Ltrian(n1,d1,n2,d2,n3,d3-1,k21,k22,k23,m1,m2,m3) - Ltrian(n1,d1,n2,d2,n3+1,d3,k21,k22,k23,m1,m2,m3))/m3
 #	print("Error: case not considered in Ltrian")
 
-#@cython.boundscheck(False)
-#@cython.wraparound(False)
-#cpdef double complex Ltrian_complex(long n1, long d1, long n2, long d2, long n3, long d3, 
-#		   mpfr k21, mpfr k22, mpfr k23, mpc m1, mpc m2, mpc m3):
-#	return <double complex>Ltrian(n1,d1,n2,d2,n3,d3,k21,k22,k23,m1,m2,m3)
+
+@cython.boundscheck(False)
+@cython.wraparound(False)
+cdef double complex Ltrian_complex(long n1, long d1, long n2, long d2, long n3, long d3, 
+		   mpfr k21, mpfr k22, mpfr k23, mpc m1, mpc m2, mpc m3,
+		   long m1_ind, long m2_ind, long m3_ind):
+	
+	arg_list = (n1,d1,n2,d2,n3,d3,m1_ind,m2_ind,m3_ind)
+	if arg_list in Ltrian_complex_cache:
+		return Ltrian_complex_cache[arg_list]
+
+	cdef double complex result = <double complex>Ltrian(n1,d1,n2,d2,n3,d3,k21,k22,k23,m1,m2,m3,m1_ind,m2_ind,m3_ind)
+	Ltrian_complex_cache[arg_list] = result
+	return result
 
 
 # BubMaster does not affect the speed 
@@ -884,7 +927,8 @@ cdef mpc Diakr(mpfr a, mpc b, mpc c):
 
 @cython.boundscheck(False)
 @cython.wraparound(False)
-cdef mpc Prefactor(mpfr a, mpc y1, mpc y2):
+#cdef mpc Prefactor(mpfr a, mpc y1, mpc y2):
+def Prefactor(mpfr a, mpc y1, mpc y2):
 	#computes prefactor that shows up in Fint
 
 	cdef mpfr y2re = y2.real
@@ -1029,7 +1073,7 @@ cdef mpc Fint(mpfr aa, mpc Y1, mpc Y2, mpc X0):
 	else:
 		cut = mpc0
 
-	cdef mpc prefac0 = Prefactor(aa,y1,y2)
+	cdef mpc prefac0 = mpc(Prefactor(aa,y1,y2))
 	cdef mpc result = prefac0*(SQRT_PI/2.)*(cut + cutx0 + Antideriv(1,y1,y2,x0) - Antideriv(0,y1,y2,x0))
 
 	return result
