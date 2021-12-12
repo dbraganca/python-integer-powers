@@ -16,9 +16,9 @@ import sys
 #from babiscython_v4_ubuntu_old import Ltrian
 #from babiscython_v4_ubuntu import Ltrian
 from babiscython_v4_ubuntu cimport Ltrian
-from babiscython_v4_ubuntu cimport Ltrian_complex
+#from babiscython_v4_ubuntu cimport Ltrian_complex
 import time
-#from config import Ltrian_cache, Ltrian_complex_cache
+from config import Ltrian_cache
 
 cdef extern from "complex.h":
 	double complex conj(double complex z)
@@ -212,7 +212,7 @@ cdef double computefull(long[:] d1new, long[:] d2basis, long[:] d3basis, long n1
 				Ltrian_temp = <double complex>Ltrian(exp_num_j, exp_den_j, exp_num_i, exp_den_i, exp_num_l, exp_den_l, 
 							k1sq, k2sq, k3sq,
 							mass_j, mass_i, mass_l,
-							mass_ind_j, mass_ind_i, mass_ind_l)
+							mass_ind_j, mass_ind_i, mass_ind_l, Ltrian_cache)
 
 				result_temp_d3 = result_temp_d3 + coef_d3_indx3 * Ltrian_temp
 
@@ -269,7 +269,7 @@ cdef double computed1zero(long[:] d2new, long[:] d3basis, long n1, long n2, long
 			mass_ind_j = fbabisparamtab_mass_ind[j]
 
 			Ltrian_temp = <double complex>Ltrian(exp_num_i, exp_den_i, -n1, 0, exp_num_j, exp_den_j, 
-			k1sq, k2sq, k3sq, mass_i, mpc0, mass_j, mass_ind_i, 0, mass_ind_j)
+			k1sq, k2sq, k3sq, mass_i, mpc0, mass_j, mass_ind_i, 0, mass_ind_j, Ltrian_cache)
 
 			result_temp_d3 = result_temp_d3 + coef_d3_indx3 * Ltrian_temp
 
@@ -323,7 +323,7 @@ cdef double computed2zero(long[:] d1new, long[:] d3basis, long n1, long n2, long
 			mass_ind_j = fbabisparamtab_mass_ind[j]
 
 			Ltrian_temp = <double complex>Ltrian(-n2, 0, exp_num_i, exp_den_i, exp_num_j, exp_den_j, k1sq,
-							 k2sq, k3sq, mpc0, mass_i, mass_j, 0, mass_ind_i, mass_ind_j)
+							 k2sq, k3sq, mpc0, mass_i, mass_j, 0, mass_ind_i, mass_ind_j, Ltrian_cache)
 
 			result_temp_d3 = result_temp_d3 + coef_d3_indx3 * Ltrian_temp
 
@@ -378,7 +378,7 @@ cdef double computed3zero(long[:] d1new, long[:] d2basis, long n1, long n2, long
 			mass_ind_j = fbabisparamtab_mass_ind[j]
 
 			Ltrian_temp = <double complex>Ltrian(exp_num_j, exp_den_j, exp_num_i, exp_den_i, -n3, 0, 
-			k1sq, k2sq, k3sq, mass_j, mass_i, mpc0, mass_ind_j, mass_ind_i, 0)
+			k1sq, k2sq, k3sq, mass_j, mass_i, mpc0, mass_ind_j, mass_ind_i, 0, Ltrian_cache)
 
 			result_temp_d2 = result_temp_d2 + coef_d2_indx2 * Ltrian_temp
 
@@ -415,7 +415,7 @@ cdef double computed3(long[:] d3new, long n1, long n2, long n3, long d3, mpfr k1
 		mass_ind_i = fbabisparamtab_mass_ind[i]
 		
 		Ltrian_temp = <double complex>Ltrian(-n2, 0, -n1, 0, exp_num_i, exp_den_i, k1sq, k2sq, k3sq, 
-		mpc0, mpc0, mass_i, 0, 0, mass_ind_i)
+		mpc0, mpc0, mass_i, 0, 0, mass_ind_i, Ltrian_cache)
 
 
 		result = result + coef_d3_indx * Ltrian_temp
@@ -450,7 +450,7 @@ cdef double computed2(long[:] d2new, long n1, long n2, long n3, long d2, mpfr k1
 		mass_ind_i = fbabisparamtab_mass_ind[i]
 		
 		Ltrian_temp = <double complex>Ltrian(exp_num_i, exp_den_i, -n1, 0, -n3, 0, k1sq, k2sq, k3sq, 
-		mass_i, mpc0, mpc0, mass_ind_i, 0, 0)
+		mass_i, mpc0, mpc0, mass_ind_i, 0, 0, Ltrian_cache)
 
 		result = result + coef_d2_indx * Ltrian_temp
 
@@ -484,7 +484,7 @@ cdef double computed1(long[:] d1new, long n1, long n2, long n3, long d1, mpfr k1
 		mass_ind_i = fbabisparamtab_mass_ind[i]
 		
 		Ltrian_temp = <double complex>Ltrian(-n2, 0, exp_num_i, exp_den_i, -n3, 0, k1sq, k2sq, k3sq, 
-		mpc0, mass_i, mpc0, 0, mass_ind_i, 0)
+		mpc0, mass_i, mpc0, 0, mass_ind_i, 0, Ltrian_cache)
 
 		result = result + coef_d1_indx * Ltrian_temp
 
@@ -523,7 +523,7 @@ cpdef double computeJ(long n1, long n2, long n3,
 		return computed3(d3basis[::2], n1, n2, n3, d3, k1sq, k2sq, k3sq)
 
 	if d1 == 0 and d2 == 0 and d3 == 0:
-		return <double>Ltrian(-n2, 0, -n1, 0, -n3, 0, k1sq, k2sq, k3sq, mpc0, mpc0, mpc0,0,0,0).real/(8  * PI * SQRT_PI)
+		return <double>Ltrian(-n2, 0, -n1, 0, -n3, 0, k1sq, k2sq, k3sq, mpc0, mpc0, mpc0,0,0,0, Ltrian_cache).real/(8  * PI * SQRT_PI)
 	
 	print("Case not considered in ComputeJ")
 	
