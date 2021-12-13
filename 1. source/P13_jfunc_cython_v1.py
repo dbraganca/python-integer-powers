@@ -4,26 +4,24 @@ import sys
 from functools import lru_cache
 import pandas as pd
 
-# from babiscython_v4_ubuntu import Ltrian as L
 from Jfunc_cython_v4 import computeJ as J
-# from computeJ_Guido import computeJ as J
 import gmpy2 as gm
 from gmpy2 import *
 import time
+
+from config import Ltrian_cache, TriaN_cache
 
 gm.get_context().precision = 190
 gm.get_context().allow_complex = True
 
 # define in and out folders
-ctabfolder = '../../3. Ctabs/P13ctabks/'
-outputfolder = '../../2. Jmat_loopvals/P13_Jmat_cython/'
-
+ctabfolder = '../3. Ctabs/P13ctabks/'
+outputfolder = '../2. Jmat_loopvals/P13_Jmat_cython/'
 
 if not(os.path.exists(outputfolder)):
 	os.makedirs(outputfolder)
 
 filelist = [f for f in os.listdir(ctabfolder) if not f.startswith('.')]
-print(filelist)
 
 def computeker(i1, k2, ctab_ns, ctab_coefs, Jtriantable):
 	mpfr0 = mpfr(0)
@@ -58,12 +56,14 @@ def compute_P13_jmat(filename):
 	ctab_coefs = ctab[:,2].astype(float)
 
 	Jtriantable = np.empty(16,dtype=float)
-	start_time = time.time()
 
+	# clear cache
+	Ltrian_cache.clear()
+	TriaN_cache.clear()
+	
 	for i1 in range(16):
 		print(i1)
 		computeker(i1, k12, ctab_ns, ctab_coefs, Jtriantable)
-	print("--- %s seconds ---" % (time.time() - start_time))
 
 	# Output table to csv
 	out_filename =  outputfolder + 'P13_Jfunc_'+ str(float(k1)) + '_' +'.csv'

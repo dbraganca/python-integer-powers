@@ -4,26 +4,25 @@ import sys
 from functools import lru_cache
 import pandas as pd
 
-# from babiscython_v4_ubuntu import Ltrian as L
 from Jfunc_cython_v4 import computeJ as J
-# from computeJ_Guido import computeJ as J
+
 import gmpy2 as gm
 from gmpy2 import *
 import time
+
+from config import Ltrian_cache, TriaN_cache
 
 gm.get_context().precision = 190
 gm.get_context().allow_complex = True
 
 # define in and out folders
-ctabfolder = '../../3. Ctabs/P22ctabks/'
-outputfolder = '../../2. Jmat_loopvals/P22_Jmat_cython/'
+ctabfolder = '../3. Ctabs/P22ctabks/'
+outputfolder = '../2. Jmat_loopvals/P22_Jmat_cython/'
 
 if not(os.path.exists(outputfolder)):
 	os.makedirs(outputfolder)
 
 filelist = [f for f in os.listdir(ctabfolder) if not f.startswith('.')]
-print(filelist)
-
 
 def computeker(i1, i2, k2, ctab_ns, ctab_coefs, Jtriantable):
 	mpfr0 = mpfr(0)
@@ -57,23 +56,30 @@ def compute_P22_jmat(filename):
 	ctab_coefs = ctab[:,2].astype(float)
 
 	Jtriantable = np.empty((16,16),dtype=float)
-	start_time = time.time()
+
+	# clear cache
+	Ltrian_cache.clear()
+	TriaN_cache.clear()
 
 	for i1 in range(16):
 		print(i1)
 		for i2 in range(16):
 			computeker(i1,i2, k12, ctab_ns, ctab_coefs, Jtriantable)
 
-	print("--- %s seconds ---" % (time.time() - start_time))
 	# Output table to csv
 	out_filename =  outputfolder + 'P22_Jfunc_'+ str(float(k1)) + '_' +'.csv'
 	np.savetxt(out_filename, Jtriantable, delimiter=',')
 
 # loop over files in folder
-for file in reversed(filelist):
-	k1 = get_ks(file)
-	out_filename =  outputfolder + 'P22_Jfunc_'+ str(float(k1)) + '_' +'.csv'
-	if not(os.path.isfile(out_filename)):
-		start_time = time.time()
-		compute_P22_jmat(file)
-		print("--- %s seconds ---" % (time.time() - start_time))
+def compute_all_P22():
+	for file in reversed(filelist):
+		k1 = get_ks(file)
+		out_filename =  outputfolder + 'P22_Jfunc_'+ str(float(k1)) + '_' +'.csv'
+		if not(os.path.isfile(out_filename)):
+			start_time = time.time()
+			compute_P22_jmat(file)
+			end_time = time.time()
+			print("--- %s seconds ---" % (end_time - start_time))
+
+if __name__ == "__main__":
+	compute_all_P22()
