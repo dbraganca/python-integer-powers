@@ -9,6 +9,8 @@ import gmpy2 as gm
 from gmpy2 import *
 import time
 
+from config import Ltrian_cache, TriaN_cache
+
 gm.get_context().precision = 190
 gm.get_context().allow_complex = True
 
@@ -81,6 +83,10 @@ def compute_B411_jmat(filename):
 
 	Jtriantable = np.empty((16,),dtype=float)
 
+	# clear cache
+	Ltrian_cache.clear()
+	TriaN_cache.clear()
+
 	for i1 in range(16):
 		print(i1)
 		computeker(i1, k12, k22, k32, ctab_ns, ctab_coefs, Jtriantable)
@@ -90,7 +96,6 @@ def compute_B411_jmat(filename):
 	out_filename = outputfolder + 'B411Redshift_Jfunc_'+str(float(k1))+'_' + str(float(k2)) + '_' + str(float(k3)) + '_' +'.csv'
 	out_df.to_csv(out_filename, index = False)
 	
-begin_time = time.time()
 for file in filelist:
 	(k1,k2,k3)=get_ks(file)
 	
@@ -99,5 +104,5 @@ for file in filelist:
 		if k1==k2 and k2==k3:
 			start_time = time.time()
 			compute_B411_jmat(file)
-			print("--- %s seconds ---" % (time.time() - start_time))
-print("--- %s seconds ---" % (time.time() - begin_time))
+			end_time = time.time()
+			print("--- %s seconds ---" % (end_time - start_time))

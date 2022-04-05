@@ -12,9 +12,6 @@ from gmpy2 import atan, log, sqrt, gamma, acos
 from gmpy2 cimport *
 import os
 import sys
-# from functools import lru_cache
-#from babiscython_v4_ubuntu_old import Ltrian
-#from babiscython_v4_ubuntu import Ltrian
 from babiscython_v4_ubuntu cimport Ltrian
 #from babiscython_v4_ubuntu cimport Ltrian_complex
 import time
@@ -36,6 +33,7 @@ cdef mpfr kpeak1 = mpfr(str(-0.034))
 cdef mpfr kpeak2 = mpfr(str(-0.001))
 cdef mpfr kpeak3 = mpfr(str(-0.000076))
 cdef mpfr kpeak4 = mpfr(str(-0.0000156))
+cdef mpfr kuv0 = mpfr(str(0.0001)) # For new function, simple propagator
 cdef mpfr kuv1 = mpfr(str(0.069))
 cdef mpfr kuv2 = mpfr(str(0.0082))
 cdef mpfr kuv3 = mpfr(str(0.0013))
@@ -47,9 +45,11 @@ cdef long lenfdiogo = 16
 matarray_val = np.reshape(np.fromfile('matdiogotobabis', np.complex128),(lenfdiogo,lenfbabis))
 cdef double complex[:,:] matdiogotobabisnowig = matarray_val
 
-cdef mpc mass1 = -kpeak1 + 1j*kuv1
-cdef mpc mass1conj = mass1.conjugate()
-
+mass_dict = {-1: mpc0, 0: kuv0 - 0.j, 
+			1: -kpeak1 - 1j*kuv1, 2: -kpeak1 + 1j*kuv1,
+			3: -kpeak2 - 1j*kuv2, 4: -kpeak2 + 1j*kuv2,
+			5: -kpeak3 - 1j*kuv3, 6: -kpeak3 + 1j*kuv3,
+			7: -kpeak4 - 1j*kuv4, 8: -kpeak4 + 1j*kuv4}
 
 fbabisparamtab = np.zeros((lenfbabis,4),dtype=object)
 #first column: mass value
@@ -57,39 +57,39 @@ fbabisparamtab = np.zeros((lenfbabis,4),dtype=object)
 #third column: numerator exponent of babis function
 #fourth column: denominator exponent of babis function
 
-fbabisparamtab[0]=[ mpc0, 0, 0, 0]
-fbabisparamtab[1]=[ -kpeak2 - 1j*kuv2, 3, 1, 1]
-fbabisparamtab[2]=[ -kpeak2 + 1j*kuv2, 4, 1, 1]
-fbabisparamtab[3]=[ -kpeak3 - 1j*kuv3, 5, 0, 1]
-fbabisparamtab[4]=[ -kpeak3 + 1j*kuv3, 6, 0, 1]
-fbabisparamtab[5]=[ -kpeak3 - 1j*kuv3, 5, 0, 2]
-fbabisparamtab[6]=[ -kpeak3 + 1j*kuv3, 6, 0, 2]
-fbabisparamtab[7]=[ -kpeak4 - 1j*kuv4, 7, 0, 1]
-fbabisparamtab[8]=[ -kpeak4 + 1j*kuv4, 8, 0, 1]
-fbabisparamtab[9]=[ -kpeak1 - 1j*kuv1, 1, 0, 1]
-fbabisparamtab[10]=[ -kpeak1 + 1j*kuv1, 2, 0, 1]
-fbabisparamtab[11]=[ -kpeak2 - 1j*kuv2, 3, 1, 2]
-fbabisparamtab[12]=[ -kpeak2 + 1j*kuv2, 4, 1, 2]
-fbabisparamtab[13]=[ -kpeak3 - 1j*kuv3, 5, 0, 3]
-fbabisparamtab[14]=[ -kpeak3 + 1j*kuv3, 6, 0, 3]
-fbabisparamtab[15]=[ -kpeak4 - 1j*kuv4, 7, 0, 2]
-fbabisparamtab[16]=[ -kpeak4 + 1j*kuv4, 8, 0, 2]
-fbabisparamtab[17]=[ -kpeak1 - 1j*kuv1, 1, 0, 2]
-fbabisparamtab[18]=[ -kpeak1 + 1j*kuv1, 2, 0, 2]
-fbabisparamtab[19]=[ -kpeak2 - 1j*kuv2, 3, 1, 3]
-fbabisparamtab[20]=[ -kpeak2 + 1j*kuv2, 4, 1, 3]
-fbabisparamtab[21]=[ -kpeak3 - 1j*kuv3, 5, 0, 4]
-fbabisparamtab[22]=[ -kpeak3 + 1j*kuv3, 6, 0, 4]
-fbabisparamtab[23]=[ -kpeak4 - 1j*kuv4, 7, 0, 3]
-fbabisparamtab[24]=[ -kpeak4 + 1j*kuv4, 8, 0, 3]
-fbabisparamtab[25]=[ -kpeak1 - 1j*kuv1, 1, 0, 3]
-fbabisparamtab[26]=[ -kpeak1 + 1j*kuv1, 2, 0, 3]
-fbabisparamtab[27]=[ -kpeak2 - 1j*kuv2, 3, 1, 4]
-fbabisparamtab[28]=[ -kpeak2 + 1j*kuv2, 4, 1, 4]
-fbabisparamtab[29]=[ -kpeak3 - 1j*kuv3, 5, 0, 5]
-fbabisparamtab[30]=[ -kpeak3 + 1j*kuv3, 6, 0, 5]
-fbabisparamtab[31]=[ -kpeak4 - 1j*kuv4, 7, 0, 4]
-fbabisparamtab[32]=[ -kpeak4 + 1j*kuv4, 8, 0, 4]
+fbabisparamtab[0]=[ mass_dict[0], 0, 0, 0]
+fbabisparamtab[1]=[ mass_dict[3], 3, 1, 1]
+fbabisparamtab[2]=[ mass_dict[4], 4, 1, 1]
+fbabisparamtab[3]=[ mass_dict[5], 5, 0, 1]
+fbabisparamtab[4]=[ mass_dict[6], 6, 0, 1]
+fbabisparamtab[5]=[ mass_dict[5], 5, 0, 2]
+fbabisparamtab[6]=[ mass_dict[6], 6, 0, 2]
+fbabisparamtab[7]=[ mass_dict[7], 7, 0, 1]
+fbabisparamtab[8]=[ mass_dict[8], 8, 0, 1]
+fbabisparamtab[9]=[ mass_dict[1], 1, 0, 1]
+fbabisparamtab[10]=[ mass_dict[2], 2, 0, 1]
+fbabisparamtab[11]=[ mass_dict[3], 3, 1, 2]
+fbabisparamtab[12]=[ mass_dict[4], 4, 1, 2]
+fbabisparamtab[13]=[ mass_dict[5], 5, 0, 3]
+fbabisparamtab[14]=[ mass_dict[6], 6, 0, 3]
+fbabisparamtab[15]=[ mass_dict[7], 7, 0, 2]
+fbabisparamtab[16]=[ mass_dict[8], 8, 0, 2]
+fbabisparamtab[17]=[ mass_dict[1], 1, 0, 2]
+fbabisparamtab[18]=[ mass_dict[2], 2, 0, 2]
+fbabisparamtab[19]=[ mass_dict[3], 3, 1, 3]
+fbabisparamtab[20]=[ mass_dict[4], 4, 1, 3]
+fbabisparamtab[21]=[ mass_dict[5], 5, 0, 4]
+fbabisparamtab[22]=[ mass_dict[6], 6, 0, 4]
+fbabisparamtab[23]=[ mass_dict[7], 7, 0, 3]
+fbabisparamtab[24]=[ mass_dict[8], 8, 0, 3]
+fbabisparamtab[25]=[ mass_dict[1], 1, 0, 3]
+fbabisparamtab[26]=[ mass_dict[2], 2, 0, 3]
+fbabisparamtab[27]=[ mass_dict[3], 3, 1, 4]
+fbabisparamtab[28]=[ mass_dict[4], 4, 1, 4]
+fbabisparamtab[29]=[ mass_dict[5], 5, 0, 5]
+fbabisparamtab[30]=[ mass_dict[6], 6, 0, 5]
+fbabisparamtab[31]=[ mass_dict[7], 7, 0, 4]
+fbabisparamtab[32]=[ mass_dict[8], 8, 0, 4]
 
 fbabisparamtab_masses_arr = fbabisparamtab[:,0].astype(mpc)
 cdef mpc[:] fbabisparamtab_masses = fbabisparamtab_masses_arr
@@ -269,7 +269,7 @@ cdef double computed1zero(long[:] d2new, long[:] d3basis, long n1, long n2, long
 			mass_ind_j = fbabisparamtab_mass_ind[j]
 
 			Ltrian_temp = <double complex>Ltrian(exp_num_i, exp_den_i, -n1, 0, exp_num_j, exp_den_j, 
-			k1sq, k2sq, k3sq, mass_i, mpc0, mass_j, mass_ind_i, 0, mass_ind_j, Ltrian_cache)
+			k1sq, k2sq, k3sq, mass_i, mpc0, mass_j, mass_ind_i, -1, mass_ind_j, Ltrian_cache)
 
 			result_temp_d3 = result_temp_d3 + coef_d3_indx3 * Ltrian_temp
 
@@ -323,7 +323,7 @@ cdef double computed2zero(long[:] d1new, long[:] d3basis, long n1, long n2, long
 			mass_ind_j = fbabisparamtab_mass_ind[j]
 
 			Ltrian_temp = <double complex>Ltrian(-n2, 0, exp_num_i, exp_den_i, exp_num_j, exp_den_j, k1sq,
-							 k2sq, k3sq, mpc0, mass_i, mass_j, 0, mass_ind_i, mass_ind_j, Ltrian_cache)
+							 k2sq, k3sq, mpc0, mass_i, mass_j, -1, mass_ind_i, mass_ind_j, Ltrian_cache)
 
 			result_temp_d3 = result_temp_d3 + coef_d3_indx3 * Ltrian_temp
 
@@ -378,7 +378,7 @@ cdef double computed3zero(long[:] d1new, long[:] d2basis, long n1, long n2, long
 			mass_ind_j = fbabisparamtab_mass_ind[j]
 
 			Ltrian_temp = <double complex>Ltrian(exp_num_j, exp_den_j, exp_num_i, exp_den_i, -n3, 0, 
-			k1sq, k2sq, k3sq, mass_j, mass_i, mpc0, mass_ind_j, mass_ind_i, 0, Ltrian_cache)
+			k1sq, k2sq, k3sq, mass_j, mass_i, mpc0, mass_ind_j, mass_ind_i, -1, Ltrian_cache)
 
 			result_temp_d2 = result_temp_d2 + coef_d2_indx2 * Ltrian_temp
 
@@ -415,7 +415,7 @@ cdef double computed3(long[:] d3new, long n1, long n2, long n3, long d3, mpfr k1
 		mass_ind_i = fbabisparamtab_mass_ind[i]
 		
 		Ltrian_temp = <double complex>Ltrian(-n2, 0, -n1, 0, exp_num_i, exp_den_i, k1sq, k2sq, k3sq, 
-		mpc0, mpc0, mass_i, 0, 0, mass_ind_i, Ltrian_cache)
+		mpc0, mpc0, mass_i, -1, -1, mass_ind_i, Ltrian_cache)
 
 
 		result = result + coef_d3_indx * Ltrian_temp
@@ -450,7 +450,7 @@ cdef double computed2(long[:] d2new, long n1, long n2, long n3, long d2, mpfr k1
 		mass_ind_i = fbabisparamtab_mass_ind[i]
 		
 		Ltrian_temp = <double complex>Ltrian(exp_num_i, exp_den_i, -n1, 0, -n3, 0, k1sq, k2sq, k3sq, 
-		mass_i, mpc0, mpc0, mass_ind_i, 0, 0, Ltrian_cache)
+		mass_i, mpc0, mpc0, mass_ind_i, -1, -1, Ltrian_cache)
 
 		result = result + coef_d2_indx * Ltrian_temp
 
@@ -484,7 +484,7 @@ cdef double computed1(long[:] d1new, long n1, long n2, long n3, long d1, mpfr k1
 		mass_ind_i = fbabisparamtab_mass_ind[i]
 		
 		Ltrian_temp = <double complex>Ltrian(-n2, 0, exp_num_i, exp_den_i, -n3, 0, k1sq, k2sq, k3sq, 
-		mpc0, mass_i, mpc0, 0, mass_ind_i, 0, Ltrian_cache)
+		mpc0, mass_i, mpc0, -1, mass_ind_i, -1, Ltrian_cache)
 
 		result = result + coef_d1_indx * Ltrian_temp
 
@@ -501,29 +501,43 @@ cpdef double computeJ(long n1, long n2, long n3,
 	cdef long[:] d2basis = dtab[d2]
 	cdef long[:] d3basis = dtab[d3]
 
-	if d1 != 0 and d2 != 0 and d3 != 0:
+	if d1 >= 0 and d2 >= 0 and d3 >= 0:
+		if d1 == 0: 
+			return 0.5 * computefull(d1basis[::2], d2basis, d3basis, n1, n2, n3, d1, d2, d3, k1sq, k2sq, k3sq)
 		return computefull(d1basis[::2], d2basis, d3basis, n1, n2, n3, d1, d2, d3, k1sq, k2sq, k3sq)
 
-	if d1 != 0 and d2 != 0 and d3 == 0:
+	if d1 >= 0 and d2 >= 0 and d3 == -1:
+		if d1 == 0:
+			return 0.5 * computed3zero(d1basis[::2], d2basis, n1, n2, n3, d1, d2, k1sq, k2sq, k3sq)
 		return computed3zero(d1basis[::2], d2basis, n1, n2, n3, d1, d2, k1sq, k2sq, k3sq)
 
-	if d1 != 0 and d2 == 0 and d3 != 0:
+	if d1 >= 0 and d2 == -1 and d3 >= 0:
+		if d1 == 0:
+			return 0.5 * computed2zero(d1basis[::2], d3basis, n1, n2, n3, d1, d3, k1sq, k2sq, k3sq)
 		return computed2zero(d1basis[::2], d3basis, n1, n2, n3, d1, d3, k1sq, k2sq, k3sq)
 
-	if d1 == 0 and d2 != 0 and d3 != 0:
+	if d1 == -1 and d2 >= 0 and d3 >= 0:
+		if d2 == 0:
+			return 0.5 * computed1zero(d2basis[::2], d3basis, n1, n2, n3, d2, d3, k1sq, k2sq, k3sq)
 		return computed1zero(d2basis[::2], d3basis, n1, n2, n3, d2, d3, k1sq, k2sq, k3sq)
 
-	if d1 != 0 and d2 == 0 and d3 == 0:
+	if d1 >= 0 and d2 == -1 and d3 == -1:
+		if d1 == 0:
+			return 0.5 * computed1(d1basis[::2], n1, n2, n3, d1, k1sq, k2sq, k3sq)
 		return computed1(d1basis[::2], n1, n2, n3, d1, k1sq, k2sq, k3sq)
 
-	if d1 == 0 and d2 != 0 and d3 == 0:
+	if d1 == -1 and d2 >= 0 and d3 == -1:
+		if d2 == 0:
+			return 0.5 * computed2(d2basis[::2], n1, n2, n3, d2, k1sq, k2sq, k3sq)
 		return computed2(d2basis[::2], n1, n2, n3, d2, k1sq, k2sq, k3sq)
 
-	if d1 == 0 and d2 == 0 and d3 != 0:
+	if d1 == -1 and d2 == -1 and d3 >= 0:
+		if d3 == 0:
+			return 0.5 * computed3(d3basis[::2], n1, n2, n3, d3, k1sq, k2sq, k3sq)
 		return computed3(d3basis[::2], n1, n2, n3, d3, k1sq, k2sq, k3sq)
 
-	if d1 == 0 and d2 == 0 and d3 == 0:
-		return <double>Ltrian(-n2, 0, -n1, 0, -n3, 0, k1sq, k2sq, k3sq, mpc0, mpc0, mpc0,0,0,0, Ltrian_cache).real/(8  * PI * SQRT_PI)
+	if d1 == -1 and d2 == -1 and d3 == -1:
+		return <double>Ltrian(-n2, 0, -n1, 0, -n3, 0, k1sq, k2sq, k3sq, mpc0, mpc0, mpc0, -1, -1, -1, Ltrian_cache).real/(8  * PI * SQRT_PI)
 	
 	print("Case not considered in ComputeJ")
 	
