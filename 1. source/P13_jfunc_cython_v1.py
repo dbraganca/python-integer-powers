@@ -23,21 +23,20 @@ if not(os.path.exists(outputfolder)):
 
 filelist = [f for f in os.listdir(ctabfolder) if not f.startswith('.')]
 
+def get_ks(filename):
+	# filename = 'B222ctab_' + k1str + '_' + k2str + '_' + k3str + '_.csv'
+	k1 = mpfr(str.split(filename,'_')[1])
+	return k1
+
 def computeker(i1, k2, ctab_ns, ctab_coefs, Jtriantable):
 	mpfr0 = mpfr(0)
 	numker = len(ctab_coefs)
 	res = 0
 	for i in range(numker):
 		if ctab_coefs[i] != 0:
-			res += ctab_coefs[i]*J(-ctab_ns[i,0], -ctab_ns[i,1], 0, i1, 0, 0, k2, mpfr0, mpfr0)			
+			res += ctab_coefs[i]*J(-ctab_ns[i,0], -ctab_ns[i,1], 0, i1, -1, -1, k2, mpfr0, mpfr0)			
 	Jtriantable[i1] = res
 	return res
-
-def get_ks(filename):
-	# filename = 'B222ctab_' + k1str + '_' + k2str + '_' + k3str + '_.csv'
-	k1 = mpfr(str.split(filename,'_')[1])
-	return k1
-
 
 def compute_P13_jmat(filename):
 
@@ -69,10 +68,14 @@ def compute_P13_jmat(filename):
 	out_filename =  outputfolder + 'P13_Jfunc_'+ str(float(k1)) + '_' +'.csv'
 	np.savetxt(out_filename, Jtriantable, delimiter=',')
 
-for file in reversed(filelist):
-	k1 = get_ks(file)
-	out_filename =  outputfolder + 'P13_Jfunc_'+ str(float(k1)) + '_' +'.csv'
-	if not(os.path.isfile(out_filename)):	
-		start_time = time.time()
-		compute_P13_jmat(file)
-		print("--- %s seconds ---" % (time.time() - start_time))
+def compute_all_P13():
+	for file in reversed(filelist):
+		k1 = get_ks(file)
+		out_filename =  outputfolder + 'P13_Jfunc_'+ str(float(k1)) + '_' +'.csv'
+		if not(os.path.isfile(out_filename)):	
+			start_time = time.time()
+			compute_P13_jmat(file)
+			print("--- %s seconds ---" % (time.time() - start_time))
+
+if __name__ == "__main__":
+	compute_all_P13()

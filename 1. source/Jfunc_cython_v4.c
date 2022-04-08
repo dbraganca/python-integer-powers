@@ -2440,7 +2440,6 @@ static const char __pyx_k_fbabisparamtab[] = "fbabisparamtab";
 static const char __pyx_k_View_MemoryView[] = "View.MemoryView";
 static const char __pyx_k_allocate_buffer[] = "allocate_buffer";
 static const char __pyx_k_dtype_is_object[] = "dtype_is_object";
-static const char __pyx_k_matdiogotobabis[] = "matdiogotobabis";
 static const char __pyx_k_pyx_PickleError[] = "__pyx_PickleError";
 static const char __pyx_k_setstate_cython[] = "__setstate_cython__";
 static const char __pyx_k_pyx_unpickle_Enum[] = "__pyx_unpickle_Enum";
@@ -2452,6 +2451,7 @@ static const char __pyx_k_MemoryView_of_r_object[] = "<MemoryView of %r object>"
 static const char __pyx_k_MemoryView_of_r_at_0x_x[] = "<MemoryView of %r at 0x%x>";
 static const char __pyx_k_contiguous_and_indirect[] = "<contiguous and indirect>";
 static const char __pyx_k_fbabisparamtab_exps_arr[] = "fbabisparamtab_exps_arr";
+static const char __pyx_k_matdiogotobabisnewbasis[] = "matdiogotobabisnewbasis";
 static const char __pyx_k_Cannot_index_with_type_s[] = "Cannot index with type '%s'";
 static const char __pyx_k_Invalid_shape_in_axis_d_d[] = "Invalid shape in axis %d: %d.";
 static const char __pyx_k_fbabisparamtab_masses_arr[] = "fbabisparamtab_masses_arr";
@@ -2557,7 +2557,7 @@ static PyObject *__pyx_n_s_log;
 static PyObject *__pyx_n_s_main;
 static PyObject *__pyx_n_s_mass_dict;
 static PyObject *__pyx_n_s_matarray_val;
-static PyObject *__pyx_n_s_matdiogotobabis;
+static PyObject *__pyx_n_s_matdiogotobabisnewbasis;
 static PyObject *__pyx_n_s_memview;
 static PyObject *__pyx_n_s_mode;
 static PyObject *__pyx_n_s_n1;
@@ -4218,25 +4218,33 @@ static double __pyx_f_15Jfunc_cython_v4_computed1zero(__Pyx_memviewslice __pyx_v
       __pyx_t_10 = __pyx_v_j;
       __pyx_v_mass_ind_j = (*((long *) ( /* dim=0 */ (__pyx_v_15Jfunc_cython_v4_fbabisparamtab_mass_ind.data + __pyx_t_10 * __pyx_v_15Jfunc_cython_v4_fbabisparamtab_mass_ind.strides[0]) )));
 
-      /* "Jfunc_cython_v4.pyx":272
- * 
+      /* "Jfunc_cython_v4.pyx":273
  * 			Ltrian_temp = <double complex>Ltrian(exp_num_i, exp_den_i, -n1, 0, exp_num_j, exp_den_j,
- * 			k1sq, k2sq, k3sq, mass_i, mpc0, mass_j, mass_ind_i, -1, mass_ind_j, Ltrian_cache)             # <<<<<<<<<<<<<<
+ * 			k1sq, k2sq, k3sq,
+ * 			mass_i, mpc0, mass_j,             # <<<<<<<<<<<<<<
+ * 			mass_ind_i, -1, mass_ind_j, Ltrian_cache)
  * 
- * 			result_temp_d3 = result_temp_d3 + coef_d3_indx3 * Ltrian_temp
  */
       __pyx_t_3 = ((PyObject *)__pyx_v_15Jfunc_cython_v4_mpc0);
       __Pyx_INCREF(__pyx_t_3);
-      __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_Ltrian_cache); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 272, __pyx_L1_error)
+
+      /* "Jfunc_cython_v4.pyx":274
+ * 			k1sq, k2sq, k3sq,
+ * 			mass_i, mpc0, mass_j,
+ * 			mass_ind_i, -1, mass_ind_j, Ltrian_cache)             # <<<<<<<<<<<<<<
+ * 
+ * 			result_temp_d3 = result_temp_d3 + coef_d3_indx3 * Ltrian_temp
+ */
+      __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_Ltrian_cache); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 274, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_4);
-      if (!(likely(PyDict_CheckExact(__pyx_t_4))||((__pyx_t_4) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "dict", Py_TYPE(__pyx_t_4)->tp_name), 0))) __PYX_ERR(0, 272, __pyx_L1_error)
+      if (!(likely(PyDict_CheckExact(__pyx_t_4))||((__pyx_t_4) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "dict", Py_TYPE(__pyx_t_4)->tp_name), 0))) __PYX_ERR(0, 274, __pyx_L1_error)
 
       /* "Jfunc_cython_v4.pyx":271
  * 			mass_ind_j = fbabisparamtab_mass_ind[j]
  * 
  * 			Ltrian_temp = <double complex>Ltrian(exp_num_i, exp_den_i, -n1, 0, exp_num_j, exp_den_j,             # <<<<<<<<<<<<<<
- * 			k1sq, k2sq, k3sq, mass_i, mpc0, mass_j, mass_ind_i, -1, mass_ind_j, Ltrian_cache)
- * 
+ * 			k1sq, k2sq, k3sq,
+ * 			mass_i, mpc0, mass_j,
  */
       __pyx_t_5 = ((PyObject *)__pyx_f_21babiscython_v4_ubuntu_Ltrian(__pyx_v_exp_num_i, __pyx_v_exp_den_i, (-__pyx_v_n1), 0, __pyx_v_exp_num_j, __pyx_v_exp_den_j, __pyx_v_k1sq, __pyx_v_k2sq, __pyx_v_k3sq, __pyx_v_mass_i, ((MPC_Object *)__pyx_t_3), __pyx_v_mass_j, __pyx_v_mass_ind_i, -1L, __pyx_v_mass_ind_j, ((PyObject*)__pyx_t_4))); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 271, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_5);
@@ -4246,8 +4254,8 @@ static double __pyx_f_15Jfunc_cython_v4_computed1zero(__Pyx_memviewslice __pyx_v
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
       __pyx_v_Ltrian_temp = __pyx_t_double_complex_from_parts(((double)__Pyx_CREAL(__pyx_t_15)), ((double)__Pyx_CIMAG(__pyx_t_15)));
 
-      /* "Jfunc_cython_v4.pyx":274
- * 			k1sq, k2sq, k3sq, mass_i, mpc0, mass_j, mass_ind_i, -1, mass_ind_j, Ltrian_cache)
+      /* "Jfunc_cython_v4.pyx":276
+ * 			mass_ind_i, -1, mass_ind_j, Ltrian_cache)
  * 
  * 			result_temp_d3 = result_temp_d3 + coef_d3_indx3 * Ltrian_temp             # <<<<<<<<<<<<<<
  * 
@@ -4256,7 +4264,7 @@ static double __pyx_f_15Jfunc_cython_v4_computed1zero(__Pyx_memviewslice __pyx_v
       __pyx_v_result_temp_d3 = __Pyx_c_sum_double(__pyx_v_result_temp_d3, __Pyx_c_prod_double(__pyx_v_coef_d3_indx3, __pyx_v_Ltrian_temp));
     }
 
-    /* "Jfunc_cython_v4.pyx":276
+    /* "Jfunc_cython_v4.pyx":278
  * 			result_temp_d3 = result_temp_d3 + coef_d3_indx3 * Ltrian_temp
  * 
  * 		result = result + coef_d2_indx2 * result_temp_d3             # <<<<<<<<<<<<<<
@@ -4266,7 +4274,7 @@ static double __pyx_f_15Jfunc_cython_v4_computed1zero(__Pyx_memviewslice __pyx_v
     __pyx_v_result = __Pyx_c_sum_double(__pyx_v_result, __Pyx_c_prod_double(__pyx_v_coef_d2_indx2, __pyx_v_result_temp_d3));
   }
 
-  /* "Jfunc_cython_v4.pyx":278
+  /* "Jfunc_cython_v4.pyx":280
  * 		result = result + coef_d2_indx2 * result_temp_d3
  * 
  * 	return result.real/(4 * PI * SQRT_PI)             # <<<<<<<<<<<<<<
@@ -4276,7 +4284,7 @@ static double __pyx_f_15Jfunc_cython_v4_computed1zero(__Pyx_memviewslice __pyx_v
   __pyx_t_16 = ((4.0 * __pyx_v_15Jfunc_cython_v4_PI) * __pyx_v_15Jfunc_cython_v4_SQRT_PI);
   if (unlikely(__pyx_t_16 == 0)) {
     PyErr_SetString(PyExc_ZeroDivisionError, "float division");
-    __PYX_ERR(0, 278, __pyx_L1_error)
+    __PYX_ERR(0, 280, __pyx_L1_error)
   }
   __pyx_r = (__Pyx_CREAL(__pyx_v_result) / __pyx_t_16);
   goto __pyx_L0;
@@ -4309,7 +4317,7 @@ static double __pyx_f_15Jfunc_cython_v4_computed1zero(__Pyx_memviewslice __pyx_v
   return __pyx_r;
 }
 
-/* "Jfunc_cython_v4.pyx":282
+/* "Jfunc_cython_v4.pyx":284
  * @cython.boundscheck(False)
  * @cython.wraparound(False)
  * cdef double computed2zero(long[:] d1new, long[:] d3basis, long n1, long n2, long n3,             # <<<<<<<<<<<<<<
@@ -4364,7 +4372,7 @@ static double __pyx_f_15Jfunc_cython_v4_computed2zero(__Pyx_memviewslice __pyx_v
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("computed2zero", 0);
 
-  /* "Jfunc_cython_v4.pyx":285
+  /* "Jfunc_cython_v4.pyx":287
  * 		long d1, long d3, mpfr k1sq, mpfr k2sq, mpfr k3sq):
  * 
  * 	cdef double complex Ltrian_temp = 0             # <<<<<<<<<<<<<<
@@ -4373,7 +4381,7 @@ static double __pyx_f_15Jfunc_cython_v4_computed2zero(__Pyx_memviewslice __pyx_v
  */
   __pyx_v_Ltrian_temp = __pyx_t_double_complex_from_parts(0, 0);
 
-  /* "Jfunc_cython_v4.pyx":287
+  /* "Jfunc_cython_v4.pyx":289
  * 	cdef double complex Ltrian_temp = 0
  * 
  * 	cdef long lend1 = len(d1new), lend3 = len(d3basis)             # <<<<<<<<<<<<<<
@@ -4385,33 +4393,33 @@ static double __pyx_f_15Jfunc_cython_v4_computed2zero(__Pyx_memviewslice __pyx_v
   __pyx_t_1 = __Pyx_MemoryView_Len(__pyx_v_d3basis); 
   __pyx_v_lend3 = __pyx_t_1;
 
-  /* "Jfunc_cython_v4.pyx":290
+  /* "Jfunc_cython_v4.pyx":292
  * 	cdef Py_ssize_t indx1, indx3, i, j
  * 
  * 	coef_babis_d1_even_arr =  np.array(matcoefs[d1][::2], dtype= complex)             # <<<<<<<<<<<<<<
  * 	cdef double complex[:] coef_babis_d1_even = coef_babis_d1_even_arr
  * 	cdef double complex coef_d1_indx1
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_np); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 290, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_np); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 292, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_array); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 290, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_array); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 292, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   if (unlikely(__pyx_v_15Jfunc_cython_v4_matcoefs == Py_None)) {
     PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-    __PYX_ERR(0, 290, __pyx_L1_error)
+    __PYX_ERR(0, 292, __pyx_L1_error)
   }
-  __pyx_t_2 = __Pyx_PyObject_GetItem(PyList_GET_ITEM(__pyx_v_15Jfunc_cython_v4_matcoefs, __pyx_v_d1), __pyx_slice_); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 290, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetItem(PyList_GET_ITEM(__pyx_v_15Jfunc_cython_v4_matcoefs, __pyx_v_d1), __pyx_slice_); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 292, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_4 = PyTuple_New(1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 290, __pyx_L1_error)
+  __pyx_t_4 = PyTuple_New(1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 292, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_GIVEREF(__pyx_t_2);
   PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_t_2);
   __pyx_t_2 = 0;
-  __pyx_t_2 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 290, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 292, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_dtype, ((PyObject *)(&PyComplex_Type))) < 0) __PYX_ERR(0, 290, __pyx_L1_error)
-  __pyx_t_5 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_4, __pyx_t_2); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 290, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_dtype, ((PyObject *)(&PyComplex_Type))) < 0) __PYX_ERR(0, 292, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_4, __pyx_t_2); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 292, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
@@ -4419,43 +4427,43 @@ static double __pyx_f_15Jfunc_cython_v4_computed2zero(__Pyx_memviewslice __pyx_v
   __pyx_v_coef_babis_d1_even_arr = __pyx_t_5;
   __pyx_t_5 = 0;
 
-  /* "Jfunc_cython_v4.pyx":291
+  /* "Jfunc_cython_v4.pyx":293
  * 
  * 	coef_babis_d1_even_arr =  np.array(matcoefs[d1][::2], dtype= complex)
  * 	cdef double complex[:] coef_babis_d1_even = coef_babis_d1_even_arr             # <<<<<<<<<<<<<<
  * 	cdef double complex coef_d1_indx1
  * 
  */
-  __pyx_t_6 = __Pyx_PyObject_to_MemoryviewSlice_ds___pyx_t_double_complex(__pyx_v_coef_babis_d1_even_arr, PyBUF_WRITABLE); if (unlikely(!__pyx_t_6.memview)) __PYX_ERR(0, 291, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyObject_to_MemoryviewSlice_ds___pyx_t_double_complex(__pyx_v_coef_babis_d1_even_arr, PyBUF_WRITABLE); if (unlikely(!__pyx_t_6.memview)) __PYX_ERR(0, 293, __pyx_L1_error)
   __pyx_v_coef_babis_d1_even = __pyx_t_6;
   __pyx_t_6.memview = NULL;
   __pyx_t_6.data = NULL;
 
-  /* "Jfunc_cython_v4.pyx":294
+  /* "Jfunc_cython_v4.pyx":296
  * 	cdef double complex coef_d1_indx1
  * 
  * 	coef_babis_d3_arr =  np.array(matcoefs[d3], dtype= complex)             # <<<<<<<<<<<<<<
  * 	cdef double complex[:] coef_babis_d3 = coef_babis_d3_arr
  * 	cdef double complex coef_d3_indx3
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_np); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 294, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_np); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 296, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_array); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 294, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_array); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 296, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   if (unlikely(__pyx_v_15Jfunc_cython_v4_matcoefs == Py_None)) {
     PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-    __PYX_ERR(0, 294, __pyx_L1_error)
+    __PYX_ERR(0, 296, __pyx_L1_error)
   }
-  __pyx_t_5 = PyTuple_New(1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 294, __pyx_L1_error)
+  __pyx_t_5 = PyTuple_New(1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 296, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_INCREF(PyList_GET_ITEM(__pyx_v_15Jfunc_cython_v4_matcoefs, __pyx_v_d3));
   __Pyx_GIVEREF(PyList_GET_ITEM(__pyx_v_15Jfunc_cython_v4_matcoefs, __pyx_v_d3));
   PyTuple_SET_ITEM(__pyx_t_5, 0, PyList_GET_ITEM(__pyx_v_15Jfunc_cython_v4_matcoefs, __pyx_v_d3));
-  __pyx_t_4 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 294, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 296, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_dtype, ((PyObject *)(&PyComplex_Type))) < 0) __PYX_ERR(0, 294, __pyx_L1_error)
-  __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_5, __pyx_t_4); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 294, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_dtype, ((PyObject *)(&PyComplex_Type))) < 0) __PYX_ERR(0, 296, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_5, __pyx_t_4); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 296, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
@@ -4463,19 +4471,19 @@ static double __pyx_f_15Jfunc_cython_v4_computed2zero(__Pyx_memviewslice __pyx_v
   __pyx_v_coef_babis_d3_arr = __pyx_t_3;
   __pyx_t_3 = 0;
 
-  /* "Jfunc_cython_v4.pyx":295
+  /* "Jfunc_cython_v4.pyx":297
  * 
  * 	coef_babis_d3_arr =  np.array(matcoefs[d3], dtype= complex)
  * 	cdef double complex[:] coef_babis_d3 = coef_babis_d3_arr             # <<<<<<<<<<<<<<
  * 	cdef double complex coef_d3_indx3
  * 
  */
-  __pyx_t_6 = __Pyx_PyObject_to_MemoryviewSlice_ds___pyx_t_double_complex(__pyx_v_coef_babis_d3_arr, PyBUF_WRITABLE); if (unlikely(!__pyx_t_6.memview)) __PYX_ERR(0, 295, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyObject_to_MemoryviewSlice_ds___pyx_t_double_complex(__pyx_v_coef_babis_d3_arr, PyBUF_WRITABLE); if (unlikely(!__pyx_t_6.memview)) __PYX_ERR(0, 297, __pyx_L1_error)
   __pyx_v_coef_babis_d3 = __pyx_t_6;
   __pyx_t_6.memview = NULL;
   __pyx_t_6.data = NULL;
 
-  /* "Jfunc_cython_v4.pyx":306
+  /* "Jfunc_cython_v4.pyx":308
  * 	cdef int mass_ind_j
  * 
  * 	cdef double complex result = 0j             # <<<<<<<<<<<<<<
@@ -4484,7 +4492,7 @@ static double __pyx_f_15Jfunc_cython_v4_computed2zero(__Pyx_memviewslice __pyx_v
  */
   __pyx_v_result = __pyx_t_double_complex_from_parts(0, 0.0);
 
-  /* "Jfunc_cython_v4.pyx":307
+  /* "Jfunc_cython_v4.pyx":309
  * 
  * 	cdef double complex result = 0j
  * 	cdef double complex result_temp_d3 = 0j             # <<<<<<<<<<<<<<
@@ -4493,7 +4501,7 @@ static double __pyx_f_15Jfunc_cython_v4_computed2zero(__Pyx_memviewslice __pyx_v
  */
   __pyx_v_result_temp_d3 = __pyx_t_double_complex_from_parts(0, 0.0);
 
-  /* "Jfunc_cython_v4.pyx":308
+  /* "Jfunc_cython_v4.pyx":310
  * 	cdef double complex result = 0j
  * 	cdef double complex result_temp_d3 = 0j
  * 	for indx1 in range(lend1):             # <<<<<<<<<<<<<<
@@ -4505,7 +4513,7 @@ static double __pyx_f_15Jfunc_cython_v4_computed2zero(__Pyx_memviewslice __pyx_v
   for (__pyx_t_9 = 0; __pyx_t_9 < __pyx_t_8; __pyx_t_9+=1) {
     __pyx_v_indx1 = __pyx_t_9;
 
-    /* "Jfunc_cython_v4.pyx":309
+    /* "Jfunc_cython_v4.pyx":311
  * 	cdef double complex result_temp_d3 = 0j
  * 	for indx1 in range(lend1):
  * 		i = d1new[indx1]             # <<<<<<<<<<<<<<
@@ -4515,7 +4523,7 @@ static double __pyx_f_15Jfunc_cython_v4_computed2zero(__Pyx_memviewslice __pyx_v
     __pyx_t_10 = __pyx_v_indx1;
     __pyx_v_i = (*((long *) ( /* dim=0 */ (__pyx_v_d1new.data + __pyx_t_10 * __pyx_v_d1new.strides[0]) )));
 
-    /* "Jfunc_cython_v4.pyx":310
+    /* "Jfunc_cython_v4.pyx":312
  * 	for indx1 in range(lend1):
  * 		i = d1new[indx1]
  * 		coef_d1_indx1 = coef_babis_d1_even[indx1]             # <<<<<<<<<<<<<<
@@ -4525,56 +4533,56 @@ static double __pyx_f_15Jfunc_cython_v4_computed2zero(__Pyx_memviewslice __pyx_v
     __pyx_t_10 = __pyx_v_indx1;
     __pyx_v_coef_d1_indx1 = (*((__pyx_t_double_complex *) ( /* dim=0 */ (__pyx_v_coef_babis_d1_even.data + __pyx_t_10 * __pyx_v_coef_babis_d1_even.strides[0]) )));
 
-    /* "Jfunc_cython_v4.pyx":311
+    /* "Jfunc_cython_v4.pyx":313
  * 		i = d1new[indx1]
  * 		coef_d1_indx1 = coef_babis_d1_even[indx1]
  * 		exp_num_i = -n1 + fbabisparamtab_exps[i][0]             # <<<<<<<<<<<<<<
  * 		exp_den_i =  fbabisparamtab_exps[i][1]
  * 		mass_i = fbabisparamtab_masses[i]
  */
-    if (unlikely(!__pyx_v_15Jfunc_cython_v4_fbabisparamtab_exps.memview)) { __Pyx_RaiseUnboundLocalError("fbabisparamtab_exps"); __PYX_ERR(0, 311, __pyx_L1_error) }
+    if (unlikely(!__pyx_v_15Jfunc_cython_v4_fbabisparamtab_exps.memview)) { __Pyx_RaiseUnboundLocalError("fbabisparamtab_exps"); __PYX_ERR(0, 313, __pyx_L1_error) }
     __pyx_t_10 = __pyx_v_i;
     __pyx_t_11 = 0;
     __pyx_v_exp_num_i = ((-__pyx_v_n1) + (*((long *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_15Jfunc_cython_v4_fbabisparamtab_exps.data + __pyx_t_10 * __pyx_v_15Jfunc_cython_v4_fbabisparamtab_exps.strides[0]) ) + __pyx_t_11 * __pyx_v_15Jfunc_cython_v4_fbabisparamtab_exps.strides[1]) ))));
 
-    /* "Jfunc_cython_v4.pyx":312
+    /* "Jfunc_cython_v4.pyx":314
  * 		coef_d1_indx1 = coef_babis_d1_even[indx1]
  * 		exp_num_i = -n1 + fbabisparamtab_exps[i][0]
  * 		exp_den_i =  fbabisparamtab_exps[i][1]             # <<<<<<<<<<<<<<
  * 		mass_i = fbabisparamtab_masses[i]
  * 		mass_ind_i = fbabisparamtab_mass_ind[i]
  */
-    if (unlikely(!__pyx_v_15Jfunc_cython_v4_fbabisparamtab_exps.memview)) { __Pyx_RaiseUnboundLocalError("fbabisparamtab_exps"); __PYX_ERR(0, 312, __pyx_L1_error) }
+    if (unlikely(!__pyx_v_15Jfunc_cython_v4_fbabisparamtab_exps.memview)) { __Pyx_RaiseUnboundLocalError("fbabisparamtab_exps"); __PYX_ERR(0, 314, __pyx_L1_error) }
     __pyx_t_11 = __pyx_v_i;
     __pyx_t_10 = 1;
     __pyx_v_exp_den_i = (*((long *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_15Jfunc_cython_v4_fbabisparamtab_exps.data + __pyx_t_11 * __pyx_v_15Jfunc_cython_v4_fbabisparamtab_exps.strides[0]) ) + __pyx_t_10 * __pyx_v_15Jfunc_cython_v4_fbabisparamtab_exps.strides[1]) )));
 
-    /* "Jfunc_cython_v4.pyx":313
+    /* "Jfunc_cython_v4.pyx":315
  * 		exp_num_i = -n1 + fbabisparamtab_exps[i][0]
  * 		exp_den_i =  fbabisparamtab_exps[i][1]
  * 		mass_i = fbabisparamtab_masses[i]             # <<<<<<<<<<<<<<
  * 		mass_ind_i = fbabisparamtab_mass_ind[i]
  * 
  */
-    if (unlikely(!__pyx_v_15Jfunc_cython_v4_fbabisparamtab_masses.memview)) { __Pyx_RaiseUnboundLocalError("fbabisparamtab_masses"); __PYX_ERR(0, 313, __pyx_L1_error) }
+    if (unlikely(!__pyx_v_15Jfunc_cython_v4_fbabisparamtab_masses.memview)) { __Pyx_RaiseUnboundLocalError("fbabisparamtab_masses"); __PYX_ERR(0, 315, __pyx_L1_error) }
     __pyx_t_10 = __pyx_v_i;
     __pyx_t_3 = (PyObject *) *((MPC_Object * *) ( /* dim=0 */ (__pyx_v_15Jfunc_cython_v4_fbabisparamtab_masses.data + __pyx_t_10 * __pyx_v_15Jfunc_cython_v4_fbabisparamtab_masses.strides[0]) ));
     __Pyx_INCREF((PyObject*)__pyx_t_3);
     __Pyx_XDECREF_SET(__pyx_v_mass_i, ((MPC_Object *)__pyx_t_3));
     __pyx_t_3 = 0;
 
-    /* "Jfunc_cython_v4.pyx":314
+    /* "Jfunc_cython_v4.pyx":316
  * 		exp_den_i =  fbabisparamtab_exps[i][1]
  * 		mass_i = fbabisparamtab_masses[i]
  * 		mass_ind_i = fbabisparamtab_mass_ind[i]             # <<<<<<<<<<<<<<
  * 
  * 		result_temp_d3 = 0j
  */
-    if (unlikely(!__pyx_v_15Jfunc_cython_v4_fbabisparamtab_mass_ind.memview)) { __Pyx_RaiseUnboundLocalError("fbabisparamtab_mass_ind"); __PYX_ERR(0, 314, __pyx_L1_error) }
+    if (unlikely(!__pyx_v_15Jfunc_cython_v4_fbabisparamtab_mass_ind.memview)) { __Pyx_RaiseUnboundLocalError("fbabisparamtab_mass_ind"); __PYX_ERR(0, 316, __pyx_L1_error) }
     __pyx_t_10 = __pyx_v_i;
     __pyx_v_mass_ind_i = (*((long *) ( /* dim=0 */ (__pyx_v_15Jfunc_cython_v4_fbabisparamtab_mass_ind.data + __pyx_t_10 * __pyx_v_15Jfunc_cython_v4_fbabisparamtab_mass_ind.strides[0]) )));
 
-    /* "Jfunc_cython_v4.pyx":316
+    /* "Jfunc_cython_v4.pyx":318
  * 		mass_ind_i = fbabisparamtab_mass_ind[i]
  * 
  * 		result_temp_d3 = 0j             # <<<<<<<<<<<<<<
@@ -4583,7 +4591,7 @@ static double __pyx_f_15Jfunc_cython_v4_computed2zero(__Pyx_memviewslice __pyx_v
  */
     __pyx_v_result_temp_d3 = __pyx_t_double_complex_from_parts(0, 0.0);
 
-    /* "Jfunc_cython_v4.pyx":317
+    /* "Jfunc_cython_v4.pyx":319
  * 
  * 		result_temp_d3 = 0j
  * 		for indx3 in range(lend3):             # <<<<<<<<<<<<<<
@@ -4595,7 +4603,7 @@ static double __pyx_f_15Jfunc_cython_v4_computed2zero(__Pyx_memviewslice __pyx_v
     for (__pyx_t_14 = 0; __pyx_t_14 < __pyx_t_13; __pyx_t_14+=1) {
       __pyx_v_indx3 = __pyx_t_14;
 
-      /* "Jfunc_cython_v4.pyx":318
+      /* "Jfunc_cython_v4.pyx":320
  * 		result_temp_d3 = 0j
  * 		for indx3 in range(lend3):
  * 			j = d3basis[indx3]             # <<<<<<<<<<<<<<
@@ -4605,7 +4613,7 @@ static double __pyx_f_15Jfunc_cython_v4_computed2zero(__Pyx_memviewslice __pyx_v
       __pyx_t_10 = __pyx_v_indx3;
       __pyx_v_j = (*((long *) ( /* dim=0 */ (__pyx_v_d3basis.data + __pyx_t_10 * __pyx_v_d3basis.strides[0]) )));
 
-      /* "Jfunc_cython_v4.pyx":319
+      /* "Jfunc_cython_v4.pyx":321
  * 		for indx3 in range(lend3):
  * 			j = d3basis[indx3]
  * 			coef_d3_indx3 = coef_babis_d3[indx3]             # <<<<<<<<<<<<<<
@@ -4615,85 +4623,93 @@ static double __pyx_f_15Jfunc_cython_v4_computed2zero(__Pyx_memviewslice __pyx_v
       __pyx_t_10 = __pyx_v_indx3;
       __pyx_v_coef_d3_indx3 = (*((__pyx_t_double_complex *) ( /* dim=0 */ (__pyx_v_coef_babis_d3.data + __pyx_t_10 * __pyx_v_coef_babis_d3.strides[0]) )));
 
-      /* "Jfunc_cython_v4.pyx":320
+      /* "Jfunc_cython_v4.pyx":322
  * 			j = d3basis[indx3]
  * 			coef_d3_indx3 = coef_babis_d3[indx3]
  * 			exp_num_j = - n3 + fbabisparamtab_exps[j][0]             # <<<<<<<<<<<<<<
  * 			exp_den_j =  fbabisparamtab_exps[j][1]
  * 			mass_j = fbabisparamtab_masses[j]
  */
-      if (unlikely(!__pyx_v_15Jfunc_cython_v4_fbabisparamtab_exps.memview)) { __Pyx_RaiseUnboundLocalError("fbabisparamtab_exps"); __PYX_ERR(0, 320, __pyx_L1_error) }
+      if (unlikely(!__pyx_v_15Jfunc_cython_v4_fbabisparamtab_exps.memview)) { __Pyx_RaiseUnboundLocalError("fbabisparamtab_exps"); __PYX_ERR(0, 322, __pyx_L1_error) }
       __pyx_t_10 = __pyx_v_j;
       __pyx_t_11 = 0;
       __pyx_v_exp_num_j = ((-__pyx_v_n3) + (*((long *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_15Jfunc_cython_v4_fbabisparamtab_exps.data + __pyx_t_10 * __pyx_v_15Jfunc_cython_v4_fbabisparamtab_exps.strides[0]) ) + __pyx_t_11 * __pyx_v_15Jfunc_cython_v4_fbabisparamtab_exps.strides[1]) ))));
 
-      /* "Jfunc_cython_v4.pyx":321
+      /* "Jfunc_cython_v4.pyx":323
  * 			coef_d3_indx3 = coef_babis_d3[indx3]
  * 			exp_num_j = - n3 + fbabisparamtab_exps[j][0]
  * 			exp_den_j =  fbabisparamtab_exps[j][1]             # <<<<<<<<<<<<<<
  * 			mass_j = fbabisparamtab_masses[j]
  * 			mass_ind_j = fbabisparamtab_mass_ind[j]
  */
-      if (unlikely(!__pyx_v_15Jfunc_cython_v4_fbabisparamtab_exps.memview)) { __Pyx_RaiseUnboundLocalError("fbabisparamtab_exps"); __PYX_ERR(0, 321, __pyx_L1_error) }
+      if (unlikely(!__pyx_v_15Jfunc_cython_v4_fbabisparamtab_exps.memview)) { __Pyx_RaiseUnboundLocalError("fbabisparamtab_exps"); __PYX_ERR(0, 323, __pyx_L1_error) }
       __pyx_t_11 = __pyx_v_j;
       __pyx_t_10 = 1;
       __pyx_v_exp_den_j = (*((long *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_15Jfunc_cython_v4_fbabisparamtab_exps.data + __pyx_t_11 * __pyx_v_15Jfunc_cython_v4_fbabisparamtab_exps.strides[0]) ) + __pyx_t_10 * __pyx_v_15Jfunc_cython_v4_fbabisparamtab_exps.strides[1]) )));
 
-      /* "Jfunc_cython_v4.pyx":322
+      /* "Jfunc_cython_v4.pyx":324
  * 			exp_num_j = - n3 + fbabisparamtab_exps[j][0]
  * 			exp_den_j =  fbabisparamtab_exps[j][1]
  * 			mass_j = fbabisparamtab_masses[j]             # <<<<<<<<<<<<<<
  * 			mass_ind_j = fbabisparamtab_mass_ind[j]
  * 
  */
-      if (unlikely(!__pyx_v_15Jfunc_cython_v4_fbabisparamtab_masses.memview)) { __Pyx_RaiseUnboundLocalError("fbabisparamtab_masses"); __PYX_ERR(0, 322, __pyx_L1_error) }
+      if (unlikely(!__pyx_v_15Jfunc_cython_v4_fbabisparamtab_masses.memview)) { __Pyx_RaiseUnboundLocalError("fbabisparamtab_masses"); __PYX_ERR(0, 324, __pyx_L1_error) }
       __pyx_t_10 = __pyx_v_j;
       __pyx_t_3 = (PyObject *) *((MPC_Object * *) ( /* dim=0 */ (__pyx_v_15Jfunc_cython_v4_fbabisparamtab_masses.data + __pyx_t_10 * __pyx_v_15Jfunc_cython_v4_fbabisparamtab_masses.strides[0]) ));
       __Pyx_INCREF((PyObject*)__pyx_t_3);
       __Pyx_XDECREF_SET(__pyx_v_mass_j, ((MPC_Object *)__pyx_t_3));
       __pyx_t_3 = 0;
 
-      /* "Jfunc_cython_v4.pyx":323
+      /* "Jfunc_cython_v4.pyx":325
  * 			exp_den_j =  fbabisparamtab_exps[j][1]
  * 			mass_j = fbabisparamtab_masses[j]
  * 			mass_ind_j = fbabisparamtab_mass_ind[j]             # <<<<<<<<<<<<<<
  * 
  * 			Ltrian_temp = <double complex>Ltrian(-n2, 0, exp_num_i, exp_den_i, exp_num_j, exp_den_j, k1sq,
  */
-      if (unlikely(!__pyx_v_15Jfunc_cython_v4_fbabisparamtab_mass_ind.memview)) { __Pyx_RaiseUnboundLocalError("fbabisparamtab_mass_ind"); __PYX_ERR(0, 323, __pyx_L1_error) }
+      if (unlikely(!__pyx_v_15Jfunc_cython_v4_fbabisparamtab_mass_ind.memview)) { __Pyx_RaiseUnboundLocalError("fbabisparamtab_mass_ind"); __PYX_ERR(0, 325, __pyx_L1_error) }
       __pyx_t_10 = __pyx_v_j;
       __pyx_v_mass_ind_j = (*((long *) ( /* dim=0 */ (__pyx_v_15Jfunc_cython_v4_fbabisparamtab_mass_ind.data + __pyx_t_10 * __pyx_v_15Jfunc_cython_v4_fbabisparamtab_mass_ind.strides[0]) )));
 
-      /* "Jfunc_cython_v4.pyx":326
- * 
+      /* "Jfunc_cython_v4.pyx":329
  * 			Ltrian_temp = <double complex>Ltrian(-n2, 0, exp_num_i, exp_den_i, exp_num_j, exp_den_j, k1sq,
- * 							 k2sq, k3sq, mpc0, mass_i, mass_j, -1, mass_ind_i, mass_ind_j, Ltrian_cache)             # <<<<<<<<<<<<<<
+ * 							 k2sq, k3sq,
+ * 							 mpc0, mass_i, mass_j,             # <<<<<<<<<<<<<<
+ * 							 -1, mass_ind_i, mass_ind_j, Ltrian_cache)
  * 
- * 			result_temp_d3 = result_temp_d3 + coef_d3_indx3 * Ltrian_temp
  */
       __pyx_t_3 = ((PyObject *)__pyx_v_15Jfunc_cython_v4_mpc0);
       __Pyx_INCREF(__pyx_t_3);
-      __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_Ltrian_cache); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 326, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_4);
-      if (!(likely(PyDict_CheckExact(__pyx_t_4))||((__pyx_t_4) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "dict", Py_TYPE(__pyx_t_4)->tp_name), 0))) __PYX_ERR(0, 326, __pyx_L1_error)
 
-      /* "Jfunc_cython_v4.pyx":325
+      /* "Jfunc_cython_v4.pyx":330
+ * 							 k2sq, k3sq,
+ * 							 mpc0, mass_i, mass_j,
+ * 							 -1, mass_ind_i, mass_ind_j, Ltrian_cache)             # <<<<<<<<<<<<<<
+ * 
+ * 			result_temp_d3 = result_temp_d3 + coef_d3_indx3 * Ltrian_temp
+ */
+      __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_Ltrian_cache); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 330, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_4);
+      if (!(likely(PyDict_CheckExact(__pyx_t_4))||((__pyx_t_4) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "dict", Py_TYPE(__pyx_t_4)->tp_name), 0))) __PYX_ERR(0, 330, __pyx_L1_error)
+
+      /* "Jfunc_cython_v4.pyx":327
  * 			mass_ind_j = fbabisparamtab_mass_ind[j]
  * 
  * 			Ltrian_temp = <double complex>Ltrian(-n2, 0, exp_num_i, exp_den_i, exp_num_j, exp_den_j, k1sq,             # <<<<<<<<<<<<<<
- * 							 k2sq, k3sq, mpc0, mass_i, mass_j, -1, mass_ind_i, mass_ind_j, Ltrian_cache)
- * 
+ * 							 k2sq, k3sq,
+ * 							 mpc0, mass_i, mass_j,
  */
-      __pyx_t_5 = ((PyObject *)__pyx_f_21babiscython_v4_ubuntu_Ltrian((-__pyx_v_n2), 0, __pyx_v_exp_num_i, __pyx_v_exp_den_i, __pyx_v_exp_num_j, __pyx_v_exp_den_j, __pyx_v_k1sq, __pyx_v_k2sq, __pyx_v_k3sq, ((MPC_Object *)__pyx_t_3), __pyx_v_mass_i, __pyx_v_mass_j, -1L, __pyx_v_mass_ind_i, __pyx_v_mass_ind_j, ((PyObject*)__pyx_t_4))); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 325, __pyx_L1_error)
+      __pyx_t_5 = ((PyObject *)__pyx_f_21babiscython_v4_ubuntu_Ltrian((-__pyx_v_n2), 0, __pyx_v_exp_num_i, __pyx_v_exp_den_i, __pyx_v_exp_num_j, __pyx_v_exp_den_j, __pyx_v_k1sq, __pyx_v_k2sq, __pyx_v_k3sq, ((MPC_Object *)__pyx_t_3), __pyx_v_mass_i, __pyx_v_mass_j, -1L, __pyx_v_mass_ind_i, __pyx_v_mass_ind_j, ((PyObject*)__pyx_t_4))); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 327, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_5);
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-      __pyx_t_15 = __Pyx_PyComplex_As___pyx_t_double_complex(__pyx_t_5); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 325, __pyx_L1_error)
+      __pyx_t_15 = __Pyx_PyComplex_As___pyx_t_double_complex(__pyx_t_5); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 327, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
       __pyx_v_Ltrian_temp = __pyx_t_double_complex_from_parts(((double)__Pyx_CREAL(__pyx_t_15)), ((double)__Pyx_CIMAG(__pyx_t_15)));
 
-      /* "Jfunc_cython_v4.pyx":328
- * 							 k2sq, k3sq, mpc0, mass_i, mass_j, -1, mass_ind_i, mass_ind_j, Ltrian_cache)
+      /* "Jfunc_cython_v4.pyx":332
+ * 							 -1, mass_ind_i, mass_ind_j, Ltrian_cache)
  * 
  * 			result_temp_d3 = result_temp_d3 + coef_d3_indx3 * Ltrian_temp             # <<<<<<<<<<<<<<
  * 
@@ -4702,7 +4718,7 @@ static double __pyx_f_15Jfunc_cython_v4_computed2zero(__Pyx_memviewslice __pyx_v
       __pyx_v_result_temp_d3 = __Pyx_c_sum_double(__pyx_v_result_temp_d3, __Pyx_c_prod_double(__pyx_v_coef_d3_indx3, __pyx_v_Ltrian_temp));
     }
 
-    /* "Jfunc_cython_v4.pyx":330
+    /* "Jfunc_cython_v4.pyx":334
  * 			result_temp_d3 = result_temp_d3 + coef_d3_indx3 * Ltrian_temp
  * 
  * 		result = result + coef_d1_indx1 * result_temp_d3             # <<<<<<<<<<<<<<
@@ -4712,7 +4728,7 @@ static double __pyx_f_15Jfunc_cython_v4_computed2zero(__Pyx_memviewslice __pyx_v
     __pyx_v_result = __Pyx_c_sum_double(__pyx_v_result, __Pyx_c_prod_double(__pyx_v_coef_d1_indx1, __pyx_v_result_temp_d3));
   }
 
-  /* "Jfunc_cython_v4.pyx":332
+  /* "Jfunc_cython_v4.pyx":336
  * 		result = result + coef_d1_indx1 * result_temp_d3
  * 
  * 	return result.real/(4 * PI * SQRT_PI)             # <<<<<<<<<<<<<<
@@ -4722,12 +4738,12 @@ static double __pyx_f_15Jfunc_cython_v4_computed2zero(__Pyx_memviewslice __pyx_v
   __pyx_t_16 = ((4.0 * __pyx_v_15Jfunc_cython_v4_PI) * __pyx_v_15Jfunc_cython_v4_SQRT_PI);
   if (unlikely(__pyx_t_16 == 0)) {
     PyErr_SetString(PyExc_ZeroDivisionError, "float division");
-    __PYX_ERR(0, 332, __pyx_L1_error)
+    __PYX_ERR(0, 336, __pyx_L1_error)
   }
   __pyx_r = (__Pyx_CREAL(__pyx_v_result) / __pyx_t_16);
   goto __pyx_L0;
 
-  /* "Jfunc_cython_v4.pyx":282
+  /* "Jfunc_cython_v4.pyx":284
  * @cython.boundscheck(False)
  * @cython.wraparound(False)
  * cdef double computed2zero(long[:] d1new, long[:] d3basis, long n1, long n2, long n3,             # <<<<<<<<<<<<<<
@@ -4755,7 +4771,7 @@ static double __pyx_f_15Jfunc_cython_v4_computed2zero(__Pyx_memviewslice __pyx_v
   return __pyx_r;
 }
 
-/* "Jfunc_cython_v4.pyx":337
+/* "Jfunc_cython_v4.pyx":341
  * @cython.boundscheck(False)
  * @cython.wraparound(False)
  * cdef double computed3zero(long[:] d1new, long[:] d2basis, long n1, long n2, long n3,             # <<<<<<<<<<<<<<
@@ -4810,7 +4826,7 @@ static double __pyx_f_15Jfunc_cython_v4_computed3zero(__Pyx_memviewslice __pyx_v
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("computed3zero", 0);
 
-  /* "Jfunc_cython_v4.pyx":340
+  /* "Jfunc_cython_v4.pyx":344
  * 		long d1, long d2, mpfr k1sq, mpfr k2sq, mpfr k3sq):
  * 
  * 	cdef double complex Ltrian_temp = 0j             # <<<<<<<<<<<<<<
@@ -4819,7 +4835,7 @@ static double __pyx_f_15Jfunc_cython_v4_computed3zero(__Pyx_memviewslice __pyx_v
  */
   __pyx_v_Ltrian_temp = __pyx_t_double_complex_from_parts(0, 0.0);
 
-  /* "Jfunc_cython_v4.pyx":342
+  /* "Jfunc_cython_v4.pyx":346
  * 	cdef double complex Ltrian_temp = 0j
  * 
  * 	cdef long lend1 = len(d1new), lend2 = len(d2basis)             # <<<<<<<<<<<<<<
@@ -4831,33 +4847,33 @@ static double __pyx_f_15Jfunc_cython_v4_computed3zero(__Pyx_memviewslice __pyx_v
   __pyx_t_1 = __Pyx_MemoryView_Len(__pyx_v_d2basis); 
   __pyx_v_lend2 = __pyx_t_1;
 
-  /* "Jfunc_cython_v4.pyx":345
+  /* "Jfunc_cython_v4.pyx":349
  * 	cdef Py_ssize_t indx1, indx2, i, j
  * 
  * 	coef_babis_d1_even_arr =  np.array(matcoefs[d1][::2], dtype= complex)             # <<<<<<<<<<<<<<
  * 	cdef double complex[:] coef_babis_d1_even = coef_babis_d1_even_arr
  * 	cdef double complex coef_d1_indx1
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_np); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 345, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_np); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 349, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_array); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 345, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_array); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 349, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   if (unlikely(__pyx_v_15Jfunc_cython_v4_matcoefs == Py_None)) {
     PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-    __PYX_ERR(0, 345, __pyx_L1_error)
+    __PYX_ERR(0, 349, __pyx_L1_error)
   }
-  __pyx_t_2 = __Pyx_PyObject_GetItem(PyList_GET_ITEM(__pyx_v_15Jfunc_cython_v4_matcoefs, __pyx_v_d1), __pyx_slice_); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 345, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetItem(PyList_GET_ITEM(__pyx_v_15Jfunc_cython_v4_matcoefs, __pyx_v_d1), __pyx_slice_); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 349, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_4 = PyTuple_New(1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 345, __pyx_L1_error)
+  __pyx_t_4 = PyTuple_New(1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 349, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_GIVEREF(__pyx_t_2);
   PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_t_2);
   __pyx_t_2 = 0;
-  __pyx_t_2 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 345, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 349, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_dtype, ((PyObject *)(&PyComplex_Type))) < 0) __PYX_ERR(0, 345, __pyx_L1_error)
-  __pyx_t_5 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_4, __pyx_t_2); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 345, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_dtype, ((PyObject *)(&PyComplex_Type))) < 0) __PYX_ERR(0, 349, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_4, __pyx_t_2); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 349, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
@@ -4865,43 +4881,43 @@ static double __pyx_f_15Jfunc_cython_v4_computed3zero(__Pyx_memviewslice __pyx_v
   __pyx_v_coef_babis_d1_even_arr = __pyx_t_5;
   __pyx_t_5 = 0;
 
-  /* "Jfunc_cython_v4.pyx":346
+  /* "Jfunc_cython_v4.pyx":350
  * 
  * 	coef_babis_d1_even_arr =  np.array(matcoefs[d1][::2], dtype= complex)
  * 	cdef double complex[:] coef_babis_d1_even = coef_babis_d1_even_arr             # <<<<<<<<<<<<<<
  * 	cdef double complex coef_d1_indx1
  * 
  */
-  __pyx_t_6 = __Pyx_PyObject_to_MemoryviewSlice_ds___pyx_t_double_complex(__pyx_v_coef_babis_d1_even_arr, PyBUF_WRITABLE); if (unlikely(!__pyx_t_6.memview)) __PYX_ERR(0, 346, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyObject_to_MemoryviewSlice_ds___pyx_t_double_complex(__pyx_v_coef_babis_d1_even_arr, PyBUF_WRITABLE); if (unlikely(!__pyx_t_6.memview)) __PYX_ERR(0, 350, __pyx_L1_error)
   __pyx_v_coef_babis_d1_even = __pyx_t_6;
   __pyx_t_6.memview = NULL;
   __pyx_t_6.data = NULL;
 
-  /* "Jfunc_cython_v4.pyx":349
+  /* "Jfunc_cython_v4.pyx":353
  * 	cdef double complex coef_d1_indx1
  * 
  * 	coef_babis_d2_arr =  np.array(matcoefs[d2], dtype= complex)             # <<<<<<<<<<<<<<
  * 	cdef double complex[:] coef_babis_d2 = coef_babis_d2_arr
  * 	cdef double complex coef_d2_indx2
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_np); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 349, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_np); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 353, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_array); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 349, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_array); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 353, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   if (unlikely(__pyx_v_15Jfunc_cython_v4_matcoefs == Py_None)) {
     PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-    __PYX_ERR(0, 349, __pyx_L1_error)
+    __PYX_ERR(0, 353, __pyx_L1_error)
   }
-  __pyx_t_5 = PyTuple_New(1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 349, __pyx_L1_error)
+  __pyx_t_5 = PyTuple_New(1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 353, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_INCREF(PyList_GET_ITEM(__pyx_v_15Jfunc_cython_v4_matcoefs, __pyx_v_d2));
   __Pyx_GIVEREF(PyList_GET_ITEM(__pyx_v_15Jfunc_cython_v4_matcoefs, __pyx_v_d2));
   PyTuple_SET_ITEM(__pyx_t_5, 0, PyList_GET_ITEM(__pyx_v_15Jfunc_cython_v4_matcoefs, __pyx_v_d2));
-  __pyx_t_4 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 349, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 353, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_dtype, ((PyObject *)(&PyComplex_Type))) < 0) __PYX_ERR(0, 349, __pyx_L1_error)
-  __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_5, __pyx_t_4); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 349, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_dtype, ((PyObject *)(&PyComplex_Type))) < 0) __PYX_ERR(0, 353, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_5, __pyx_t_4); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 353, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
@@ -4909,19 +4925,19 @@ static double __pyx_f_15Jfunc_cython_v4_computed3zero(__Pyx_memviewslice __pyx_v
   __pyx_v_coef_babis_d2_arr = __pyx_t_3;
   __pyx_t_3 = 0;
 
-  /* "Jfunc_cython_v4.pyx":350
+  /* "Jfunc_cython_v4.pyx":354
  * 
  * 	coef_babis_d2_arr =  np.array(matcoefs[d2], dtype= complex)
  * 	cdef double complex[:] coef_babis_d2 = coef_babis_d2_arr             # <<<<<<<<<<<<<<
  * 	cdef double complex coef_d2_indx2
  * 
  */
-  __pyx_t_6 = __Pyx_PyObject_to_MemoryviewSlice_ds___pyx_t_double_complex(__pyx_v_coef_babis_d2_arr, PyBUF_WRITABLE); if (unlikely(!__pyx_t_6.memview)) __PYX_ERR(0, 350, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyObject_to_MemoryviewSlice_ds___pyx_t_double_complex(__pyx_v_coef_babis_d2_arr, PyBUF_WRITABLE); if (unlikely(!__pyx_t_6.memview)) __PYX_ERR(0, 354, __pyx_L1_error)
   __pyx_v_coef_babis_d2 = __pyx_t_6;
   __pyx_t_6.memview = NULL;
   __pyx_t_6.data = NULL;
 
-  /* "Jfunc_cython_v4.pyx":361
+  /* "Jfunc_cython_v4.pyx":365
  * 	cdef int mass_ind_j
  * 
  * 	cdef double complex result = 0j             # <<<<<<<<<<<<<<
@@ -4930,7 +4946,7 @@ static double __pyx_f_15Jfunc_cython_v4_computed3zero(__Pyx_memviewslice __pyx_v
  */
   __pyx_v_result = __pyx_t_double_complex_from_parts(0, 0.0);
 
-  /* "Jfunc_cython_v4.pyx":362
+  /* "Jfunc_cython_v4.pyx":366
  * 
  * 	cdef double complex result = 0j
  * 	cdef double complex result_temp_d2 = 0j             # <<<<<<<<<<<<<<
@@ -4939,7 +4955,7 @@ static double __pyx_f_15Jfunc_cython_v4_computed3zero(__Pyx_memviewslice __pyx_v
  */
   __pyx_v_result_temp_d2 = __pyx_t_double_complex_from_parts(0, 0.0);
 
-  /* "Jfunc_cython_v4.pyx":363
+  /* "Jfunc_cython_v4.pyx":367
  * 	cdef double complex result = 0j
  * 	cdef double complex result_temp_d2 = 0j
  * 	for indx1 in range(lend1):             # <<<<<<<<<<<<<<
@@ -4951,7 +4967,7 @@ static double __pyx_f_15Jfunc_cython_v4_computed3zero(__Pyx_memviewslice __pyx_v
   for (__pyx_t_9 = 0; __pyx_t_9 < __pyx_t_8; __pyx_t_9+=1) {
     __pyx_v_indx1 = __pyx_t_9;
 
-    /* "Jfunc_cython_v4.pyx":364
+    /* "Jfunc_cython_v4.pyx":368
  * 	cdef double complex result_temp_d2 = 0j
  * 	for indx1 in range(lend1):
  * 		i = d1new[indx1]             # <<<<<<<<<<<<<<
@@ -4961,7 +4977,7 @@ static double __pyx_f_15Jfunc_cython_v4_computed3zero(__Pyx_memviewslice __pyx_v
     __pyx_t_10 = __pyx_v_indx1;
     __pyx_v_i = (*((long *) ( /* dim=0 */ (__pyx_v_d1new.data + __pyx_t_10 * __pyx_v_d1new.strides[0]) )));
 
-    /* "Jfunc_cython_v4.pyx":365
+    /* "Jfunc_cython_v4.pyx":369
  * 	for indx1 in range(lend1):
  * 		i = d1new[indx1]
  * 		coef_d1_indx1 = coef_babis_d1_even[indx1]             # <<<<<<<<<<<<<<
@@ -4971,56 +4987,56 @@ static double __pyx_f_15Jfunc_cython_v4_computed3zero(__Pyx_memviewslice __pyx_v
     __pyx_t_10 = __pyx_v_indx1;
     __pyx_v_coef_d1_indx1 = (*((__pyx_t_double_complex *) ( /* dim=0 */ (__pyx_v_coef_babis_d1_even.data + __pyx_t_10 * __pyx_v_coef_babis_d1_even.strides[0]) )));
 
-    /* "Jfunc_cython_v4.pyx":366
+    /* "Jfunc_cython_v4.pyx":370
  * 		i = d1new[indx1]
  * 		coef_d1_indx1 = coef_babis_d1_even[indx1]
  * 		exp_num_i = -n1 + fbabisparamtab_exps[i][0]             # <<<<<<<<<<<<<<
  * 		exp_den_i =  fbabisparamtab_exps[i][1]
  * 		mass_i = fbabisparamtab_masses[i]
  */
-    if (unlikely(!__pyx_v_15Jfunc_cython_v4_fbabisparamtab_exps.memview)) { __Pyx_RaiseUnboundLocalError("fbabisparamtab_exps"); __PYX_ERR(0, 366, __pyx_L1_error) }
+    if (unlikely(!__pyx_v_15Jfunc_cython_v4_fbabisparamtab_exps.memview)) { __Pyx_RaiseUnboundLocalError("fbabisparamtab_exps"); __PYX_ERR(0, 370, __pyx_L1_error) }
     __pyx_t_10 = __pyx_v_i;
     __pyx_t_11 = 0;
     __pyx_v_exp_num_i = ((-__pyx_v_n1) + (*((long *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_15Jfunc_cython_v4_fbabisparamtab_exps.data + __pyx_t_10 * __pyx_v_15Jfunc_cython_v4_fbabisparamtab_exps.strides[0]) ) + __pyx_t_11 * __pyx_v_15Jfunc_cython_v4_fbabisparamtab_exps.strides[1]) ))));
 
-    /* "Jfunc_cython_v4.pyx":367
+    /* "Jfunc_cython_v4.pyx":371
  * 		coef_d1_indx1 = coef_babis_d1_even[indx1]
  * 		exp_num_i = -n1 + fbabisparamtab_exps[i][0]
  * 		exp_den_i =  fbabisparamtab_exps[i][1]             # <<<<<<<<<<<<<<
  * 		mass_i = fbabisparamtab_masses[i]
  * 		mass_ind_i = fbabisparamtab_mass_ind[i]
  */
-    if (unlikely(!__pyx_v_15Jfunc_cython_v4_fbabisparamtab_exps.memview)) { __Pyx_RaiseUnboundLocalError("fbabisparamtab_exps"); __PYX_ERR(0, 367, __pyx_L1_error) }
+    if (unlikely(!__pyx_v_15Jfunc_cython_v4_fbabisparamtab_exps.memview)) { __Pyx_RaiseUnboundLocalError("fbabisparamtab_exps"); __PYX_ERR(0, 371, __pyx_L1_error) }
     __pyx_t_11 = __pyx_v_i;
     __pyx_t_10 = 1;
     __pyx_v_exp_den_i = (*((long *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_15Jfunc_cython_v4_fbabisparamtab_exps.data + __pyx_t_11 * __pyx_v_15Jfunc_cython_v4_fbabisparamtab_exps.strides[0]) ) + __pyx_t_10 * __pyx_v_15Jfunc_cython_v4_fbabisparamtab_exps.strides[1]) )));
 
-    /* "Jfunc_cython_v4.pyx":368
+    /* "Jfunc_cython_v4.pyx":372
  * 		exp_num_i = -n1 + fbabisparamtab_exps[i][0]
  * 		exp_den_i =  fbabisparamtab_exps[i][1]
  * 		mass_i = fbabisparamtab_masses[i]             # <<<<<<<<<<<<<<
  * 		mass_ind_i = fbabisparamtab_mass_ind[i]
  * 
  */
-    if (unlikely(!__pyx_v_15Jfunc_cython_v4_fbabisparamtab_masses.memview)) { __Pyx_RaiseUnboundLocalError("fbabisparamtab_masses"); __PYX_ERR(0, 368, __pyx_L1_error) }
+    if (unlikely(!__pyx_v_15Jfunc_cython_v4_fbabisparamtab_masses.memview)) { __Pyx_RaiseUnboundLocalError("fbabisparamtab_masses"); __PYX_ERR(0, 372, __pyx_L1_error) }
     __pyx_t_10 = __pyx_v_i;
     __pyx_t_3 = (PyObject *) *((MPC_Object * *) ( /* dim=0 */ (__pyx_v_15Jfunc_cython_v4_fbabisparamtab_masses.data + __pyx_t_10 * __pyx_v_15Jfunc_cython_v4_fbabisparamtab_masses.strides[0]) ));
     __Pyx_INCREF((PyObject*)__pyx_t_3);
     __Pyx_XDECREF_SET(__pyx_v_mass_i, ((MPC_Object *)__pyx_t_3));
     __pyx_t_3 = 0;
 
-    /* "Jfunc_cython_v4.pyx":369
+    /* "Jfunc_cython_v4.pyx":373
  * 		exp_den_i =  fbabisparamtab_exps[i][1]
  * 		mass_i = fbabisparamtab_masses[i]
  * 		mass_ind_i = fbabisparamtab_mass_ind[i]             # <<<<<<<<<<<<<<
  * 
  * 		result_temp_d2 = 0j
  */
-    if (unlikely(!__pyx_v_15Jfunc_cython_v4_fbabisparamtab_mass_ind.memview)) { __Pyx_RaiseUnboundLocalError("fbabisparamtab_mass_ind"); __PYX_ERR(0, 369, __pyx_L1_error) }
+    if (unlikely(!__pyx_v_15Jfunc_cython_v4_fbabisparamtab_mass_ind.memview)) { __Pyx_RaiseUnboundLocalError("fbabisparamtab_mass_ind"); __PYX_ERR(0, 373, __pyx_L1_error) }
     __pyx_t_10 = __pyx_v_i;
     __pyx_v_mass_ind_i = (*((long *) ( /* dim=0 */ (__pyx_v_15Jfunc_cython_v4_fbabisparamtab_mass_ind.data + __pyx_t_10 * __pyx_v_15Jfunc_cython_v4_fbabisparamtab_mass_ind.strides[0]) )));
 
-    /* "Jfunc_cython_v4.pyx":371
+    /* "Jfunc_cython_v4.pyx":375
  * 		mass_ind_i = fbabisparamtab_mass_ind[i]
  * 
  * 		result_temp_d2 = 0j             # <<<<<<<<<<<<<<
@@ -5029,7 +5045,7 @@ static double __pyx_f_15Jfunc_cython_v4_computed3zero(__Pyx_memviewslice __pyx_v
  */
     __pyx_v_result_temp_d2 = __pyx_t_double_complex_from_parts(0, 0.0);
 
-    /* "Jfunc_cython_v4.pyx":372
+    /* "Jfunc_cython_v4.pyx":376
  * 
  * 		result_temp_d2 = 0j
  * 		for indx2 in range(lend2):             # <<<<<<<<<<<<<<
@@ -5041,7 +5057,7 @@ static double __pyx_f_15Jfunc_cython_v4_computed3zero(__Pyx_memviewslice __pyx_v
     for (__pyx_t_14 = 0; __pyx_t_14 < __pyx_t_13; __pyx_t_14+=1) {
       __pyx_v_indx2 = __pyx_t_14;
 
-      /* "Jfunc_cython_v4.pyx":373
+      /* "Jfunc_cython_v4.pyx":377
  * 		result_temp_d2 = 0j
  * 		for indx2 in range(lend2):
  * 			j = d2basis[indx2]             # <<<<<<<<<<<<<<
@@ -5051,7 +5067,7 @@ static double __pyx_f_15Jfunc_cython_v4_computed3zero(__Pyx_memviewslice __pyx_v
       __pyx_t_10 = __pyx_v_indx2;
       __pyx_v_j = (*((long *) ( /* dim=0 */ (__pyx_v_d2basis.data + __pyx_t_10 * __pyx_v_d2basis.strides[0]) )));
 
-      /* "Jfunc_cython_v4.pyx":374
+      /* "Jfunc_cython_v4.pyx":378
  * 		for indx2 in range(lend2):
  * 			j = d2basis[indx2]
  * 			coef_d2_indx2 = coef_babis_d2[indx2]             # <<<<<<<<<<<<<<
@@ -5061,85 +5077,93 @@ static double __pyx_f_15Jfunc_cython_v4_computed3zero(__Pyx_memviewslice __pyx_v
       __pyx_t_10 = __pyx_v_indx2;
       __pyx_v_coef_d2_indx2 = (*((__pyx_t_double_complex *) ( /* dim=0 */ (__pyx_v_coef_babis_d2.data + __pyx_t_10 * __pyx_v_coef_babis_d2.strides[0]) )));
 
-      /* "Jfunc_cython_v4.pyx":375
+      /* "Jfunc_cython_v4.pyx":379
  * 			j = d2basis[indx2]
  * 			coef_d2_indx2 = coef_babis_d2[indx2]
  * 			exp_num_j = - n2 + fbabisparamtab_exps[j][0]             # <<<<<<<<<<<<<<
  * 			exp_den_j =  fbabisparamtab_exps[j][1]
  * 			mass_j = fbabisparamtab_masses[j]
  */
-      if (unlikely(!__pyx_v_15Jfunc_cython_v4_fbabisparamtab_exps.memview)) { __Pyx_RaiseUnboundLocalError("fbabisparamtab_exps"); __PYX_ERR(0, 375, __pyx_L1_error) }
+      if (unlikely(!__pyx_v_15Jfunc_cython_v4_fbabisparamtab_exps.memview)) { __Pyx_RaiseUnboundLocalError("fbabisparamtab_exps"); __PYX_ERR(0, 379, __pyx_L1_error) }
       __pyx_t_10 = __pyx_v_j;
       __pyx_t_11 = 0;
       __pyx_v_exp_num_j = ((-__pyx_v_n2) + (*((long *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_15Jfunc_cython_v4_fbabisparamtab_exps.data + __pyx_t_10 * __pyx_v_15Jfunc_cython_v4_fbabisparamtab_exps.strides[0]) ) + __pyx_t_11 * __pyx_v_15Jfunc_cython_v4_fbabisparamtab_exps.strides[1]) ))));
 
-      /* "Jfunc_cython_v4.pyx":376
+      /* "Jfunc_cython_v4.pyx":380
  * 			coef_d2_indx2 = coef_babis_d2[indx2]
  * 			exp_num_j = - n2 + fbabisparamtab_exps[j][0]
  * 			exp_den_j =  fbabisparamtab_exps[j][1]             # <<<<<<<<<<<<<<
  * 			mass_j = fbabisparamtab_masses[j]
  * 			mass_ind_j = fbabisparamtab_mass_ind[j]
  */
-      if (unlikely(!__pyx_v_15Jfunc_cython_v4_fbabisparamtab_exps.memview)) { __Pyx_RaiseUnboundLocalError("fbabisparamtab_exps"); __PYX_ERR(0, 376, __pyx_L1_error) }
+      if (unlikely(!__pyx_v_15Jfunc_cython_v4_fbabisparamtab_exps.memview)) { __Pyx_RaiseUnboundLocalError("fbabisparamtab_exps"); __PYX_ERR(0, 380, __pyx_L1_error) }
       __pyx_t_11 = __pyx_v_j;
       __pyx_t_10 = 1;
       __pyx_v_exp_den_j = (*((long *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_15Jfunc_cython_v4_fbabisparamtab_exps.data + __pyx_t_11 * __pyx_v_15Jfunc_cython_v4_fbabisparamtab_exps.strides[0]) ) + __pyx_t_10 * __pyx_v_15Jfunc_cython_v4_fbabisparamtab_exps.strides[1]) )));
 
-      /* "Jfunc_cython_v4.pyx":377
+      /* "Jfunc_cython_v4.pyx":381
  * 			exp_num_j = - n2 + fbabisparamtab_exps[j][0]
  * 			exp_den_j =  fbabisparamtab_exps[j][1]
  * 			mass_j = fbabisparamtab_masses[j]             # <<<<<<<<<<<<<<
  * 			mass_ind_j = fbabisparamtab_mass_ind[j]
  * 
  */
-      if (unlikely(!__pyx_v_15Jfunc_cython_v4_fbabisparamtab_masses.memview)) { __Pyx_RaiseUnboundLocalError("fbabisparamtab_masses"); __PYX_ERR(0, 377, __pyx_L1_error) }
+      if (unlikely(!__pyx_v_15Jfunc_cython_v4_fbabisparamtab_masses.memview)) { __Pyx_RaiseUnboundLocalError("fbabisparamtab_masses"); __PYX_ERR(0, 381, __pyx_L1_error) }
       __pyx_t_10 = __pyx_v_j;
       __pyx_t_3 = (PyObject *) *((MPC_Object * *) ( /* dim=0 */ (__pyx_v_15Jfunc_cython_v4_fbabisparamtab_masses.data + __pyx_t_10 * __pyx_v_15Jfunc_cython_v4_fbabisparamtab_masses.strides[0]) ));
       __Pyx_INCREF((PyObject*)__pyx_t_3);
       __Pyx_XDECREF_SET(__pyx_v_mass_j, ((MPC_Object *)__pyx_t_3));
       __pyx_t_3 = 0;
 
-      /* "Jfunc_cython_v4.pyx":378
+      /* "Jfunc_cython_v4.pyx":382
  * 			exp_den_j =  fbabisparamtab_exps[j][1]
  * 			mass_j = fbabisparamtab_masses[j]
  * 			mass_ind_j = fbabisparamtab_mass_ind[j]             # <<<<<<<<<<<<<<
  * 
  * 			Ltrian_temp = <double complex>Ltrian(exp_num_j, exp_den_j, exp_num_i, exp_den_i, -n3, 0,
  */
-      if (unlikely(!__pyx_v_15Jfunc_cython_v4_fbabisparamtab_mass_ind.memview)) { __Pyx_RaiseUnboundLocalError("fbabisparamtab_mass_ind"); __PYX_ERR(0, 378, __pyx_L1_error) }
+      if (unlikely(!__pyx_v_15Jfunc_cython_v4_fbabisparamtab_mass_ind.memview)) { __Pyx_RaiseUnboundLocalError("fbabisparamtab_mass_ind"); __PYX_ERR(0, 382, __pyx_L1_error) }
       __pyx_t_10 = __pyx_v_j;
       __pyx_v_mass_ind_j = (*((long *) ( /* dim=0 */ (__pyx_v_15Jfunc_cython_v4_fbabisparamtab_mass_ind.data + __pyx_t_10 * __pyx_v_15Jfunc_cython_v4_fbabisparamtab_mass_ind.strides[0]) )));
 
-      /* "Jfunc_cython_v4.pyx":381
- * 
+      /* "Jfunc_cython_v4.pyx":386
  * 			Ltrian_temp = <double complex>Ltrian(exp_num_j, exp_den_j, exp_num_i, exp_den_i, -n3, 0,
- * 			k1sq, k2sq, k3sq, mass_j, mass_i, mpc0, mass_ind_j, mass_ind_i, -1, Ltrian_cache)             # <<<<<<<<<<<<<<
+ * 			k1sq, k2sq, k3sq,
+ * 			mass_j, mass_i, mpc0,             # <<<<<<<<<<<<<<
+ * 			mass_ind_j, mass_ind_i, -1, Ltrian_cache)
  * 
- * 			result_temp_d2 = result_temp_d2 + coef_d2_indx2 * Ltrian_temp
  */
       __pyx_t_3 = ((PyObject *)__pyx_v_15Jfunc_cython_v4_mpc0);
       __Pyx_INCREF(__pyx_t_3);
-      __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_Ltrian_cache); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 381, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_4);
-      if (!(likely(PyDict_CheckExact(__pyx_t_4))||((__pyx_t_4) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "dict", Py_TYPE(__pyx_t_4)->tp_name), 0))) __PYX_ERR(0, 381, __pyx_L1_error)
 
-      /* "Jfunc_cython_v4.pyx":380
+      /* "Jfunc_cython_v4.pyx":387
+ * 			k1sq, k2sq, k3sq,
+ * 			mass_j, mass_i, mpc0,
+ * 			mass_ind_j, mass_ind_i, -1, Ltrian_cache)             # <<<<<<<<<<<<<<
+ * 
+ * 			result_temp_d2 = result_temp_d2 + coef_d2_indx2 * Ltrian_temp
+ */
+      __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_Ltrian_cache); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 387, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_4);
+      if (!(likely(PyDict_CheckExact(__pyx_t_4))||((__pyx_t_4) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "dict", Py_TYPE(__pyx_t_4)->tp_name), 0))) __PYX_ERR(0, 387, __pyx_L1_error)
+
+      /* "Jfunc_cython_v4.pyx":384
  * 			mass_ind_j = fbabisparamtab_mass_ind[j]
  * 
  * 			Ltrian_temp = <double complex>Ltrian(exp_num_j, exp_den_j, exp_num_i, exp_den_i, -n3, 0,             # <<<<<<<<<<<<<<
- * 			k1sq, k2sq, k3sq, mass_j, mass_i, mpc0, mass_ind_j, mass_ind_i, -1, Ltrian_cache)
- * 
+ * 			k1sq, k2sq, k3sq,
+ * 			mass_j, mass_i, mpc0,
  */
-      __pyx_t_5 = ((PyObject *)__pyx_f_21babiscython_v4_ubuntu_Ltrian(__pyx_v_exp_num_j, __pyx_v_exp_den_j, __pyx_v_exp_num_i, __pyx_v_exp_den_i, (-__pyx_v_n3), 0, __pyx_v_k1sq, __pyx_v_k2sq, __pyx_v_k3sq, __pyx_v_mass_j, __pyx_v_mass_i, ((MPC_Object *)__pyx_t_3), __pyx_v_mass_ind_j, __pyx_v_mass_ind_i, -1L, ((PyObject*)__pyx_t_4))); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 380, __pyx_L1_error)
+      __pyx_t_5 = ((PyObject *)__pyx_f_21babiscython_v4_ubuntu_Ltrian(__pyx_v_exp_num_j, __pyx_v_exp_den_j, __pyx_v_exp_num_i, __pyx_v_exp_den_i, (-__pyx_v_n3), 0, __pyx_v_k1sq, __pyx_v_k2sq, __pyx_v_k3sq, __pyx_v_mass_j, __pyx_v_mass_i, ((MPC_Object *)__pyx_t_3), __pyx_v_mass_ind_j, __pyx_v_mass_ind_i, -1L, ((PyObject*)__pyx_t_4))); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 384, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_5);
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-      __pyx_t_15 = __Pyx_PyComplex_As___pyx_t_double_complex(__pyx_t_5); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 380, __pyx_L1_error)
+      __pyx_t_15 = __Pyx_PyComplex_As___pyx_t_double_complex(__pyx_t_5); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 384, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
       __pyx_v_Ltrian_temp = __pyx_t_double_complex_from_parts(((double)__Pyx_CREAL(__pyx_t_15)), ((double)__Pyx_CIMAG(__pyx_t_15)));
 
-      /* "Jfunc_cython_v4.pyx":383
- * 			k1sq, k2sq, k3sq, mass_j, mass_i, mpc0, mass_ind_j, mass_ind_i, -1, Ltrian_cache)
+      /* "Jfunc_cython_v4.pyx":389
+ * 			mass_ind_j, mass_ind_i, -1, Ltrian_cache)
  * 
  * 			result_temp_d2 = result_temp_d2 + coef_d2_indx2 * Ltrian_temp             # <<<<<<<<<<<<<<
  * 
@@ -5148,7 +5172,7 @@ static double __pyx_f_15Jfunc_cython_v4_computed3zero(__Pyx_memviewslice __pyx_v
       __pyx_v_result_temp_d2 = __Pyx_c_sum_double(__pyx_v_result_temp_d2, __Pyx_c_prod_double(__pyx_v_coef_d2_indx2, __pyx_v_Ltrian_temp));
     }
 
-    /* "Jfunc_cython_v4.pyx":385
+    /* "Jfunc_cython_v4.pyx":391
  * 			result_temp_d2 = result_temp_d2 + coef_d2_indx2 * Ltrian_temp
  * 
  * 		result = result + coef_d1_indx1 * result_temp_d2             # <<<<<<<<<<<<<<
@@ -5158,7 +5182,7 @@ static double __pyx_f_15Jfunc_cython_v4_computed3zero(__Pyx_memviewslice __pyx_v
     __pyx_v_result = __Pyx_c_sum_double(__pyx_v_result, __Pyx_c_prod_double(__pyx_v_coef_d1_indx1, __pyx_v_result_temp_d2));
   }
 
-  /* "Jfunc_cython_v4.pyx":387
+  /* "Jfunc_cython_v4.pyx":393
  * 		result = result + coef_d1_indx1 * result_temp_d2
  * 
  * 	return result.real/(4 * PI * SQRT_PI)             # <<<<<<<<<<<<<<
@@ -5168,12 +5192,12 @@ static double __pyx_f_15Jfunc_cython_v4_computed3zero(__Pyx_memviewslice __pyx_v
   __pyx_t_16 = ((4.0 * __pyx_v_15Jfunc_cython_v4_PI) * __pyx_v_15Jfunc_cython_v4_SQRT_PI);
   if (unlikely(__pyx_t_16 == 0)) {
     PyErr_SetString(PyExc_ZeroDivisionError, "float division");
-    __PYX_ERR(0, 387, __pyx_L1_error)
+    __PYX_ERR(0, 393, __pyx_L1_error)
   }
   __pyx_r = (__Pyx_CREAL(__pyx_v_result) / __pyx_t_16);
   goto __pyx_L0;
 
-  /* "Jfunc_cython_v4.pyx":337
+  /* "Jfunc_cython_v4.pyx":341
  * @cython.boundscheck(False)
  * @cython.wraparound(False)
  * cdef double computed3zero(long[:] d1new, long[:] d2basis, long n1, long n2, long n3,             # <<<<<<<<<<<<<<
@@ -5201,7 +5225,7 @@ static double __pyx_f_15Jfunc_cython_v4_computed3zero(__Pyx_memviewslice __pyx_v
   return __pyx_r;
 }
 
-/* "Jfunc_cython_v4.pyx":392
+/* "Jfunc_cython_v4.pyx":398
  * @cython.boundscheck(False)
  * @cython.wraparound(False)
  * cdef double computed3(long[:] d3new, long n1, long n2, long n3, long d3, mpfr k1sq, mpfr k2sq, mpfr k3sq):             # <<<<<<<<<<<<<<
@@ -5242,7 +5266,7 @@ static double __pyx_f_15Jfunc_cython_v4_computed3(__Pyx_memviewslice __pyx_v_d3n
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("computed3", 0);
 
-  /* "Jfunc_cython_v4.pyx":394
+  /* "Jfunc_cython_v4.pyx":400
  * cdef double computed3(long[:] d3new, long n1, long n2, long n3, long d3, mpfr k1sq, mpfr k2sq, mpfr k3sq):
  * 
  * 	cdef double complex Ltrian_temp = 0j             # <<<<<<<<<<<<<<
@@ -5251,7 +5275,7 @@ static double __pyx_f_15Jfunc_cython_v4_computed3(__Pyx_memviewslice __pyx_v_d3n
  */
   __pyx_v_Ltrian_temp = __pyx_t_double_complex_from_parts(0, 0.0);
 
-  /* "Jfunc_cython_v4.pyx":396
+  /* "Jfunc_cython_v4.pyx":402
  * 	cdef double complex Ltrian_temp = 0j
  * 
  * 	cdef long lend3 = len(d3new)             # <<<<<<<<<<<<<<
@@ -5261,33 +5285,33 @@ static double __pyx_f_15Jfunc_cython_v4_computed3(__Pyx_memviewslice __pyx_v_d3n
   __pyx_t_1 = __Pyx_MemoryView_Len(__pyx_v_d3new); 
   __pyx_v_lend3 = __pyx_t_1;
 
-  /* "Jfunc_cython_v4.pyx":399
+  /* "Jfunc_cython_v4.pyx":405
  * 	cdef Py_ssize_t indx, i
  * 
  * 	coef_babis_d3_even_arr =  np.array(matcoefs[d3][::2], dtype= complex)             # <<<<<<<<<<<<<<
  * 	cdef double complex[:] coef_babis_d3_even = coef_babis_d3_even_arr
  * 	cdef double complex coef_d3_indx
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_np); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 399, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_np); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 405, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_array); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 399, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_array); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 405, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   if (unlikely(__pyx_v_15Jfunc_cython_v4_matcoefs == Py_None)) {
     PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-    __PYX_ERR(0, 399, __pyx_L1_error)
+    __PYX_ERR(0, 405, __pyx_L1_error)
   }
-  __pyx_t_2 = __Pyx_PyObject_GetItem(PyList_GET_ITEM(__pyx_v_15Jfunc_cython_v4_matcoefs, __pyx_v_d3), __pyx_slice_); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 399, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetItem(PyList_GET_ITEM(__pyx_v_15Jfunc_cython_v4_matcoefs, __pyx_v_d3), __pyx_slice_); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 405, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_4 = PyTuple_New(1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 399, __pyx_L1_error)
+  __pyx_t_4 = PyTuple_New(1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 405, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_GIVEREF(__pyx_t_2);
   PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_t_2);
   __pyx_t_2 = 0;
-  __pyx_t_2 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 399, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 405, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_dtype, ((PyObject *)(&PyComplex_Type))) < 0) __PYX_ERR(0, 399, __pyx_L1_error)
-  __pyx_t_5 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_4, __pyx_t_2); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 399, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_dtype, ((PyObject *)(&PyComplex_Type))) < 0) __PYX_ERR(0, 405, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_4, __pyx_t_2); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 405, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
@@ -5295,19 +5319,19 @@ static double __pyx_f_15Jfunc_cython_v4_computed3(__Pyx_memviewslice __pyx_v_d3n
   __pyx_v_coef_babis_d3_even_arr = __pyx_t_5;
   __pyx_t_5 = 0;
 
-  /* "Jfunc_cython_v4.pyx":400
+  /* "Jfunc_cython_v4.pyx":406
  * 
  * 	coef_babis_d3_even_arr =  np.array(matcoefs[d3][::2], dtype= complex)
  * 	cdef double complex[:] coef_babis_d3_even = coef_babis_d3_even_arr             # <<<<<<<<<<<<<<
  * 	cdef double complex coef_d3_indx
  * 
  */
-  __pyx_t_6 = __Pyx_PyObject_to_MemoryviewSlice_ds___pyx_t_double_complex(__pyx_v_coef_babis_d3_even_arr, PyBUF_WRITABLE); if (unlikely(!__pyx_t_6.memview)) __PYX_ERR(0, 400, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyObject_to_MemoryviewSlice_ds___pyx_t_double_complex(__pyx_v_coef_babis_d3_even_arr, PyBUF_WRITABLE); if (unlikely(!__pyx_t_6.memview)) __PYX_ERR(0, 406, __pyx_L1_error)
   __pyx_v_coef_babis_d3_even = __pyx_t_6;
   __pyx_t_6.memview = NULL;
   __pyx_t_6.data = NULL;
 
-  /* "Jfunc_cython_v4.pyx":408
+  /* "Jfunc_cython_v4.pyx":414
  * 	cdef int mass_ind_i
  * 
  * 	cdef double complex result = 0j             # <<<<<<<<<<<<<<
@@ -5316,7 +5340,7 @@ static double __pyx_f_15Jfunc_cython_v4_computed3(__Pyx_memviewslice __pyx_v_d3n
  */
   __pyx_v_result = __pyx_t_double_complex_from_parts(0, 0.0);
 
-  /* "Jfunc_cython_v4.pyx":409
+  /* "Jfunc_cython_v4.pyx":415
  * 
  * 	cdef double complex result = 0j
  * 	for indx in range(lend3):             # <<<<<<<<<<<<<<
@@ -5328,7 +5352,7 @@ static double __pyx_f_15Jfunc_cython_v4_computed3(__Pyx_memviewslice __pyx_v_d3n
   for (__pyx_t_9 = 0; __pyx_t_9 < __pyx_t_8; __pyx_t_9+=1) {
     __pyx_v_indx = __pyx_t_9;
 
-    /* "Jfunc_cython_v4.pyx":410
+    /* "Jfunc_cython_v4.pyx":416
  * 	cdef double complex result = 0j
  * 	for indx in range(lend3):
  * 		i = d3new[indx]             # <<<<<<<<<<<<<<
@@ -5338,7 +5362,7 @@ static double __pyx_f_15Jfunc_cython_v4_computed3(__Pyx_memviewslice __pyx_v_d3n
     __pyx_t_10 = __pyx_v_indx;
     __pyx_v_i = (*((long *) ( /* dim=0 */ (__pyx_v_d3new.data + __pyx_t_10 * __pyx_v_d3new.strides[0]) )));
 
-    /* "Jfunc_cython_v4.pyx":411
+    /* "Jfunc_cython_v4.pyx":417
  * 	for indx in range(lend3):
  * 		i = d3new[indx]
  * 		coef_d3_indx = coef_babis_d3_even[indx]             # <<<<<<<<<<<<<<
@@ -5348,87 +5372,95 @@ static double __pyx_f_15Jfunc_cython_v4_computed3(__Pyx_memviewslice __pyx_v_d3n
     __pyx_t_10 = __pyx_v_indx;
     __pyx_v_coef_d3_indx = (*((__pyx_t_double_complex *) ( /* dim=0 */ (__pyx_v_coef_babis_d3_even.data + __pyx_t_10 * __pyx_v_coef_babis_d3_even.strides[0]) )));
 
-    /* "Jfunc_cython_v4.pyx":412
+    /* "Jfunc_cython_v4.pyx":418
  * 		i = d3new[indx]
  * 		coef_d3_indx = coef_babis_d3_even[indx]
  * 		exp_num_i = - n3 + fbabisparamtab_exps[i][0]             # <<<<<<<<<<<<<<
  * 		exp_den_i =  fbabisparamtab_exps[i][1]
  * 		mass_i = fbabisparamtab_masses[i]
  */
-    if (unlikely(!__pyx_v_15Jfunc_cython_v4_fbabisparamtab_exps.memview)) { __Pyx_RaiseUnboundLocalError("fbabisparamtab_exps"); __PYX_ERR(0, 412, __pyx_L1_error) }
+    if (unlikely(!__pyx_v_15Jfunc_cython_v4_fbabisparamtab_exps.memview)) { __Pyx_RaiseUnboundLocalError("fbabisparamtab_exps"); __PYX_ERR(0, 418, __pyx_L1_error) }
     __pyx_t_10 = __pyx_v_i;
     __pyx_t_11 = 0;
     __pyx_v_exp_num_i = ((-__pyx_v_n3) + (*((long *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_15Jfunc_cython_v4_fbabisparamtab_exps.data + __pyx_t_10 * __pyx_v_15Jfunc_cython_v4_fbabisparamtab_exps.strides[0]) ) + __pyx_t_11 * __pyx_v_15Jfunc_cython_v4_fbabisparamtab_exps.strides[1]) ))));
 
-    /* "Jfunc_cython_v4.pyx":413
+    /* "Jfunc_cython_v4.pyx":419
  * 		coef_d3_indx = coef_babis_d3_even[indx]
  * 		exp_num_i = - n3 + fbabisparamtab_exps[i][0]
  * 		exp_den_i =  fbabisparamtab_exps[i][1]             # <<<<<<<<<<<<<<
  * 		mass_i = fbabisparamtab_masses[i]
  * 		mass_ind_i = fbabisparamtab_mass_ind[i]
  */
-    if (unlikely(!__pyx_v_15Jfunc_cython_v4_fbabisparamtab_exps.memview)) { __Pyx_RaiseUnboundLocalError("fbabisparamtab_exps"); __PYX_ERR(0, 413, __pyx_L1_error) }
+    if (unlikely(!__pyx_v_15Jfunc_cython_v4_fbabisparamtab_exps.memview)) { __Pyx_RaiseUnboundLocalError("fbabisparamtab_exps"); __PYX_ERR(0, 419, __pyx_L1_error) }
     __pyx_t_11 = __pyx_v_i;
     __pyx_t_10 = 1;
     __pyx_v_exp_den_i = (*((long *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_15Jfunc_cython_v4_fbabisparamtab_exps.data + __pyx_t_11 * __pyx_v_15Jfunc_cython_v4_fbabisparamtab_exps.strides[0]) ) + __pyx_t_10 * __pyx_v_15Jfunc_cython_v4_fbabisparamtab_exps.strides[1]) )));
 
-    /* "Jfunc_cython_v4.pyx":414
+    /* "Jfunc_cython_v4.pyx":420
  * 		exp_num_i = - n3 + fbabisparamtab_exps[i][0]
  * 		exp_den_i =  fbabisparamtab_exps[i][1]
  * 		mass_i = fbabisparamtab_masses[i]             # <<<<<<<<<<<<<<
  * 		mass_ind_i = fbabisparamtab_mass_ind[i]
  * 
  */
-    if (unlikely(!__pyx_v_15Jfunc_cython_v4_fbabisparamtab_masses.memview)) { __Pyx_RaiseUnboundLocalError("fbabisparamtab_masses"); __PYX_ERR(0, 414, __pyx_L1_error) }
+    if (unlikely(!__pyx_v_15Jfunc_cython_v4_fbabisparamtab_masses.memview)) { __Pyx_RaiseUnboundLocalError("fbabisparamtab_masses"); __PYX_ERR(0, 420, __pyx_L1_error) }
     __pyx_t_10 = __pyx_v_i;
     __pyx_t_5 = (PyObject *) *((MPC_Object * *) ( /* dim=0 */ (__pyx_v_15Jfunc_cython_v4_fbabisparamtab_masses.data + __pyx_t_10 * __pyx_v_15Jfunc_cython_v4_fbabisparamtab_masses.strides[0]) ));
     __Pyx_INCREF((PyObject*)__pyx_t_5);
     __Pyx_XDECREF_SET(__pyx_v_mass_i, ((MPC_Object *)__pyx_t_5));
     __pyx_t_5 = 0;
 
-    /* "Jfunc_cython_v4.pyx":415
+    /* "Jfunc_cython_v4.pyx":421
  * 		exp_den_i =  fbabisparamtab_exps[i][1]
  * 		mass_i = fbabisparamtab_masses[i]
  * 		mass_ind_i = fbabisparamtab_mass_ind[i]             # <<<<<<<<<<<<<<
  * 
  * 		Ltrian_temp = <double complex>Ltrian(-n2, 0, -n1, 0, exp_num_i, exp_den_i, k1sq, k2sq, k3sq,
  */
-    if (unlikely(!__pyx_v_15Jfunc_cython_v4_fbabisparamtab_mass_ind.memview)) { __Pyx_RaiseUnboundLocalError("fbabisparamtab_mass_ind"); __PYX_ERR(0, 415, __pyx_L1_error) }
+    if (unlikely(!__pyx_v_15Jfunc_cython_v4_fbabisparamtab_mass_ind.memview)) { __Pyx_RaiseUnboundLocalError("fbabisparamtab_mass_ind"); __PYX_ERR(0, 421, __pyx_L1_error) }
     __pyx_t_10 = __pyx_v_i;
     __pyx_v_mass_ind_i = (*((long *) ( /* dim=0 */ (__pyx_v_15Jfunc_cython_v4_fbabisparamtab_mass_ind.data + __pyx_t_10 * __pyx_v_15Jfunc_cython_v4_fbabisparamtab_mass_ind.strides[0]) )));
 
-    /* "Jfunc_cython_v4.pyx":418
+    /* "Jfunc_cython_v4.pyx":424
  * 
  * 		Ltrian_temp = <double complex>Ltrian(-n2, 0, -n1, 0, exp_num_i, exp_den_i, k1sq, k2sq, k3sq,
- * 		mpc0, mpc0, mass_i, -1, -1, mass_ind_i, Ltrian_cache)             # <<<<<<<<<<<<<<
- * 
+ * 		mpc0, mpc0, mass_i,             # <<<<<<<<<<<<<<
+ * 		-1, -1, mass_ind_i, Ltrian_cache)
  * 
  */
     __pyx_t_5 = ((PyObject *)__pyx_v_15Jfunc_cython_v4_mpc0);
     __Pyx_INCREF(__pyx_t_5);
     __pyx_t_2 = ((PyObject *)__pyx_v_15Jfunc_cython_v4_mpc0);
     __Pyx_INCREF(__pyx_t_2);
-    __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_Ltrian_cache); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 418, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_4);
-    if (!(likely(PyDict_CheckExact(__pyx_t_4))||((__pyx_t_4) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "dict", Py_TYPE(__pyx_t_4)->tp_name), 0))) __PYX_ERR(0, 418, __pyx_L1_error)
 
-    /* "Jfunc_cython_v4.pyx":417
+    /* "Jfunc_cython_v4.pyx":425
+ * 		Ltrian_temp = <double complex>Ltrian(-n2, 0, -n1, 0, exp_num_i, exp_den_i, k1sq, k2sq, k3sq,
+ * 		mpc0, mpc0, mass_i,
+ * 		-1, -1, mass_ind_i, Ltrian_cache)             # <<<<<<<<<<<<<<
+ * 
+ * 
+ */
+    __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_Ltrian_cache); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 425, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_4);
+    if (!(likely(PyDict_CheckExact(__pyx_t_4))||((__pyx_t_4) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "dict", Py_TYPE(__pyx_t_4)->tp_name), 0))) __PYX_ERR(0, 425, __pyx_L1_error)
+
+    /* "Jfunc_cython_v4.pyx":423
  * 		mass_ind_i = fbabisparamtab_mass_ind[i]
  * 
  * 		Ltrian_temp = <double complex>Ltrian(-n2, 0, -n1, 0, exp_num_i, exp_den_i, k1sq, k2sq, k3sq,             # <<<<<<<<<<<<<<
- * 		mpc0, mpc0, mass_i, -1, -1, mass_ind_i, Ltrian_cache)
- * 
+ * 		mpc0, mpc0, mass_i,
+ * 		-1, -1, mass_ind_i, Ltrian_cache)
  */
-    __pyx_t_3 = ((PyObject *)__pyx_f_21babiscython_v4_ubuntu_Ltrian((-__pyx_v_n2), 0, (-__pyx_v_n1), 0, __pyx_v_exp_num_i, __pyx_v_exp_den_i, __pyx_v_k1sq, __pyx_v_k2sq, __pyx_v_k3sq, ((MPC_Object *)__pyx_t_5), ((MPC_Object *)__pyx_t_2), __pyx_v_mass_i, -1L, -1L, __pyx_v_mass_ind_i, ((PyObject*)__pyx_t_4))); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 417, __pyx_L1_error)
+    __pyx_t_3 = ((PyObject *)__pyx_f_21babiscython_v4_ubuntu_Ltrian((-__pyx_v_n2), 0, (-__pyx_v_n1), 0, __pyx_v_exp_num_i, __pyx_v_exp_den_i, __pyx_v_k1sq, __pyx_v_k2sq, __pyx_v_k3sq, ((MPC_Object *)__pyx_t_5), ((MPC_Object *)__pyx_t_2), __pyx_v_mass_i, -1L, -1L, __pyx_v_mass_ind_i, ((PyObject*)__pyx_t_4))); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 423, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __pyx_t_12 = __Pyx_PyComplex_As___pyx_t_double_complex(__pyx_t_3); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 417, __pyx_L1_error)
+    __pyx_t_12 = __Pyx_PyComplex_As___pyx_t_double_complex(__pyx_t_3); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 423, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __pyx_v_Ltrian_temp = __pyx_t_double_complex_from_parts(((double)__Pyx_CREAL(__pyx_t_12)), ((double)__Pyx_CIMAG(__pyx_t_12)));
 
-    /* "Jfunc_cython_v4.pyx":421
+    /* "Jfunc_cython_v4.pyx":428
  * 
  * 
  * 		result = result + coef_d3_indx * Ltrian_temp             # <<<<<<<<<<<<<<
@@ -5438,7 +5470,7 @@ static double __pyx_f_15Jfunc_cython_v4_computed3(__Pyx_memviewslice __pyx_v_d3n
     __pyx_v_result = __Pyx_c_sum_double(__pyx_v_result, __Pyx_c_prod_double(__pyx_v_coef_d3_indx, __pyx_v_Ltrian_temp));
   }
 
-  /* "Jfunc_cython_v4.pyx":423
+  /* "Jfunc_cython_v4.pyx":430
  * 		result = result + coef_d3_indx * Ltrian_temp
  * 
  * 	return result.real/(4 * PI * SQRT_PI)             # <<<<<<<<<<<<<<
@@ -5448,12 +5480,12 @@ static double __pyx_f_15Jfunc_cython_v4_computed3(__Pyx_memviewslice __pyx_v_d3n
   __pyx_t_13 = ((4.0 * __pyx_v_15Jfunc_cython_v4_PI) * __pyx_v_15Jfunc_cython_v4_SQRT_PI);
   if (unlikely(__pyx_t_13 == 0)) {
     PyErr_SetString(PyExc_ZeroDivisionError, "float division");
-    __PYX_ERR(0, 423, __pyx_L1_error)
+    __PYX_ERR(0, 430, __pyx_L1_error)
   }
   __pyx_r = (__Pyx_CREAL(__pyx_v_result) / __pyx_t_13);
   goto __pyx_L0;
 
-  /* "Jfunc_cython_v4.pyx":392
+  /* "Jfunc_cython_v4.pyx":398
  * @cython.boundscheck(False)
  * @cython.wraparound(False)
  * cdef double computed3(long[:] d3new, long n1, long n2, long n3, long d3, mpfr k1sq, mpfr k2sq, mpfr k3sq):             # <<<<<<<<<<<<<<
@@ -5478,7 +5510,7 @@ static double __pyx_f_15Jfunc_cython_v4_computed3(__Pyx_memviewslice __pyx_v_d3n
   return __pyx_r;
 }
 
-/* "Jfunc_cython_v4.pyx":427
+/* "Jfunc_cython_v4.pyx":434
  * @cython.boundscheck(False)
  * @cython.wraparound(False)
  * cdef double computed2(long[:] d2new, long n1, long n2, long n3, long d2, mpfr k1sq, mpfr k2sq, mpfr k3sq):             # <<<<<<<<<<<<<<
@@ -5519,7 +5551,7 @@ static double __pyx_f_15Jfunc_cython_v4_computed2(__Pyx_memviewslice __pyx_v_d2n
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("computed2", 0);
 
-  /* "Jfunc_cython_v4.pyx":429
+  /* "Jfunc_cython_v4.pyx":436
  * cdef double computed2(long[:] d2new, long n1, long n2, long n3, long d2, mpfr k1sq, mpfr k2sq, mpfr k3sq):
  * 
  * 	cdef double complex Ltrian_temp = 0j             # <<<<<<<<<<<<<<
@@ -5528,7 +5560,7 @@ static double __pyx_f_15Jfunc_cython_v4_computed2(__Pyx_memviewslice __pyx_v_d2n
  */
   __pyx_v_Ltrian_temp = __pyx_t_double_complex_from_parts(0, 0.0);
 
-  /* "Jfunc_cython_v4.pyx":431
+  /* "Jfunc_cython_v4.pyx":438
  * 	cdef double complex Ltrian_temp = 0j
  * 
  * 	cdef long lend2 = len(d2new)             # <<<<<<<<<<<<<<
@@ -5538,33 +5570,33 @@ static double __pyx_f_15Jfunc_cython_v4_computed2(__Pyx_memviewslice __pyx_v_d2n
   __pyx_t_1 = __Pyx_MemoryView_Len(__pyx_v_d2new); 
   __pyx_v_lend2 = __pyx_t_1;
 
-  /* "Jfunc_cython_v4.pyx":434
+  /* "Jfunc_cython_v4.pyx":441
  * 	cdef Py_ssize_t indx, i
  * 
  * 	coef_babis_d2_even_arr =  np.array(matcoefs[d2][::2], dtype= complex)             # <<<<<<<<<<<<<<
  * 	cdef double complex[:] coef_babis_d2_even = coef_babis_d2_even_arr
  * 	cdef double complex coef_d2_indx
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_np); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 434, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_np); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 441, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_array); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 434, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_array); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 441, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   if (unlikely(__pyx_v_15Jfunc_cython_v4_matcoefs == Py_None)) {
     PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-    __PYX_ERR(0, 434, __pyx_L1_error)
+    __PYX_ERR(0, 441, __pyx_L1_error)
   }
-  __pyx_t_2 = __Pyx_PyObject_GetItem(PyList_GET_ITEM(__pyx_v_15Jfunc_cython_v4_matcoefs, __pyx_v_d2), __pyx_slice_); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 434, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetItem(PyList_GET_ITEM(__pyx_v_15Jfunc_cython_v4_matcoefs, __pyx_v_d2), __pyx_slice_); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 441, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_4 = PyTuple_New(1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 434, __pyx_L1_error)
+  __pyx_t_4 = PyTuple_New(1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 441, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_GIVEREF(__pyx_t_2);
   PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_t_2);
   __pyx_t_2 = 0;
-  __pyx_t_2 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 434, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 441, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_dtype, ((PyObject *)(&PyComplex_Type))) < 0) __PYX_ERR(0, 434, __pyx_L1_error)
-  __pyx_t_5 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_4, __pyx_t_2); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 434, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_dtype, ((PyObject *)(&PyComplex_Type))) < 0) __PYX_ERR(0, 441, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_4, __pyx_t_2); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 441, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
@@ -5572,19 +5604,19 @@ static double __pyx_f_15Jfunc_cython_v4_computed2(__Pyx_memviewslice __pyx_v_d2n
   __pyx_v_coef_babis_d2_even_arr = __pyx_t_5;
   __pyx_t_5 = 0;
 
-  /* "Jfunc_cython_v4.pyx":435
+  /* "Jfunc_cython_v4.pyx":442
  * 
  * 	coef_babis_d2_even_arr =  np.array(matcoefs[d2][::2], dtype= complex)
  * 	cdef double complex[:] coef_babis_d2_even = coef_babis_d2_even_arr             # <<<<<<<<<<<<<<
  * 	cdef double complex coef_d2_indx
  * 
  */
-  __pyx_t_6 = __Pyx_PyObject_to_MemoryviewSlice_ds___pyx_t_double_complex(__pyx_v_coef_babis_d2_even_arr, PyBUF_WRITABLE); if (unlikely(!__pyx_t_6.memview)) __PYX_ERR(0, 435, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyObject_to_MemoryviewSlice_ds___pyx_t_double_complex(__pyx_v_coef_babis_d2_even_arr, PyBUF_WRITABLE); if (unlikely(!__pyx_t_6.memview)) __PYX_ERR(0, 442, __pyx_L1_error)
   __pyx_v_coef_babis_d2_even = __pyx_t_6;
   __pyx_t_6.memview = NULL;
   __pyx_t_6.data = NULL;
 
-  /* "Jfunc_cython_v4.pyx":443
+  /* "Jfunc_cython_v4.pyx":450
  * 	cdef int mass_ind_i
  * 
  * 	cdef double complex result = 0j             # <<<<<<<<<<<<<<
@@ -5593,7 +5625,7 @@ static double __pyx_f_15Jfunc_cython_v4_computed2(__Pyx_memviewslice __pyx_v_d2n
  */
   __pyx_v_result = __pyx_t_double_complex_from_parts(0, 0.0);
 
-  /* "Jfunc_cython_v4.pyx":444
+  /* "Jfunc_cython_v4.pyx":451
  * 
  * 	cdef double complex result = 0j
  * 	for indx in range(lend2):             # <<<<<<<<<<<<<<
@@ -5605,7 +5637,7 @@ static double __pyx_f_15Jfunc_cython_v4_computed2(__Pyx_memviewslice __pyx_v_d2n
   for (__pyx_t_9 = 0; __pyx_t_9 < __pyx_t_8; __pyx_t_9+=1) {
     __pyx_v_indx = __pyx_t_9;
 
-    /* "Jfunc_cython_v4.pyx":445
+    /* "Jfunc_cython_v4.pyx":452
  * 	cdef double complex result = 0j
  * 	for indx in range(lend2):
  * 		i = d2new[indx]             # <<<<<<<<<<<<<<
@@ -5615,7 +5647,7 @@ static double __pyx_f_15Jfunc_cython_v4_computed2(__Pyx_memviewslice __pyx_v_d2n
     __pyx_t_10 = __pyx_v_indx;
     __pyx_v_i = (*((long *) ( /* dim=0 */ (__pyx_v_d2new.data + __pyx_t_10 * __pyx_v_d2new.strides[0]) )));
 
-    /* "Jfunc_cython_v4.pyx":446
+    /* "Jfunc_cython_v4.pyx":453
  * 	for indx in range(lend2):
  * 		i = d2new[indx]
  * 		coef_d2_indx = coef_babis_d2_even[indx]             # <<<<<<<<<<<<<<
@@ -5625,88 +5657,96 @@ static double __pyx_f_15Jfunc_cython_v4_computed2(__Pyx_memviewslice __pyx_v_d2n
     __pyx_t_10 = __pyx_v_indx;
     __pyx_v_coef_d2_indx = (*((__pyx_t_double_complex *) ( /* dim=0 */ (__pyx_v_coef_babis_d2_even.data + __pyx_t_10 * __pyx_v_coef_babis_d2_even.strides[0]) )));
 
-    /* "Jfunc_cython_v4.pyx":447
+    /* "Jfunc_cython_v4.pyx":454
  * 		i = d2new[indx]
  * 		coef_d2_indx = coef_babis_d2_even[indx]
  * 		exp_num_i = - n2 + fbabisparamtab_exps[i][0]             # <<<<<<<<<<<<<<
  * 		exp_den_i =  fbabisparamtab_exps[i][1]
  * 		mass_i = fbabisparamtab_masses[i]
  */
-    if (unlikely(!__pyx_v_15Jfunc_cython_v4_fbabisparamtab_exps.memview)) { __Pyx_RaiseUnboundLocalError("fbabisparamtab_exps"); __PYX_ERR(0, 447, __pyx_L1_error) }
+    if (unlikely(!__pyx_v_15Jfunc_cython_v4_fbabisparamtab_exps.memview)) { __Pyx_RaiseUnboundLocalError("fbabisparamtab_exps"); __PYX_ERR(0, 454, __pyx_L1_error) }
     __pyx_t_10 = __pyx_v_i;
     __pyx_t_11 = 0;
     __pyx_v_exp_num_i = ((-__pyx_v_n2) + (*((long *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_15Jfunc_cython_v4_fbabisparamtab_exps.data + __pyx_t_10 * __pyx_v_15Jfunc_cython_v4_fbabisparamtab_exps.strides[0]) ) + __pyx_t_11 * __pyx_v_15Jfunc_cython_v4_fbabisparamtab_exps.strides[1]) ))));
 
-    /* "Jfunc_cython_v4.pyx":448
+    /* "Jfunc_cython_v4.pyx":455
  * 		coef_d2_indx = coef_babis_d2_even[indx]
  * 		exp_num_i = - n2 + fbabisparamtab_exps[i][0]
  * 		exp_den_i =  fbabisparamtab_exps[i][1]             # <<<<<<<<<<<<<<
  * 		mass_i = fbabisparamtab_masses[i]
  * 		mass_ind_i = fbabisparamtab_mass_ind[i]
  */
-    if (unlikely(!__pyx_v_15Jfunc_cython_v4_fbabisparamtab_exps.memview)) { __Pyx_RaiseUnboundLocalError("fbabisparamtab_exps"); __PYX_ERR(0, 448, __pyx_L1_error) }
+    if (unlikely(!__pyx_v_15Jfunc_cython_v4_fbabisparamtab_exps.memview)) { __Pyx_RaiseUnboundLocalError("fbabisparamtab_exps"); __PYX_ERR(0, 455, __pyx_L1_error) }
     __pyx_t_11 = __pyx_v_i;
     __pyx_t_10 = 1;
     __pyx_v_exp_den_i = (*((long *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_15Jfunc_cython_v4_fbabisparamtab_exps.data + __pyx_t_11 * __pyx_v_15Jfunc_cython_v4_fbabisparamtab_exps.strides[0]) ) + __pyx_t_10 * __pyx_v_15Jfunc_cython_v4_fbabisparamtab_exps.strides[1]) )));
 
-    /* "Jfunc_cython_v4.pyx":449
+    /* "Jfunc_cython_v4.pyx":456
  * 		exp_num_i = - n2 + fbabisparamtab_exps[i][0]
  * 		exp_den_i =  fbabisparamtab_exps[i][1]
  * 		mass_i = fbabisparamtab_masses[i]             # <<<<<<<<<<<<<<
  * 		mass_ind_i = fbabisparamtab_mass_ind[i]
  * 
  */
-    if (unlikely(!__pyx_v_15Jfunc_cython_v4_fbabisparamtab_masses.memview)) { __Pyx_RaiseUnboundLocalError("fbabisparamtab_masses"); __PYX_ERR(0, 449, __pyx_L1_error) }
+    if (unlikely(!__pyx_v_15Jfunc_cython_v4_fbabisparamtab_masses.memview)) { __Pyx_RaiseUnboundLocalError("fbabisparamtab_masses"); __PYX_ERR(0, 456, __pyx_L1_error) }
     __pyx_t_10 = __pyx_v_i;
     __pyx_t_5 = (PyObject *) *((MPC_Object * *) ( /* dim=0 */ (__pyx_v_15Jfunc_cython_v4_fbabisparamtab_masses.data + __pyx_t_10 * __pyx_v_15Jfunc_cython_v4_fbabisparamtab_masses.strides[0]) ));
     __Pyx_INCREF((PyObject*)__pyx_t_5);
     __Pyx_XDECREF_SET(__pyx_v_mass_i, ((MPC_Object *)__pyx_t_5));
     __pyx_t_5 = 0;
 
-    /* "Jfunc_cython_v4.pyx":450
+    /* "Jfunc_cython_v4.pyx":457
  * 		exp_den_i =  fbabisparamtab_exps[i][1]
  * 		mass_i = fbabisparamtab_masses[i]
  * 		mass_ind_i = fbabisparamtab_mass_ind[i]             # <<<<<<<<<<<<<<
  * 
  * 		Ltrian_temp = <double complex>Ltrian(exp_num_i, exp_den_i, -n1, 0, -n3, 0, k1sq, k2sq, k3sq,
  */
-    if (unlikely(!__pyx_v_15Jfunc_cython_v4_fbabisparamtab_mass_ind.memview)) { __Pyx_RaiseUnboundLocalError("fbabisparamtab_mass_ind"); __PYX_ERR(0, 450, __pyx_L1_error) }
+    if (unlikely(!__pyx_v_15Jfunc_cython_v4_fbabisparamtab_mass_ind.memview)) { __Pyx_RaiseUnboundLocalError("fbabisparamtab_mass_ind"); __PYX_ERR(0, 457, __pyx_L1_error) }
     __pyx_t_10 = __pyx_v_i;
     __pyx_v_mass_ind_i = (*((long *) ( /* dim=0 */ (__pyx_v_15Jfunc_cython_v4_fbabisparamtab_mass_ind.data + __pyx_t_10 * __pyx_v_15Jfunc_cython_v4_fbabisparamtab_mass_ind.strides[0]) )));
 
-    /* "Jfunc_cython_v4.pyx":453
+    /* "Jfunc_cython_v4.pyx":460
  * 
  * 		Ltrian_temp = <double complex>Ltrian(exp_num_i, exp_den_i, -n1, 0, -n3, 0, k1sq, k2sq, k3sq,
- * 		mass_i, mpc0, mpc0, mass_ind_i, -1, -1, Ltrian_cache)             # <<<<<<<<<<<<<<
+ * 		mass_i, mpc0, mpc0,             # <<<<<<<<<<<<<<
+ * 		mass_ind_i, -1, -1, Ltrian_cache)
  * 
- * 		result = result + coef_d2_indx * Ltrian_temp
  */
     __pyx_t_5 = ((PyObject *)__pyx_v_15Jfunc_cython_v4_mpc0);
     __Pyx_INCREF(__pyx_t_5);
     __pyx_t_2 = ((PyObject *)__pyx_v_15Jfunc_cython_v4_mpc0);
     __Pyx_INCREF(__pyx_t_2);
-    __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_Ltrian_cache); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 453, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_4);
-    if (!(likely(PyDict_CheckExact(__pyx_t_4))||((__pyx_t_4) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "dict", Py_TYPE(__pyx_t_4)->tp_name), 0))) __PYX_ERR(0, 453, __pyx_L1_error)
 
-    /* "Jfunc_cython_v4.pyx":452
+    /* "Jfunc_cython_v4.pyx":461
+ * 		Ltrian_temp = <double complex>Ltrian(exp_num_i, exp_den_i, -n1, 0, -n3, 0, k1sq, k2sq, k3sq,
+ * 		mass_i, mpc0, mpc0,
+ * 		mass_ind_i, -1, -1, Ltrian_cache)             # <<<<<<<<<<<<<<
+ * 
+ * 		result = result + coef_d2_indx * Ltrian_temp
+ */
+    __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_Ltrian_cache); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 461, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_4);
+    if (!(likely(PyDict_CheckExact(__pyx_t_4))||((__pyx_t_4) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "dict", Py_TYPE(__pyx_t_4)->tp_name), 0))) __PYX_ERR(0, 461, __pyx_L1_error)
+
+    /* "Jfunc_cython_v4.pyx":459
  * 		mass_ind_i = fbabisparamtab_mass_ind[i]
  * 
  * 		Ltrian_temp = <double complex>Ltrian(exp_num_i, exp_den_i, -n1, 0, -n3, 0, k1sq, k2sq, k3sq,             # <<<<<<<<<<<<<<
- * 		mass_i, mpc0, mpc0, mass_ind_i, -1, -1, Ltrian_cache)
- * 
+ * 		mass_i, mpc0, mpc0,
+ * 		mass_ind_i, -1, -1, Ltrian_cache)
  */
-    __pyx_t_3 = ((PyObject *)__pyx_f_21babiscython_v4_ubuntu_Ltrian(__pyx_v_exp_num_i, __pyx_v_exp_den_i, (-__pyx_v_n1), 0, (-__pyx_v_n3), 0, __pyx_v_k1sq, __pyx_v_k2sq, __pyx_v_k3sq, __pyx_v_mass_i, ((MPC_Object *)__pyx_t_5), ((MPC_Object *)__pyx_t_2), __pyx_v_mass_ind_i, -1L, -1L, ((PyObject*)__pyx_t_4))); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 452, __pyx_L1_error)
+    __pyx_t_3 = ((PyObject *)__pyx_f_21babiscython_v4_ubuntu_Ltrian(__pyx_v_exp_num_i, __pyx_v_exp_den_i, (-__pyx_v_n1), 0, (-__pyx_v_n3), 0, __pyx_v_k1sq, __pyx_v_k2sq, __pyx_v_k3sq, __pyx_v_mass_i, ((MPC_Object *)__pyx_t_5), ((MPC_Object *)__pyx_t_2), __pyx_v_mass_ind_i, -1L, -1L, ((PyObject*)__pyx_t_4))); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 459, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __pyx_t_12 = __Pyx_PyComplex_As___pyx_t_double_complex(__pyx_t_3); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 452, __pyx_L1_error)
+    __pyx_t_12 = __Pyx_PyComplex_As___pyx_t_double_complex(__pyx_t_3); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 459, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __pyx_v_Ltrian_temp = __pyx_t_double_complex_from_parts(((double)__Pyx_CREAL(__pyx_t_12)), ((double)__Pyx_CIMAG(__pyx_t_12)));
 
-    /* "Jfunc_cython_v4.pyx":455
- * 		mass_i, mpc0, mpc0, mass_ind_i, -1, -1, Ltrian_cache)
+    /* "Jfunc_cython_v4.pyx":463
+ * 		mass_ind_i, -1, -1, Ltrian_cache)
  * 
  * 		result = result + coef_d2_indx * Ltrian_temp             # <<<<<<<<<<<<<<
  * 
@@ -5715,7 +5755,7 @@ static double __pyx_f_15Jfunc_cython_v4_computed2(__Pyx_memviewslice __pyx_v_d2n
     __pyx_v_result = __Pyx_c_sum_double(__pyx_v_result, __Pyx_c_prod_double(__pyx_v_coef_d2_indx, __pyx_v_Ltrian_temp));
   }
 
-  /* "Jfunc_cython_v4.pyx":457
+  /* "Jfunc_cython_v4.pyx":465
  * 		result = result + coef_d2_indx * Ltrian_temp
  * 
  * 	return result.real/(4 * PI * SQRT_PI)             # <<<<<<<<<<<<<<
@@ -5725,12 +5765,12 @@ static double __pyx_f_15Jfunc_cython_v4_computed2(__Pyx_memviewslice __pyx_v_d2n
   __pyx_t_13 = ((4.0 * __pyx_v_15Jfunc_cython_v4_PI) * __pyx_v_15Jfunc_cython_v4_SQRT_PI);
   if (unlikely(__pyx_t_13 == 0)) {
     PyErr_SetString(PyExc_ZeroDivisionError, "float division");
-    __PYX_ERR(0, 457, __pyx_L1_error)
+    __PYX_ERR(0, 465, __pyx_L1_error)
   }
   __pyx_r = (__Pyx_CREAL(__pyx_v_result) / __pyx_t_13);
   goto __pyx_L0;
 
-  /* "Jfunc_cython_v4.pyx":427
+  /* "Jfunc_cython_v4.pyx":434
  * @cython.boundscheck(False)
  * @cython.wraparound(False)
  * cdef double computed2(long[:] d2new, long n1, long n2, long n3, long d2, mpfr k1sq, mpfr k2sq, mpfr k3sq):             # <<<<<<<<<<<<<<
@@ -5755,7 +5795,7 @@ static double __pyx_f_15Jfunc_cython_v4_computed2(__Pyx_memviewslice __pyx_v_d2n
   return __pyx_r;
 }
 
-/* "Jfunc_cython_v4.pyx":461
+/* "Jfunc_cython_v4.pyx":469
  * @cython.boundscheck(False)
  * @cython.wraparound(False)
  * cdef double computed1(long[:] d1new, long n1, long n2, long n3, long d1, mpfr k1sq, mpfr k2sq, mpfr k3sq):             # <<<<<<<<<<<<<<
@@ -5796,7 +5836,7 @@ static double __pyx_f_15Jfunc_cython_v4_computed1(__Pyx_memviewslice __pyx_v_d1n
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("computed1", 0);
 
-  /* "Jfunc_cython_v4.pyx":463
+  /* "Jfunc_cython_v4.pyx":471
  * cdef double computed1(long[:] d1new, long n1, long n2, long n3, long d1, mpfr k1sq, mpfr k2sq, mpfr k3sq):
  * 
  * 	cdef long lend1 = len(d1new)             # <<<<<<<<<<<<<<
@@ -5806,33 +5846,33 @@ static double __pyx_f_15Jfunc_cython_v4_computed1(__Pyx_memviewslice __pyx_v_d1n
   __pyx_t_1 = __Pyx_MemoryView_Len(__pyx_v_d1new); 
   __pyx_v_lend1 = __pyx_t_1;
 
-  /* "Jfunc_cython_v4.pyx":466
+  /* "Jfunc_cython_v4.pyx":474
  * 	cdef Py_ssize_t indx, i
  * 
  * 	coef_babis_d1_even_arr =  np.array(matcoefs[d1][::2], dtype= complex)             # <<<<<<<<<<<<<<
  * 	cdef double complex[:] coef_babis_d1_even = coef_babis_d1_even_arr
  * 	cdef double complex coef_d1_indx
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_np); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 466, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_np); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 474, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_array); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 466, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_array); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 474, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   if (unlikely(__pyx_v_15Jfunc_cython_v4_matcoefs == Py_None)) {
     PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-    __PYX_ERR(0, 466, __pyx_L1_error)
+    __PYX_ERR(0, 474, __pyx_L1_error)
   }
-  __pyx_t_2 = __Pyx_PyObject_GetItem(PyList_GET_ITEM(__pyx_v_15Jfunc_cython_v4_matcoefs, __pyx_v_d1), __pyx_slice_); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 466, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetItem(PyList_GET_ITEM(__pyx_v_15Jfunc_cython_v4_matcoefs, __pyx_v_d1), __pyx_slice_); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 474, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_4 = PyTuple_New(1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 466, __pyx_L1_error)
+  __pyx_t_4 = PyTuple_New(1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 474, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_GIVEREF(__pyx_t_2);
   PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_t_2);
   __pyx_t_2 = 0;
-  __pyx_t_2 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 466, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 474, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_dtype, ((PyObject *)(&PyComplex_Type))) < 0) __PYX_ERR(0, 466, __pyx_L1_error)
-  __pyx_t_5 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_4, __pyx_t_2); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 466, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_dtype, ((PyObject *)(&PyComplex_Type))) < 0) __PYX_ERR(0, 474, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_4, __pyx_t_2); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 474, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
@@ -5840,19 +5880,19 @@ static double __pyx_f_15Jfunc_cython_v4_computed1(__Pyx_memviewslice __pyx_v_d1n
   __pyx_v_coef_babis_d1_even_arr = __pyx_t_5;
   __pyx_t_5 = 0;
 
-  /* "Jfunc_cython_v4.pyx":467
+  /* "Jfunc_cython_v4.pyx":475
  * 
  * 	coef_babis_d1_even_arr =  np.array(matcoefs[d1][::2], dtype= complex)
  * 	cdef double complex[:] coef_babis_d1_even = coef_babis_d1_even_arr             # <<<<<<<<<<<<<<
  * 	cdef double complex coef_d1_indx
  * 
  */
-  __pyx_t_6 = __Pyx_PyObject_to_MemoryviewSlice_ds___pyx_t_double_complex(__pyx_v_coef_babis_d1_even_arr, PyBUF_WRITABLE); if (unlikely(!__pyx_t_6.memview)) __PYX_ERR(0, 467, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyObject_to_MemoryviewSlice_ds___pyx_t_double_complex(__pyx_v_coef_babis_d1_even_arr, PyBUF_WRITABLE); if (unlikely(!__pyx_t_6.memview)) __PYX_ERR(0, 475, __pyx_L1_error)
   __pyx_v_coef_babis_d1_even = __pyx_t_6;
   __pyx_t_6.memview = NULL;
   __pyx_t_6.data = NULL;
 
-  /* "Jfunc_cython_v4.pyx":475
+  /* "Jfunc_cython_v4.pyx":483
  * 	cdef int mass_ind_i
  * 
  * 	cdef double complex Ltrian_temp = 0j             # <<<<<<<<<<<<<<
@@ -5861,7 +5901,7 @@ static double __pyx_f_15Jfunc_cython_v4_computed1(__Pyx_memviewslice __pyx_v_d1n
  */
   __pyx_v_Ltrian_temp = __pyx_t_double_complex_from_parts(0, 0.0);
 
-  /* "Jfunc_cython_v4.pyx":477
+  /* "Jfunc_cython_v4.pyx":485
  * 	cdef double complex Ltrian_temp = 0j
  * 
  * 	cdef double complex result = 0j             # <<<<<<<<<<<<<<
@@ -5870,7 +5910,7 @@ static double __pyx_f_15Jfunc_cython_v4_computed1(__Pyx_memviewslice __pyx_v_d1n
  */
   __pyx_v_result = __pyx_t_double_complex_from_parts(0, 0.0);
 
-  /* "Jfunc_cython_v4.pyx":478
+  /* "Jfunc_cython_v4.pyx":486
  * 
  * 	cdef double complex result = 0j
  * 	for indx in range(lend1):             # <<<<<<<<<<<<<<
@@ -5882,7 +5922,7 @@ static double __pyx_f_15Jfunc_cython_v4_computed1(__Pyx_memviewslice __pyx_v_d1n
   for (__pyx_t_9 = 0; __pyx_t_9 < __pyx_t_8; __pyx_t_9+=1) {
     __pyx_v_indx = __pyx_t_9;
 
-    /* "Jfunc_cython_v4.pyx":479
+    /* "Jfunc_cython_v4.pyx":487
  * 	cdef double complex result = 0j
  * 	for indx in range(lend1):
  * 		i = d1new[indx]             # <<<<<<<<<<<<<<
@@ -5892,7 +5932,7 @@ static double __pyx_f_15Jfunc_cython_v4_computed1(__Pyx_memviewslice __pyx_v_d1n
     __pyx_t_10 = __pyx_v_indx;
     __pyx_v_i = (*((long *) ( /* dim=0 */ (__pyx_v_d1new.data + __pyx_t_10 * __pyx_v_d1new.strides[0]) )));
 
-    /* "Jfunc_cython_v4.pyx":480
+    /* "Jfunc_cython_v4.pyx":488
  * 	for indx in range(lend1):
  * 		i = d1new[indx]
  * 		coef_d1_indx = coef_babis_d1_even[indx]             # <<<<<<<<<<<<<<
@@ -5902,88 +5942,96 @@ static double __pyx_f_15Jfunc_cython_v4_computed1(__Pyx_memviewslice __pyx_v_d1n
     __pyx_t_10 = __pyx_v_indx;
     __pyx_v_coef_d1_indx = (*((__pyx_t_double_complex *) ( /* dim=0 */ (__pyx_v_coef_babis_d1_even.data + __pyx_t_10 * __pyx_v_coef_babis_d1_even.strides[0]) )));
 
-    /* "Jfunc_cython_v4.pyx":481
+    /* "Jfunc_cython_v4.pyx":489
  * 		i = d1new[indx]
  * 		coef_d1_indx = coef_babis_d1_even[indx]
  * 		exp_num_i = - n1 + fbabisparamtab_exps[i][0]             # <<<<<<<<<<<<<<
  * 		exp_den_i =  fbabisparamtab_exps[i][1]
  * 		mass_i = fbabisparamtab_masses[i]
  */
-    if (unlikely(!__pyx_v_15Jfunc_cython_v4_fbabisparamtab_exps.memview)) { __Pyx_RaiseUnboundLocalError("fbabisparamtab_exps"); __PYX_ERR(0, 481, __pyx_L1_error) }
+    if (unlikely(!__pyx_v_15Jfunc_cython_v4_fbabisparamtab_exps.memview)) { __Pyx_RaiseUnboundLocalError("fbabisparamtab_exps"); __PYX_ERR(0, 489, __pyx_L1_error) }
     __pyx_t_10 = __pyx_v_i;
     __pyx_t_11 = 0;
     __pyx_v_exp_num_i = ((-__pyx_v_n1) + (*((long *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_15Jfunc_cython_v4_fbabisparamtab_exps.data + __pyx_t_10 * __pyx_v_15Jfunc_cython_v4_fbabisparamtab_exps.strides[0]) ) + __pyx_t_11 * __pyx_v_15Jfunc_cython_v4_fbabisparamtab_exps.strides[1]) ))));
 
-    /* "Jfunc_cython_v4.pyx":482
+    /* "Jfunc_cython_v4.pyx":490
  * 		coef_d1_indx = coef_babis_d1_even[indx]
  * 		exp_num_i = - n1 + fbabisparamtab_exps[i][0]
  * 		exp_den_i =  fbabisparamtab_exps[i][1]             # <<<<<<<<<<<<<<
  * 		mass_i = fbabisparamtab_masses[i]
  * 		mass_ind_i = fbabisparamtab_mass_ind[i]
  */
-    if (unlikely(!__pyx_v_15Jfunc_cython_v4_fbabisparamtab_exps.memview)) { __Pyx_RaiseUnboundLocalError("fbabisparamtab_exps"); __PYX_ERR(0, 482, __pyx_L1_error) }
+    if (unlikely(!__pyx_v_15Jfunc_cython_v4_fbabisparamtab_exps.memview)) { __Pyx_RaiseUnboundLocalError("fbabisparamtab_exps"); __PYX_ERR(0, 490, __pyx_L1_error) }
     __pyx_t_11 = __pyx_v_i;
     __pyx_t_10 = 1;
     __pyx_v_exp_den_i = (*((long *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_15Jfunc_cython_v4_fbabisparamtab_exps.data + __pyx_t_11 * __pyx_v_15Jfunc_cython_v4_fbabisparamtab_exps.strides[0]) ) + __pyx_t_10 * __pyx_v_15Jfunc_cython_v4_fbabisparamtab_exps.strides[1]) )));
 
-    /* "Jfunc_cython_v4.pyx":483
+    /* "Jfunc_cython_v4.pyx":491
  * 		exp_num_i = - n1 + fbabisparamtab_exps[i][0]
  * 		exp_den_i =  fbabisparamtab_exps[i][1]
  * 		mass_i = fbabisparamtab_masses[i]             # <<<<<<<<<<<<<<
  * 		mass_ind_i = fbabisparamtab_mass_ind[i]
  * 
  */
-    if (unlikely(!__pyx_v_15Jfunc_cython_v4_fbabisparamtab_masses.memview)) { __Pyx_RaiseUnboundLocalError("fbabisparamtab_masses"); __PYX_ERR(0, 483, __pyx_L1_error) }
+    if (unlikely(!__pyx_v_15Jfunc_cython_v4_fbabisparamtab_masses.memview)) { __Pyx_RaiseUnboundLocalError("fbabisparamtab_masses"); __PYX_ERR(0, 491, __pyx_L1_error) }
     __pyx_t_10 = __pyx_v_i;
     __pyx_t_5 = (PyObject *) *((MPC_Object * *) ( /* dim=0 */ (__pyx_v_15Jfunc_cython_v4_fbabisparamtab_masses.data + __pyx_t_10 * __pyx_v_15Jfunc_cython_v4_fbabisparamtab_masses.strides[0]) ));
     __Pyx_INCREF((PyObject*)__pyx_t_5);
     __Pyx_XDECREF_SET(__pyx_v_mass_i, ((MPC_Object *)__pyx_t_5));
     __pyx_t_5 = 0;
 
-    /* "Jfunc_cython_v4.pyx":484
+    /* "Jfunc_cython_v4.pyx":492
  * 		exp_den_i =  fbabisparamtab_exps[i][1]
  * 		mass_i = fbabisparamtab_masses[i]
  * 		mass_ind_i = fbabisparamtab_mass_ind[i]             # <<<<<<<<<<<<<<
  * 
  * 		Ltrian_temp = <double complex>Ltrian(-n2, 0, exp_num_i, exp_den_i, -n3, 0, k1sq, k2sq, k3sq,
  */
-    if (unlikely(!__pyx_v_15Jfunc_cython_v4_fbabisparamtab_mass_ind.memview)) { __Pyx_RaiseUnboundLocalError("fbabisparamtab_mass_ind"); __PYX_ERR(0, 484, __pyx_L1_error) }
+    if (unlikely(!__pyx_v_15Jfunc_cython_v4_fbabisparamtab_mass_ind.memview)) { __Pyx_RaiseUnboundLocalError("fbabisparamtab_mass_ind"); __PYX_ERR(0, 492, __pyx_L1_error) }
     __pyx_t_10 = __pyx_v_i;
     __pyx_v_mass_ind_i = (*((long *) ( /* dim=0 */ (__pyx_v_15Jfunc_cython_v4_fbabisparamtab_mass_ind.data + __pyx_t_10 * __pyx_v_15Jfunc_cython_v4_fbabisparamtab_mass_ind.strides[0]) )));
 
-    /* "Jfunc_cython_v4.pyx":487
+    /* "Jfunc_cython_v4.pyx":495
  * 
  * 		Ltrian_temp = <double complex>Ltrian(-n2, 0, exp_num_i, exp_den_i, -n3, 0, k1sq, k2sq, k3sq,
- * 		mpc0, mass_i, mpc0, -1, mass_ind_i, -1, Ltrian_cache)             # <<<<<<<<<<<<<<
+ * 		mpc0, mass_i, mpc0,             # <<<<<<<<<<<<<<
+ * 		-1, mass_ind_i, -1, Ltrian_cache)
  * 
- * 		result = result + coef_d1_indx * Ltrian_temp
  */
     __pyx_t_5 = ((PyObject *)__pyx_v_15Jfunc_cython_v4_mpc0);
     __Pyx_INCREF(__pyx_t_5);
     __pyx_t_2 = ((PyObject *)__pyx_v_15Jfunc_cython_v4_mpc0);
     __Pyx_INCREF(__pyx_t_2);
-    __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_Ltrian_cache); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 487, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_4);
-    if (!(likely(PyDict_CheckExact(__pyx_t_4))||((__pyx_t_4) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "dict", Py_TYPE(__pyx_t_4)->tp_name), 0))) __PYX_ERR(0, 487, __pyx_L1_error)
 
-    /* "Jfunc_cython_v4.pyx":486
+    /* "Jfunc_cython_v4.pyx":496
+ * 		Ltrian_temp = <double complex>Ltrian(-n2, 0, exp_num_i, exp_den_i, -n3, 0, k1sq, k2sq, k3sq,
+ * 		mpc0, mass_i, mpc0,
+ * 		-1, mass_ind_i, -1, Ltrian_cache)             # <<<<<<<<<<<<<<
+ * 
+ * 		result = result + coef_d1_indx * Ltrian_temp
+ */
+    __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_Ltrian_cache); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 496, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_4);
+    if (!(likely(PyDict_CheckExact(__pyx_t_4))||((__pyx_t_4) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "dict", Py_TYPE(__pyx_t_4)->tp_name), 0))) __PYX_ERR(0, 496, __pyx_L1_error)
+
+    /* "Jfunc_cython_v4.pyx":494
  * 		mass_ind_i = fbabisparamtab_mass_ind[i]
  * 
  * 		Ltrian_temp = <double complex>Ltrian(-n2, 0, exp_num_i, exp_den_i, -n3, 0, k1sq, k2sq, k3sq,             # <<<<<<<<<<<<<<
- * 		mpc0, mass_i, mpc0, -1, mass_ind_i, -1, Ltrian_cache)
- * 
+ * 		mpc0, mass_i, mpc0,
+ * 		-1, mass_ind_i, -1, Ltrian_cache)
  */
-    __pyx_t_3 = ((PyObject *)__pyx_f_21babiscython_v4_ubuntu_Ltrian((-__pyx_v_n2), 0, __pyx_v_exp_num_i, __pyx_v_exp_den_i, (-__pyx_v_n3), 0, __pyx_v_k1sq, __pyx_v_k2sq, __pyx_v_k3sq, ((MPC_Object *)__pyx_t_5), __pyx_v_mass_i, ((MPC_Object *)__pyx_t_2), -1L, __pyx_v_mass_ind_i, -1L, ((PyObject*)__pyx_t_4))); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 486, __pyx_L1_error)
+    __pyx_t_3 = ((PyObject *)__pyx_f_21babiscython_v4_ubuntu_Ltrian((-__pyx_v_n2), 0, __pyx_v_exp_num_i, __pyx_v_exp_den_i, (-__pyx_v_n3), 0, __pyx_v_k1sq, __pyx_v_k2sq, __pyx_v_k3sq, ((MPC_Object *)__pyx_t_5), __pyx_v_mass_i, ((MPC_Object *)__pyx_t_2), -1L, __pyx_v_mass_ind_i, -1L, ((PyObject*)__pyx_t_4))); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 494, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __pyx_t_12 = __Pyx_PyComplex_As___pyx_t_double_complex(__pyx_t_3); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 486, __pyx_L1_error)
+    __pyx_t_12 = __Pyx_PyComplex_As___pyx_t_double_complex(__pyx_t_3); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 494, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __pyx_v_Ltrian_temp = __pyx_t_double_complex_from_parts(((double)__Pyx_CREAL(__pyx_t_12)), ((double)__Pyx_CIMAG(__pyx_t_12)));
 
-    /* "Jfunc_cython_v4.pyx":489
- * 		mpc0, mass_i, mpc0, -1, mass_ind_i, -1, Ltrian_cache)
+    /* "Jfunc_cython_v4.pyx":498
+ * 		-1, mass_ind_i, -1, Ltrian_cache)
  * 
  * 		result = result + coef_d1_indx * Ltrian_temp             # <<<<<<<<<<<<<<
  * 
@@ -5992,7 +6040,7 @@ static double __pyx_f_15Jfunc_cython_v4_computed1(__Pyx_memviewslice __pyx_v_d1n
     __pyx_v_result = __Pyx_c_sum_double(__pyx_v_result, __Pyx_c_prod_double(__pyx_v_coef_d1_indx, __pyx_v_Ltrian_temp));
   }
 
-  /* "Jfunc_cython_v4.pyx":491
+  /* "Jfunc_cython_v4.pyx":500
  * 		result = result + coef_d1_indx * Ltrian_temp
  * 
  * 	return result.real/(4 * PI * SQRT_PI)             # <<<<<<<<<<<<<<
@@ -6002,12 +6050,12 @@ static double __pyx_f_15Jfunc_cython_v4_computed1(__Pyx_memviewslice __pyx_v_d1n
   __pyx_t_13 = ((4.0 * __pyx_v_15Jfunc_cython_v4_PI) * __pyx_v_15Jfunc_cython_v4_SQRT_PI);
   if (unlikely(__pyx_t_13 == 0)) {
     PyErr_SetString(PyExc_ZeroDivisionError, "float division");
-    __PYX_ERR(0, 491, __pyx_L1_error)
+    __PYX_ERR(0, 500, __pyx_L1_error)
   }
   __pyx_r = (__Pyx_CREAL(__pyx_v_result) / __pyx_t_13);
   goto __pyx_L0;
 
-  /* "Jfunc_cython_v4.pyx":461
+  /* "Jfunc_cython_v4.pyx":469
  * @cython.boundscheck(False)
  * @cython.wraparound(False)
  * cdef double computed1(long[:] d1new, long n1, long n2, long n3, long d1, mpfr k1sq, mpfr k2sq, mpfr k3sq):             # <<<<<<<<<<<<<<
@@ -6032,7 +6080,7 @@ static double __pyx_f_15Jfunc_cython_v4_computed1(__Pyx_memviewslice __pyx_v_d1n
   return __pyx_r;
 }
 
-/* "Jfunc_cython_v4.pyx":494
+/* "Jfunc_cython_v4.pyx":503
  * 
  * 
  * cpdef double computeJ(long n1, long n2, long n3,             # <<<<<<<<<<<<<<
@@ -6063,27 +6111,27 @@ static double __pyx_f_15Jfunc_cython_v4_computeJ(long __pyx_v_n1, long __pyx_v_n
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("computeJ", 0);
 
-  /* "Jfunc_cython_v4.pyx":500
- * 
+  /* "Jfunc_cython_v4.pyx":510
  * 	# d1basis is the decomposition of the diogo function d1 into Babis functions, same for d2 and d3
+ * 	# If there is no PS, we put -1 in d1, d2, d3 !
  * 	cdef long[:] d1basis = dtab[d1]             # <<<<<<<<<<<<<<
  * 	cdef long[:] d2basis = dtab[d2]
  * 	cdef long[:] d3basis = dtab[d3]
  */
   if (unlikely(__pyx_v_15Jfunc_cython_v4_dtab == Py_None)) {
     PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-    __PYX_ERR(0, 500, __pyx_L1_error)
+    __PYX_ERR(0, 510, __pyx_L1_error)
   }
-  __pyx_t_1 = __Pyx_GetItemInt_List(__pyx_v_15Jfunc_cython_v4_dtab, __pyx_v_d1, long, 1, __Pyx_PyInt_From_long, 1, 1, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 500, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_GetItemInt_List(__pyx_v_15Jfunc_cython_v4_dtab, __pyx_v_d1, long, 1, __Pyx_PyInt_From_long, 1, 1, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 510, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_to_MemoryviewSlice_ds_long(__pyx_t_1, PyBUF_WRITABLE); if (unlikely(!__pyx_t_2.memview)) __PYX_ERR(0, 500, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_to_MemoryviewSlice_ds_long(__pyx_t_1, PyBUF_WRITABLE); if (unlikely(!__pyx_t_2.memview)) __PYX_ERR(0, 510, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_v_d1basis = __pyx_t_2;
   __pyx_t_2.memview = NULL;
   __pyx_t_2.data = NULL;
 
-  /* "Jfunc_cython_v4.pyx":501
- * 	# d1basis is the decomposition of the diogo function d1 into Babis functions, same for d2 and d3
+  /* "Jfunc_cython_v4.pyx":511
+ * 	# If there is no PS, we put -1 in d1, d2, d3 !
  * 	cdef long[:] d1basis = dtab[d1]
  * 	cdef long[:] d2basis = dtab[d2]             # <<<<<<<<<<<<<<
  * 	cdef long[:] d3basis = dtab[d3]
@@ -6091,17 +6139,17 @@ static double __pyx_f_15Jfunc_cython_v4_computeJ(long __pyx_v_n1, long __pyx_v_n
  */
   if (unlikely(__pyx_v_15Jfunc_cython_v4_dtab == Py_None)) {
     PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-    __PYX_ERR(0, 501, __pyx_L1_error)
+    __PYX_ERR(0, 511, __pyx_L1_error)
   }
-  __pyx_t_1 = __Pyx_GetItemInt_List(__pyx_v_15Jfunc_cython_v4_dtab, __pyx_v_d2, long, 1, __Pyx_PyInt_From_long, 1, 1, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 501, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_GetItemInt_List(__pyx_v_15Jfunc_cython_v4_dtab, __pyx_v_d2, long, 1, __Pyx_PyInt_From_long, 1, 1, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 511, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_to_MemoryviewSlice_ds_long(__pyx_t_1, PyBUF_WRITABLE); if (unlikely(!__pyx_t_2.memview)) __PYX_ERR(0, 501, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_to_MemoryviewSlice_ds_long(__pyx_t_1, PyBUF_WRITABLE); if (unlikely(!__pyx_t_2.memview)) __PYX_ERR(0, 511, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_v_d2basis = __pyx_t_2;
   __pyx_t_2.memview = NULL;
   __pyx_t_2.data = NULL;
 
-  /* "Jfunc_cython_v4.pyx":502
+  /* "Jfunc_cython_v4.pyx":512
  * 	cdef long[:] d1basis = dtab[d1]
  * 	cdef long[:] d2basis = dtab[d2]
  * 	cdef long[:] d3basis = dtab[d3]             # <<<<<<<<<<<<<<
@@ -6110,17 +6158,17 @@ static double __pyx_f_15Jfunc_cython_v4_computeJ(long __pyx_v_n1, long __pyx_v_n
  */
   if (unlikely(__pyx_v_15Jfunc_cython_v4_dtab == Py_None)) {
     PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-    __PYX_ERR(0, 502, __pyx_L1_error)
+    __PYX_ERR(0, 512, __pyx_L1_error)
   }
-  __pyx_t_1 = __Pyx_GetItemInt_List(__pyx_v_15Jfunc_cython_v4_dtab, __pyx_v_d3, long, 1, __Pyx_PyInt_From_long, 1, 1, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 502, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_GetItemInt_List(__pyx_v_15Jfunc_cython_v4_dtab, __pyx_v_d3, long, 1, __Pyx_PyInt_From_long, 1, 1, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 512, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_to_MemoryviewSlice_ds_long(__pyx_t_1, PyBUF_WRITABLE); if (unlikely(!__pyx_t_2.memview)) __PYX_ERR(0, 502, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_to_MemoryviewSlice_ds_long(__pyx_t_1, PyBUF_WRITABLE); if (unlikely(!__pyx_t_2.memview)) __PYX_ERR(0, 512, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_v_d3basis = __pyx_t_2;
   __pyx_t_2.memview = NULL;
   __pyx_t_2.data = NULL;
 
-  /* "Jfunc_cython_v4.pyx":504
+  /* "Jfunc_cython_v4.pyx":514
  * 	cdef long[:] d3basis = dtab[d3]
  * 
  * 	if d1 >= 0 and d2 >= 0 and d3 >= 0:             # <<<<<<<<<<<<<<
@@ -6144,7 +6192,7 @@ static double __pyx_f_15Jfunc_cython_v4_computeJ(long __pyx_v_n1, long __pyx_v_n
   __pyx_L4_bool_binop_done:;
   if (__pyx_t_3) {
 
-    /* "Jfunc_cython_v4.pyx":505
+    /* "Jfunc_cython_v4.pyx":515
  * 
  * 	if d1 >= 0 and d2 >= 0 and d3 >= 0:
  * 		if d1 == 0:             # <<<<<<<<<<<<<<
@@ -6154,7 +6202,7 @@ static double __pyx_f_15Jfunc_cython_v4_computeJ(long __pyx_v_n1, long __pyx_v_n
     __pyx_t_3 = ((__pyx_v_d1 == 0) != 0);
     if (__pyx_t_3) {
 
-      /* "Jfunc_cython_v4.pyx":506
+      /* "Jfunc_cython_v4.pyx":516
  * 	if d1 >= 0 and d2 >= 0 and d3 >= 0:
  * 		if d1 == 0:
  * 			return 0.5 * computefull(d1basis[::2], d2basis, d3basis, n1, n2, n3, d1, d2, d3, k1sq, k2sq, k3sq)             # <<<<<<<<<<<<<<
@@ -6179,7 +6227,7 @@ static double __pyx_f_15Jfunc_cython_v4_computeJ(long __pyx_v_n1, long __pyx_v_n
     1,
     1) < 0))
 {
-    __PYX_ERR(0, 506, __pyx_L1_error)
+    __PYX_ERR(0, 516, __pyx_L1_error)
 }
 
 __pyx_r = (0.5 * __pyx_f_15Jfunc_cython_v4_computefull(__pyx_t_2, __pyx_v_d2basis, __pyx_v_d3basis, __pyx_v_n1, __pyx_v_n2, __pyx_v_n3, __pyx_v_d1, __pyx_v_d2, __pyx_v_d3, __pyx_v_k1sq, __pyx_v_k2sq, __pyx_v_k3sq));
@@ -6188,7 +6236,7 @@ __pyx_r = (0.5 * __pyx_f_15Jfunc_cython_v4_computefull(__pyx_t_2, __pyx_v_d2basi
       __pyx_t_2.data = NULL;
       goto __pyx_L0;
 
-      /* "Jfunc_cython_v4.pyx":505
+      /* "Jfunc_cython_v4.pyx":515
  * 
  * 	if d1 >= 0 and d2 >= 0 and d3 >= 0:
  * 		if d1 == 0:             # <<<<<<<<<<<<<<
@@ -6197,7 +6245,7 @@ __pyx_r = (0.5 * __pyx_f_15Jfunc_cython_v4_computefull(__pyx_t_2, __pyx_v_d2basi
  */
     }
 
-    /* "Jfunc_cython_v4.pyx":507
+    /* "Jfunc_cython_v4.pyx":517
  * 		if d1 == 0:
  * 			return 0.5 * computefull(d1basis[::2], d2basis, d3basis, n1, n2, n3, d1, d2, d3, k1sq, k2sq, k3sq)
  * 		return computefull(d1basis[::2], d2basis, d3basis, n1, n2, n3, d1, d2, d3, k1sq, k2sq, k3sq)             # <<<<<<<<<<<<<<
@@ -6222,7 +6270,7 @@ __pyx_r = (0.5 * __pyx_f_15Jfunc_cython_v4_computefull(__pyx_t_2, __pyx_v_d2basi
     1,
     1) < 0))
 {
-    __PYX_ERR(0, 507, __pyx_L1_error)
+    __PYX_ERR(0, 517, __pyx_L1_error)
 }
 
 __pyx_r = __pyx_f_15Jfunc_cython_v4_computefull(__pyx_t_2, __pyx_v_d2basis, __pyx_v_d3basis, __pyx_v_n1, __pyx_v_n2, __pyx_v_n3, __pyx_v_d1, __pyx_v_d2, __pyx_v_d3, __pyx_v_k1sq, __pyx_v_k2sq, __pyx_v_k3sq);
@@ -6231,7 +6279,7 @@ __pyx_r = __pyx_f_15Jfunc_cython_v4_computefull(__pyx_t_2, __pyx_v_d2basis, __py
     __pyx_t_2.data = NULL;
     goto __pyx_L0;
 
-    /* "Jfunc_cython_v4.pyx":504
+    /* "Jfunc_cython_v4.pyx":514
  * 	cdef long[:] d3basis = dtab[d3]
  * 
  * 	if d1 >= 0 and d2 >= 0 and d3 >= 0:             # <<<<<<<<<<<<<<
@@ -6240,7 +6288,7 @@ __pyx_r = __pyx_f_15Jfunc_cython_v4_computefull(__pyx_t_2, __pyx_v_d2basis, __py
  */
   }
 
-  /* "Jfunc_cython_v4.pyx":509
+  /* "Jfunc_cython_v4.pyx":519
  * 		return computefull(d1basis[::2], d2basis, d3basis, n1, n2, n3, d1, d2, d3, k1sq, k2sq, k3sq)
  * 
  * 	if d1 >= 0 and d2 >= 0 and d3 == -1:             # <<<<<<<<<<<<<<
@@ -6264,7 +6312,7 @@ __pyx_r = __pyx_f_15Jfunc_cython_v4_computefull(__pyx_t_2, __pyx_v_d2basis, __py
   __pyx_L9_bool_binop_done:;
   if (__pyx_t_3) {
 
-    /* "Jfunc_cython_v4.pyx":510
+    /* "Jfunc_cython_v4.pyx":520
  * 
  * 	if d1 >= 0 and d2 >= 0 and d3 == -1:
  * 		if d1 == 0:             # <<<<<<<<<<<<<<
@@ -6274,7 +6322,7 @@ __pyx_r = __pyx_f_15Jfunc_cython_v4_computefull(__pyx_t_2, __pyx_v_d2basis, __py
     __pyx_t_3 = ((__pyx_v_d1 == 0) != 0);
     if (__pyx_t_3) {
 
-      /* "Jfunc_cython_v4.pyx":511
+      /* "Jfunc_cython_v4.pyx":521
  * 	if d1 >= 0 and d2 >= 0 and d3 == -1:
  * 		if d1 == 0:
  * 			return 0.5 * computed3zero(d1basis[::2], d2basis, n1, n2, n3, d1, d2, k1sq, k2sq, k3sq)             # <<<<<<<<<<<<<<
@@ -6299,7 +6347,7 @@ __pyx_r = __pyx_f_15Jfunc_cython_v4_computefull(__pyx_t_2, __pyx_v_d2basis, __py
     1,
     1) < 0))
 {
-    __PYX_ERR(0, 511, __pyx_L1_error)
+    __PYX_ERR(0, 521, __pyx_L1_error)
 }
 
 __pyx_r = (0.5 * __pyx_f_15Jfunc_cython_v4_computed3zero(__pyx_t_2, __pyx_v_d2basis, __pyx_v_n1, __pyx_v_n2, __pyx_v_n3, __pyx_v_d1, __pyx_v_d2, __pyx_v_k1sq, __pyx_v_k2sq, __pyx_v_k3sq));
@@ -6308,7 +6356,7 @@ __pyx_r = (0.5 * __pyx_f_15Jfunc_cython_v4_computed3zero(__pyx_t_2, __pyx_v_d2ba
       __pyx_t_2.data = NULL;
       goto __pyx_L0;
 
-      /* "Jfunc_cython_v4.pyx":510
+      /* "Jfunc_cython_v4.pyx":520
  * 
  * 	if d1 >= 0 and d2 >= 0 and d3 == -1:
  * 		if d1 == 0:             # <<<<<<<<<<<<<<
@@ -6317,7 +6365,7 @@ __pyx_r = (0.5 * __pyx_f_15Jfunc_cython_v4_computed3zero(__pyx_t_2, __pyx_v_d2ba
  */
     }
 
-    /* "Jfunc_cython_v4.pyx":512
+    /* "Jfunc_cython_v4.pyx":522
  * 		if d1 == 0:
  * 			return 0.5 * computed3zero(d1basis[::2], d2basis, n1, n2, n3, d1, d2, k1sq, k2sq, k3sq)
  * 		return computed3zero(d1basis[::2], d2basis, n1, n2, n3, d1, d2, k1sq, k2sq, k3sq)             # <<<<<<<<<<<<<<
@@ -6342,7 +6390,7 @@ __pyx_r = (0.5 * __pyx_f_15Jfunc_cython_v4_computed3zero(__pyx_t_2, __pyx_v_d2ba
     1,
     1) < 0))
 {
-    __PYX_ERR(0, 512, __pyx_L1_error)
+    __PYX_ERR(0, 522, __pyx_L1_error)
 }
 
 __pyx_r = __pyx_f_15Jfunc_cython_v4_computed3zero(__pyx_t_2, __pyx_v_d2basis, __pyx_v_n1, __pyx_v_n2, __pyx_v_n3, __pyx_v_d1, __pyx_v_d2, __pyx_v_k1sq, __pyx_v_k2sq, __pyx_v_k3sq);
@@ -6351,7 +6399,7 @@ __pyx_r = __pyx_f_15Jfunc_cython_v4_computed3zero(__pyx_t_2, __pyx_v_d2basis, __
     __pyx_t_2.data = NULL;
     goto __pyx_L0;
 
-    /* "Jfunc_cython_v4.pyx":509
+    /* "Jfunc_cython_v4.pyx":519
  * 		return computefull(d1basis[::2], d2basis, d3basis, n1, n2, n3, d1, d2, d3, k1sq, k2sq, k3sq)
  * 
  * 	if d1 >= 0 and d2 >= 0 and d3 == -1:             # <<<<<<<<<<<<<<
@@ -6360,7 +6408,7 @@ __pyx_r = __pyx_f_15Jfunc_cython_v4_computed3zero(__pyx_t_2, __pyx_v_d2basis, __
  */
   }
 
-  /* "Jfunc_cython_v4.pyx":514
+  /* "Jfunc_cython_v4.pyx":524
  * 		return computed3zero(d1basis[::2], d2basis, n1, n2, n3, d1, d2, k1sq, k2sq, k3sq)
  * 
  * 	if d1 >= 0 and d2 == -1 and d3 >= 0:             # <<<<<<<<<<<<<<
@@ -6384,7 +6432,7 @@ __pyx_r = __pyx_f_15Jfunc_cython_v4_computed3zero(__pyx_t_2, __pyx_v_d2basis, __
   __pyx_L14_bool_binop_done:;
   if (__pyx_t_3) {
 
-    /* "Jfunc_cython_v4.pyx":515
+    /* "Jfunc_cython_v4.pyx":525
  * 
  * 	if d1 >= 0 and d2 == -1 and d3 >= 0:
  * 		if d1 == 0:             # <<<<<<<<<<<<<<
@@ -6394,7 +6442,7 @@ __pyx_r = __pyx_f_15Jfunc_cython_v4_computed3zero(__pyx_t_2, __pyx_v_d2basis, __
     __pyx_t_3 = ((__pyx_v_d1 == 0) != 0);
     if (__pyx_t_3) {
 
-      /* "Jfunc_cython_v4.pyx":516
+      /* "Jfunc_cython_v4.pyx":526
  * 	if d1 >= 0 and d2 == -1 and d3 >= 0:
  * 		if d1 == 0:
  * 			return 0.5 * computed2zero(d1basis[::2], d3basis, n1, n2, n3, d1, d3, k1sq, k2sq, k3sq)             # <<<<<<<<<<<<<<
@@ -6419,7 +6467,7 @@ __pyx_r = __pyx_f_15Jfunc_cython_v4_computed3zero(__pyx_t_2, __pyx_v_d2basis, __
     1,
     1) < 0))
 {
-    __PYX_ERR(0, 516, __pyx_L1_error)
+    __PYX_ERR(0, 526, __pyx_L1_error)
 }
 
 __pyx_r = (0.5 * __pyx_f_15Jfunc_cython_v4_computed2zero(__pyx_t_2, __pyx_v_d3basis, __pyx_v_n1, __pyx_v_n2, __pyx_v_n3, __pyx_v_d1, __pyx_v_d3, __pyx_v_k1sq, __pyx_v_k2sq, __pyx_v_k3sq));
@@ -6428,7 +6476,7 @@ __pyx_r = (0.5 * __pyx_f_15Jfunc_cython_v4_computed2zero(__pyx_t_2, __pyx_v_d3ba
       __pyx_t_2.data = NULL;
       goto __pyx_L0;
 
-      /* "Jfunc_cython_v4.pyx":515
+      /* "Jfunc_cython_v4.pyx":525
  * 
  * 	if d1 >= 0 and d2 == -1 and d3 >= 0:
  * 		if d1 == 0:             # <<<<<<<<<<<<<<
@@ -6437,7 +6485,7 @@ __pyx_r = (0.5 * __pyx_f_15Jfunc_cython_v4_computed2zero(__pyx_t_2, __pyx_v_d3ba
  */
     }
 
-    /* "Jfunc_cython_v4.pyx":517
+    /* "Jfunc_cython_v4.pyx":527
  * 		if d1 == 0:
  * 			return 0.5 * computed2zero(d1basis[::2], d3basis, n1, n2, n3, d1, d3, k1sq, k2sq, k3sq)
  * 		return computed2zero(d1basis[::2], d3basis, n1, n2, n3, d1, d3, k1sq, k2sq, k3sq)             # <<<<<<<<<<<<<<
@@ -6462,7 +6510,7 @@ __pyx_r = (0.5 * __pyx_f_15Jfunc_cython_v4_computed2zero(__pyx_t_2, __pyx_v_d3ba
     1,
     1) < 0))
 {
-    __PYX_ERR(0, 517, __pyx_L1_error)
+    __PYX_ERR(0, 527, __pyx_L1_error)
 }
 
 __pyx_r = __pyx_f_15Jfunc_cython_v4_computed2zero(__pyx_t_2, __pyx_v_d3basis, __pyx_v_n1, __pyx_v_n2, __pyx_v_n3, __pyx_v_d1, __pyx_v_d3, __pyx_v_k1sq, __pyx_v_k2sq, __pyx_v_k3sq);
@@ -6471,7 +6519,7 @@ __pyx_r = __pyx_f_15Jfunc_cython_v4_computed2zero(__pyx_t_2, __pyx_v_d3basis, __
     __pyx_t_2.data = NULL;
     goto __pyx_L0;
 
-    /* "Jfunc_cython_v4.pyx":514
+    /* "Jfunc_cython_v4.pyx":524
  * 		return computed3zero(d1basis[::2], d2basis, n1, n2, n3, d1, d2, k1sq, k2sq, k3sq)
  * 
  * 	if d1 >= 0 and d2 == -1 and d3 >= 0:             # <<<<<<<<<<<<<<
@@ -6480,7 +6528,7 @@ __pyx_r = __pyx_f_15Jfunc_cython_v4_computed2zero(__pyx_t_2, __pyx_v_d3basis, __
  */
   }
 
-  /* "Jfunc_cython_v4.pyx":519
+  /* "Jfunc_cython_v4.pyx":529
  * 		return computed2zero(d1basis[::2], d3basis, n1, n2, n3, d1, d3, k1sq, k2sq, k3sq)
  * 
  * 	if d1 == -1 and d2 >= 0 and d3 >= 0:             # <<<<<<<<<<<<<<
@@ -6504,7 +6552,7 @@ __pyx_r = __pyx_f_15Jfunc_cython_v4_computed2zero(__pyx_t_2, __pyx_v_d3basis, __
   __pyx_L19_bool_binop_done:;
   if (__pyx_t_3) {
 
-    /* "Jfunc_cython_v4.pyx":520
+    /* "Jfunc_cython_v4.pyx":530
  * 
  * 	if d1 == -1 and d2 >= 0 and d3 >= 0:
  * 		if d2 == 0:             # <<<<<<<<<<<<<<
@@ -6514,7 +6562,7 @@ __pyx_r = __pyx_f_15Jfunc_cython_v4_computed2zero(__pyx_t_2, __pyx_v_d3basis, __
     __pyx_t_3 = ((__pyx_v_d2 == 0) != 0);
     if (__pyx_t_3) {
 
-      /* "Jfunc_cython_v4.pyx":521
+      /* "Jfunc_cython_v4.pyx":531
  * 	if d1 == -1 and d2 >= 0 and d3 >= 0:
  * 		if d2 == 0:
  * 			return 0.5 * computed1zero(d2basis[::2], d3basis, n1, n2, n3, d2, d3, k1sq, k2sq, k3sq)             # <<<<<<<<<<<<<<
@@ -6539,7 +6587,7 @@ __pyx_r = __pyx_f_15Jfunc_cython_v4_computed2zero(__pyx_t_2, __pyx_v_d3basis, __
     1,
     1) < 0))
 {
-    __PYX_ERR(0, 521, __pyx_L1_error)
+    __PYX_ERR(0, 531, __pyx_L1_error)
 }
 
 __pyx_r = (0.5 * __pyx_f_15Jfunc_cython_v4_computed1zero(__pyx_t_2, __pyx_v_d3basis, __pyx_v_n1, __pyx_v_n2, __pyx_v_n3, __pyx_v_d2, __pyx_v_d3, __pyx_v_k1sq, __pyx_v_k2sq, __pyx_v_k3sq));
@@ -6548,7 +6596,7 @@ __pyx_r = (0.5 * __pyx_f_15Jfunc_cython_v4_computed1zero(__pyx_t_2, __pyx_v_d3ba
       __pyx_t_2.data = NULL;
       goto __pyx_L0;
 
-      /* "Jfunc_cython_v4.pyx":520
+      /* "Jfunc_cython_v4.pyx":530
  * 
  * 	if d1 == -1 and d2 >= 0 and d3 >= 0:
  * 		if d2 == 0:             # <<<<<<<<<<<<<<
@@ -6557,7 +6605,7 @@ __pyx_r = (0.5 * __pyx_f_15Jfunc_cython_v4_computed1zero(__pyx_t_2, __pyx_v_d3ba
  */
     }
 
-    /* "Jfunc_cython_v4.pyx":522
+    /* "Jfunc_cython_v4.pyx":532
  * 		if d2 == 0:
  * 			return 0.5 * computed1zero(d2basis[::2], d3basis, n1, n2, n3, d2, d3, k1sq, k2sq, k3sq)
  * 		return computed1zero(d2basis[::2], d3basis, n1, n2, n3, d2, d3, k1sq, k2sq, k3sq)             # <<<<<<<<<<<<<<
@@ -6582,7 +6630,7 @@ __pyx_r = (0.5 * __pyx_f_15Jfunc_cython_v4_computed1zero(__pyx_t_2, __pyx_v_d3ba
     1,
     1) < 0))
 {
-    __PYX_ERR(0, 522, __pyx_L1_error)
+    __PYX_ERR(0, 532, __pyx_L1_error)
 }
 
 __pyx_r = __pyx_f_15Jfunc_cython_v4_computed1zero(__pyx_t_2, __pyx_v_d3basis, __pyx_v_n1, __pyx_v_n2, __pyx_v_n3, __pyx_v_d2, __pyx_v_d3, __pyx_v_k1sq, __pyx_v_k2sq, __pyx_v_k3sq);
@@ -6591,7 +6639,7 @@ __pyx_r = __pyx_f_15Jfunc_cython_v4_computed1zero(__pyx_t_2, __pyx_v_d3basis, __
     __pyx_t_2.data = NULL;
     goto __pyx_L0;
 
-    /* "Jfunc_cython_v4.pyx":519
+    /* "Jfunc_cython_v4.pyx":529
  * 		return computed2zero(d1basis[::2], d3basis, n1, n2, n3, d1, d3, k1sq, k2sq, k3sq)
  * 
  * 	if d1 == -1 and d2 >= 0 and d3 >= 0:             # <<<<<<<<<<<<<<
@@ -6600,7 +6648,7 @@ __pyx_r = __pyx_f_15Jfunc_cython_v4_computed1zero(__pyx_t_2, __pyx_v_d3basis, __
  */
   }
 
-  /* "Jfunc_cython_v4.pyx":524
+  /* "Jfunc_cython_v4.pyx":534
  * 		return computed1zero(d2basis[::2], d3basis, n1, n2, n3, d2, d3, k1sq, k2sq, k3sq)
  * 
  * 	if d1 >= 0 and d2 == -1 and d3 == -1:             # <<<<<<<<<<<<<<
@@ -6624,7 +6672,7 @@ __pyx_r = __pyx_f_15Jfunc_cython_v4_computed1zero(__pyx_t_2, __pyx_v_d3basis, __
   __pyx_L24_bool_binop_done:;
   if (__pyx_t_3) {
 
-    /* "Jfunc_cython_v4.pyx":525
+    /* "Jfunc_cython_v4.pyx":535
  * 
  * 	if d1 >= 0 and d2 == -1 and d3 == -1:
  * 		if d1 == 0:             # <<<<<<<<<<<<<<
@@ -6634,7 +6682,7 @@ __pyx_r = __pyx_f_15Jfunc_cython_v4_computed1zero(__pyx_t_2, __pyx_v_d3basis, __
     __pyx_t_3 = ((__pyx_v_d1 == 0) != 0);
     if (__pyx_t_3) {
 
-      /* "Jfunc_cython_v4.pyx":526
+      /* "Jfunc_cython_v4.pyx":536
  * 	if d1 >= 0 and d2 == -1 and d3 == -1:
  * 		if d1 == 0:
  * 			return 0.5 * computed1(d1basis[::2], n1, n2, n3, d1, k1sq, k2sq, k3sq)             # <<<<<<<<<<<<<<
@@ -6659,7 +6707,7 @@ __pyx_r = __pyx_f_15Jfunc_cython_v4_computed1zero(__pyx_t_2, __pyx_v_d3basis, __
     1,
     1) < 0))
 {
-    __PYX_ERR(0, 526, __pyx_L1_error)
+    __PYX_ERR(0, 536, __pyx_L1_error)
 }
 
 __pyx_r = (0.5 * __pyx_f_15Jfunc_cython_v4_computed1(__pyx_t_2, __pyx_v_n1, __pyx_v_n2, __pyx_v_n3, __pyx_v_d1, __pyx_v_k1sq, __pyx_v_k2sq, __pyx_v_k3sq));
@@ -6668,7 +6716,7 @@ __pyx_r = (0.5 * __pyx_f_15Jfunc_cython_v4_computed1(__pyx_t_2, __pyx_v_n1, __py
       __pyx_t_2.data = NULL;
       goto __pyx_L0;
 
-      /* "Jfunc_cython_v4.pyx":525
+      /* "Jfunc_cython_v4.pyx":535
  * 
  * 	if d1 >= 0 and d2 == -1 and d3 == -1:
  * 		if d1 == 0:             # <<<<<<<<<<<<<<
@@ -6677,7 +6725,7 @@ __pyx_r = (0.5 * __pyx_f_15Jfunc_cython_v4_computed1(__pyx_t_2, __pyx_v_n1, __py
  */
     }
 
-    /* "Jfunc_cython_v4.pyx":527
+    /* "Jfunc_cython_v4.pyx":537
  * 		if d1 == 0:
  * 			return 0.5 * computed1(d1basis[::2], n1, n2, n3, d1, k1sq, k2sq, k3sq)
  * 		return computed1(d1basis[::2], n1, n2, n3, d1, k1sq, k2sq, k3sq)             # <<<<<<<<<<<<<<
@@ -6702,7 +6750,7 @@ __pyx_r = (0.5 * __pyx_f_15Jfunc_cython_v4_computed1(__pyx_t_2, __pyx_v_n1, __py
     1,
     1) < 0))
 {
-    __PYX_ERR(0, 527, __pyx_L1_error)
+    __PYX_ERR(0, 537, __pyx_L1_error)
 }
 
 __pyx_r = __pyx_f_15Jfunc_cython_v4_computed1(__pyx_t_2, __pyx_v_n1, __pyx_v_n2, __pyx_v_n3, __pyx_v_d1, __pyx_v_k1sq, __pyx_v_k2sq, __pyx_v_k3sq);
@@ -6711,7 +6759,7 @@ __pyx_r = __pyx_f_15Jfunc_cython_v4_computed1(__pyx_t_2, __pyx_v_n1, __pyx_v_n2,
     __pyx_t_2.data = NULL;
     goto __pyx_L0;
 
-    /* "Jfunc_cython_v4.pyx":524
+    /* "Jfunc_cython_v4.pyx":534
  * 		return computed1zero(d2basis[::2], d3basis, n1, n2, n3, d2, d3, k1sq, k2sq, k3sq)
  * 
  * 	if d1 >= 0 and d2 == -1 and d3 == -1:             # <<<<<<<<<<<<<<
@@ -6720,7 +6768,7 @@ __pyx_r = __pyx_f_15Jfunc_cython_v4_computed1(__pyx_t_2, __pyx_v_n1, __pyx_v_n2,
  */
   }
 
-  /* "Jfunc_cython_v4.pyx":529
+  /* "Jfunc_cython_v4.pyx":539
  * 		return computed1(d1basis[::2], n1, n2, n3, d1, k1sq, k2sq, k3sq)
  * 
  * 	if d1 == -1 and d2 >= 0 and d3 == -1:             # <<<<<<<<<<<<<<
@@ -6744,7 +6792,7 @@ __pyx_r = __pyx_f_15Jfunc_cython_v4_computed1(__pyx_t_2, __pyx_v_n1, __pyx_v_n2,
   __pyx_L29_bool_binop_done:;
   if (__pyx_t_3) {
 
-    /* "Jfunc_cython_v4.pyx":530
+    /* "Jfunc_cython_v4.pyx":540
  * 
  * 	if d1 == -1 and d2 >= 0 and d3 == -1:
  * 		if d2 == 0:             # <<<<<<<<<<<<<<
@@ -6754,7 +6802,7 @@ __pyx_r = __pyx_f_15Jfunc_cython_v4_computed1(__pyx_t_2, __pyx_v_n1, __pyx_v_n2,
     __pyx_t_3 = ((__pyx_v_d2 == 0) != 0);
     if (__pyx_t_3) {
 
-      /* "Jfunc_cython_v4.pyx":531
+      /* "Jfunc_cython_v4.pyx":541
  * 	if d1 == -1 and d2 >= 0 and d3 == -1:
  * 		if d2 == 0:
  * 			return 0.5 * computed2(d2basis[::2], n1, n2, n3, d2, k1sq, k2sq, k3sq)             # <<<<<<<<<<<<<<
@@ -6779,7 +6827,7 @@ __pyx_r = __pyx_f_15Jfunc_cython_v4_computed1(__pyx_t_2, __pyx_v_n1, __pyx_v_n2,
     1,
     1) < 0))
 {
-    __PYX_ERR(0, 531, __pyx_L1_error)
+    __PYX_ERR(0, 541, __pyx_L1_error)
 }
 
 __pyx_r = (0.5 * __pyx_f_15Jfunc_cython_v4_computed2(__pyx_t_2, __pyx_v_n1, __pyx_v_n2, __pyx_v_n3, __pyx_v_d2, __pyx_v_k1sq, __pyx_v_k2sq, __pyx_v_k3sq));
@@ -6788,7 +6836,7 @@ __pyx_r = (0.5 * __pyx_f_15Jfunc_cython_v4_computed2(__pyx_t_2, __pyx_v_n1, __py
       __pyx_t_2.data = NULL;
       goto __pyx_L0;
 
-      /* "Jfunc_cython_v4.pyx":530
+      /* "Jfunc_cython_v4.pyx":540
  * 
  * 	if d1 == -1 and d2 >= 0 and d3 == -1:
  * 		if d2 == 0:             # <<<<<<<<<<<<<<
@@ -6797,7 +6845,7 @@ __pyx_r = (0.5 * __pyx_f_15Jfunc_cython_v4_computed2(__pyx_t_2, __pyx_v_n1, __py
  */
     }
 
-    /* "Jfunc_cython_v4.pyx":532
+    /* "Jfunc_cython_v4.pyx":542
  * 		if d2 == 0:
  * 			return 0.5 * computed2(d2basis[::2], n1, n2, n3, d2, k1sq, k2sq, k3sq)
  * 		return computed2(d2basis[::2], n1, n2, n3, d2, k1sq, k2sq, k3sq)             # <<<<<<<<<<<<<<
@@ -6822,7 +6870,7 @@ __pyx_r = (0.5 * __pyx_f_15Jfunc_cython_v4_computed2(__pyx_t_2, __pyx_v_n1, __py
     1,
     1) < 0))
 {
-    __PYX_ERR(0, 532, __pyx_L1_error)
+    __PYX_ERR(0, 542, __pyx_L1_error)
 }
 
 __pyx_r = __pyx_f_15Jfunc_cython_v4_computed2(__pyx_t_2, __pyx_v_n1, __pyx_v_n2, __pyx_v_n3, __pyx_v_d2, __pyx_v_k1sq, __pyx_v_k2sq, __pyx_v_k3sq);
@@ -6831,7 +6879,7 @@ __pyx_r = __pyx_f_15Jfunc_cython_v4_computed2(__pyx_t_2, __pyx_v_n1, __pyx_v_n2,
     __pyx_t_2.data = NULL;
     goto __pyx_L0;
 
-    /* "Jfunc_cython_v4.pyx":529
+    /* "Jfunc_cython_v4.pyx":539
  * 		return computed1(d1basis[::2], n1, n2, n3, d1, k1sq, k2sq, k3sq)
  * 
  * 	if d1 == -1 and d2 >= 0 and d3 == -1:             # <<<<<<<<<<<<<<
@@ -6840,7 +6888,7 @@ __pyx_r = __pyx_f_15Jfunc_cython_v4_computed2(__pyx_t_2, __pyx_v_n1, __pyx_v_n2,
  */
   }
 
-  /* "Jfunc_cython_v4.pyx":534
+  /* "Jfunc_cython_v4.pyx":544
  * 		return computed2(d2basis[::2], n1, n2, n3, d2, k1sq, k2sq, k3sq)
  * 
  * 	if d1 == -1 and d2 == -1 and d3 >= 0:             # <<<<<<<<<<<<<<
@@ -6864,7 +6912,7 @@ __pyx_r = __pyx_f_15Jfunc_cython_v4_computed2(__pyx_t_2, __pyx_v_n1, __pyx_v_n2,
   __pyx_L34_bool_binop_done:;
   if (__pyx_t_3) {
 
-    /* "Jfunc_cython_v4.pyx":535
+    /* "Jfunc_cython_v4.pyx":545
  * 
  * 	if d1 == -1 and d2 == -1 and d3 >= 0:
  * 		if d3 == 0:             # <<<<<<<<<<<<<<
@@ -6874,7 +6922,7 @@ __pyx_r = __pyx_f_15Jfunc_cython_v4_computed2(__pyx_t_2, __pyx_v_n1, __pyx_v_n2,
     __pyx_t_3 = ((__pyx_v_d3 == 0) != 0);
     if (__pyx_t_3) {
 
-      /* "Jfunc_cython_v4.pyx":536
+      /* "Jfunc_cython_v4.pyx":546
  * 	if d1 == -1 and d2 == -1 and d3 >= 0:
  * 		if d3 == 0:
  * 			return 0.5 * computed3(d3basis[::2], n1, n2, n3, d3, k1sq, k2sq, k3sq)             # <<<<<<<<<<<<<<
@@ -6899,7 +6947,7 @@ __pyx_r = __pyx_f_15Jfunc_cython_v4_computed2(__pyx_t_2, __pyx_v_n1, __pyx_v_n2,
     1,
     1) < 0))
 {
-    __PYX_ERR(0, 536, __pyx_L1_error)
+    __PYX_ERR(0, 546, __pyx_L1_error)
 }
 
 __pyx_r = (0.5 * __pyx_f_15Jfunc_cython_v4_computed3(__pyx_t_2, __pyx_v_n1, __pyx_v_n2, __pyx_v_n3, __pyx_v_d3, __pyx_v_k1sq, __pyx_v_k2sq, __pyx_v_k3sq));
@@ -6908,7 +6956,7 @@ __pyx_r = (0.5 * __pyx_f_15Jfunc_cython_v4_computed3(__pyx_t_2, __pyx_v_n1, __py
       __pyx_t_2.data = NULL;
       goto __pyx_L0;
 
-      /* "Jfunc_cython_v4.pyx":535
+      /* "Jfunc_cython_v4.pyx":545
  * 
  * 	if d1 == -1 and d2 == -1 and d3 >= 0:
  * 		if d3 == 0:             # <<<<<<<<<<<<<<
@@ -6917,7 +6965,7 @@ __pyx_r = (0.5 * __pyx_f_15Jfunc_cython_v4_computed3(__pyx_t_2, __pyx_v_n1, __py
  */
     }
 
-    /* "Jfunc_cython_v4.pyx":537
+    /* "Jfunc_cython_v4.pyx":547
  * 		if d3 == 0:
  * 			return 0.5 * computed3(d3basis[::2], n1, n2, n3, d3, k1sq, k2sq, k3sq)
  * 		return computed3(d3basis[::2], n1, n2, n3, d3, k1sq, k2sq, k3sq)             # <<<<<<<<<<<<<<
@@ -6942,7 +6990,7 @@ __pyx_r = (0.5 * __pyx_f_15Jfunc_cython_v4_computed3(__pyx_t_2, __pyx_v_n1, __py
     1,
     1) < 0))
 {
-    __PYX_ERR(0, 537, __pyx_L1_error)
+    __PYX_ERR(0, 547, __pyx_L1_error)
 }
 
 __pyx_r = __pyx_f_15Jfunc_cython_v4_computed3(__pyx_t_2, __pyx_v_n1, __pyx_v_n2, __pyx_v_n3, __pyx_v_d3, __pyx_v_k1sq, __pyx_v_k2sq, __pyx_v_k3sq);
@@ -6951,7 +6999,7 @@ __pyx_r = __pyx_f_15Jfunc_cython_v4_computed3(__pyx_t_2, __pyx_v_n1, __pyx_v_n2,
     __pyx_t_2.data = NULL;
     goto __pyx_L0;
 
-    /* "Jfunc_cython_v4.pyx":534
+    /* "Jfunc_cython_v4.pyx":544
  * 		return computed2(d2basis[::2], n1, n2, n3, d2, k1sq, k2sq, k3sq)
  * 
  * 	if d1 == -1 and d2 == -1 and d3 >= 0:             # <<<<<<<<<<<<<<
@@ -6960,7 +7008,7 @@ __pyx_r = __pyx_f_15Jfunc_cython_v4_computed3(__pyx_t_2, __pyx_v_n1, __pyx_v_n2,
  */
   }
 
-  /* "Jfunc_cython_v4.pyx":539
+  /* "Jfunc_cython_v4.pyx":549
  * 		return computed3(d3basis[::2], n1, n2, n3, d3, k1sq, k2sq, k3sq)
  * 
  * 	if d1 == -1 and d2 == -1 and d3 == -1:             # <<<<<<<<<<<<<<
@@ -6984,7 +7032,7 @@ __pyx_r = __pyx_f_15Jfunc_cython_v4_computed3(__pyx_t_2, __pyx_v_n1, __pyx_v_n2,
   __pyx_L39_bool_binop_done:;
   if (__pyx_t_3) {
 
-    /* "Jfunc_cython_v4.pyx":540
+    /* "Jfunc_cython_v4.pyx":550
  * 
  * 	if d1 == -1 and d2 == -1 and d3 == -1:
  * 		return <double>Ltrian(-n2, 0, -n1, 0, -n3, 0, k1sq, k2sq, k3sq, mpc0, mpc0, mpc0, -1, -1, -1, Ltrian_cache).real/(8  * PI * SQRT_PI)             # <<<<<<<<<<<<<<
@@ -6997,29 +7045,29 @@ __pyx_r = __pyx_f_15Jfunc_cython_v4_computed3(__pyx_t_2, __pyx_v_n1, __pyx_v_n2,
     __Pyx_INCREF(__pyx_t_6);
     __pyx_t_7 = ((PyObject *)__pyx_v_15Jfunc_cython_v4_mpc0);
     __Pyx_INCREF(__pyx_t_7);
-    __Pyx_GetModuleGlobalName(__pyx_t_8, __pyx_n_s_Ltrian_cache); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 540, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_8, __pyx_n_s_Ltrian_cache); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 550, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_8);
-    if (!(likely(PyDict_CheckExact(__pyx_t_8))||((__pyx_t_8) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "dict", Py_TYPE(__pyx_t_8)->tp_name), 0))) __PYX_ERR(0, 540, __pyx_L1_error)
-    __pyx_t_9 = ((PyObject *)__pyx_f_21babiscython_v4_ubuntu_Ltrian((-__pyx_v_n2), 0, (-__pyx_v_n1), 0, (-__pyx_v_n3), 0, __pyx_v_k1sq, __pyx_v_k2sq, __pyx_v_k3sq, ((MPC_Object *)__pyx_t_1), ((MPC_Object *)__pyx_t_6), ((MPC_Object *)__pyx_t_7), -1L, -1L, -1L, ((PyObject*)__pyx_t_8))); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 540, __pyx_L1_error)
+    if (!(likely(PyDict_CheckExact(__pyx_t_8))||((__pyx_t_8) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "dict", Py_TYPE(__pyx_t_8)->tp_name), 0))) __PYX_ERR(0, 550, __pyx_L1_error)
+    __pyx_t_9 = ((PyObject *)__pyx_f_21babiscython_v4_ubuntu_Ltrian((-__pyx_v_n2), 0, (-__pyx_v_n1), 0, (-__pyx_v_n3), 0, __pyx_v_k1sq, __pyx_v_k2sq, __pyx_v_k3sq, ((MPC_Object *)__pyx_t_1), ((MPC_Object *)__pyx_t_6), ((MPC_Object *)__pyx_t_7), -1L, -1L, -1L, ((PyObject*)__pyx_t_8))); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 550, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_9);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
     __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-    __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_t_9, __pyx_n_s_real); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 540, __pyx_L1_error)
+    __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_t_9, __pyx_n_s_real); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 550, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_8);
     __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
-    __pyx_t_10 = __pyx_PyFloat_AsDouble(__pyx_t_8); if (unlikely((__pyx_t_10 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 540, __pyx_L1_error)
+    __pyx_t_10 = __pyx_PyFloat_AsDouble(__pyx_t_8); if (unlikely((__pyx_t_10 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 550, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
     __pyx_t_11 = ((8.0 * __pyx_v_15Jfunc_cython_v4_PI) * __pyx_v_15Jfunc_cython_v4_SQRT_PI);
     if (unlikely(__pyx_t_11 == 0)) {
       PyErr_SetString(PyExc_ZeroDivisionError, "float division");
-      __PYX_ERR(0, 540, __pyx_L1_error)
+      __PYX_ERR(0, 550, __pyx_L1_error)
     }
     __pyx_r = (((double)__pyx_t_10) / __pyx_t_11);
     goto __pyx_L0;
 
-    /* "Jfunc_cython_v4.pyx":539
+    /* "Jfunc_cython_v4.pyx":549
  * 		return computed3(d3basis[::2], n1, n2, n3, d3, k1sq, k2sq, k3sq)
  * 
  * 	if d1 == -1 and d2 == -1 and d3 == -1:             # <<<<<<<<<<<<<<
@@ -7028,16 +7076,16 @@ __pyx_r = __pyx_f_15Jfunc_cython_v4_computed3(__pyx_t_2, __pyx_v_n1, __pyx_v_n2,
  */
   }
 
-  /* "Jfunc_cython_v4.pyx":542
+  /* "Jfunc_cython_v4.pyx":552
  * 		return <double>Ltrian(-n2, 0, -n1, 0, -n3, 0, k1sq, k2sq, k3sq, mpc0, mpc0, mpc0, -1, -1, -1, Ltrian_cache).real/(8  * PI * SQRT_PI)
  * 
  * 	print("Case not considered in ComputeJ")             # <<<<<<<<<<<<<<
  * 
  * 
  */
-  if (__Pyx_PrintOne(0, __pyx_kp_s_Case_not_considered_in_ComputeJ) < 0) __PYX_ERR(0, 542, __pyx_L1_error)
+  if (__Pyx_PrintOne(0, __pyx_kp_s_Case_not_considered_in_ComputeJ) < 0) __PYX_ERR(0, 552, __pyx_L1_error)
 
-  /* "Jfunc_cython_v4.pyx":494
+  /* "Jfunc_cython_v4.pyx":503
  * 
  * 
  * cpdef double computeJ(long n1, long n2, long n3,             # <<<<<<<<<<<<<<
@@ -7120,53 +7168,53 @@ static PyObject *__pyx_pw_15Jfunc_cython_v4_1computeJ(PyObject *__pyx_self, PyOb
         case  1:
         if (likely((values[1] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_n2)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("computeJ", 1, 9, 9, 1); __PYX_ERR(0, 494, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("computeJ", 1, 9, 9, 1); __PYX_ERR(0, 503, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  2:
         if (likely((values[2] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_n3)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("computeJ", 1, 9, 9, 2); __PYX_ERR(0, 494, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("computeJ", 1, 9, 9, 2); __PYX_ERR(0, 503, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  3:
         if (likely((values[3] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_d1)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("computeJ", 1, 9, 9, 3); __PYX_ERR(0, 494, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("computeJ", 1, 9, 9, 3); __PYX_ERR(0, 503, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  4:
         if (likely((values[4] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_d2)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("computeJ", 1, 9, 9, 4); __PYX_ERR(0, 494, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("computeJ", 1, 9, 9, 4); __PYX_ERR(0, 503, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  5:
         if (likely((values[5] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_d3)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("computeJ", 1, 9, 9, 5); __PYX_ERR(0, 494, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("computeJ", 1, 9, 9, 5); __PYX_ERR(0, 503, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  6:
         if (likely((values[6] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_k1sq)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("computeJ", 1, 9, 9, 6); __PYX_ERR(0, 494, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("computeJ", 1, 9, 9, 6); __PYX_ERR(0, 503, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  7:
         if (likely((values[7] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_k2sq)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("computeJ", 1, 9, 9, 7); __PYX_ERR(0, 494, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("computeJ", 1, 9, 9, 7); __PYX_ERR(0, 503, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  8:
         if (likely((values[8] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_k3sq)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("computeJ", 1, 9, 9, 8); __PYX_ERR(0, 494, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("computeJ", 1, 9, 9, 8); __PYX_ERR(0, 503, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "computeJ") < 0)) __PYX_ERR(0, 494, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "computeJ") < 0)) __PYX_ERR(0, 503, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 9) {
       goto __pyx_L5_argtuple_error;
@@ -7181,27 +7229,27 @@ static PyObject *__pyx_pw_15Jfunc_cython_v4_1computeJ(PyObject *__pyx_self, PyOb
       values[7] = PyTuple_GET_ITEM(__pyx_args, 7);
       values[8] = PyTuple_GET_ITEM(__pyx_args, 8);
     }
-    __pyx_v_n1 = __Pyx_PyInt_As_long(values[0]); if (unlikely((__pyx_v_n1 == (long)-1) && PyErr_Occurred())) __PYX_ERR(0, 494, __pyx_L3_error)
-    __pyx_v_n2 = __Pyx_PyInt_As_long(values[1]); if (unlikely((__pyx_v_n2 == (long)-1) && PyErr_Occurred())) __PYX_ERR(0, 494, __pyx_L3_error)
-    __pyx_v_n3 = __Pyx_PyInt_As_long(values[2]); if (unlikely((__pyx_v_n3 == (long)-1) && PyErr_Occurred())) __PYX_ERR(0, 494, __pyx_L3_error)
-    __pyx_v_d1 = __Pyx_PyInt_As_long(values[3]); if (unlikely((__pyx_v_d1 == (long)-1) && PyErr_Occurred())) __PYX_ERR(0, 495, __pyx_L3_error)
-    __pyx_v_d2 = __Pyx_PyInt_As_long(values[4]); if (unlikely((__pyx_v_d2 == (long)-1) && PyErr_Occurred())) __PYX_ERR(0, 495, __pyx_L3_error)
-    __pyx_v_d3 = __Pyx_PyInt_As_long(values[5]); if (unlikely((__pyx_v_d3 == (long)-1) && PyErr_Occurred())) __PYX_ERR(0, 495, __pyx_L3_error)
+    __pyx_v_n1 = __Pyx_PyInt_As_long(values[0]); if (unlikely((__pyx_v_n1 == (long)-1) && PyErr_Occurred())) __PYX_ERR(0, 503, __pyx_L3_error)
+    __pyx_v_n2 = __Pyx_PyInt_As_long(values[1]); if (unlikely((__pyx_v_n2 == (long)-1) && PyErr_Occurred())) __PYX_ERR(0, 503, __pyx_L3_error)
+    __pyx_v_n3 = __Pyx_PyInt_As_long(values[2]); if (unlikely((__pyx_v_n3 == (long)-1) && PyErr_Occurred())) __PYX_ERR(0, 503, __pyx_L3_error)
+    __pyx_v_d1 = __Pyx_PyInt_As_long(values[3]); if (unlikely((__pyx_v_d1 == (long)-1) && PyErr_Occurred())) __PYX_ERR(0, 504, __pyx_L3_error)
+    __pyx_v_d2 = __Pyx_PyInt_As_long(values[4]); if (unlikely((__pyx_v_d2 == (long)-1) && PyErr_Occurred())) __PYX_ERR(0, 504, __pyx_L3_error)
+    __pyx_v_d3 = __Pyx_PyInt_As_long(values[5]); if (unlikely((__pyx_v_d3 == (long)-1) && PyErr_Occurred())) __PYX_ERR(0, 504, __pyx_L3_error)
     __pyx_v_k1sq = ((MPFR_Object *)values[6]);
     __pyx_v_k2sq = ((MPFR_Object *)values[7]);
     __pyx_v_k3sq = ((MPFR_Object *)values[8]);
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("computeJ", 1, 9, 9, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 494, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("computeJ", 1, 9, 9, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 503, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("Jfunc_cython_v4.computeJ", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_k1sq), __pyx_ptype_5gmpy2_5gmpy2_mpfr, 1, "k1sq", 0))) __PYX_ERR(0, 496, __pyx_L1_error)
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_k2sq), __pyx_ptype_5gmpy2_5gmpy2_mpfr, 1, "k2sq", 0))) __PYX_ERR(0, 496, __pyx_L1_error)
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_k3sq), __pyx_ptype_5gmpy2_5gmpy2_mpfr, 1, "k3sq", 0))) __PYX_ERR(0, 496, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_k1sq), __pyx_ptype_5gmpy2_5gmpy2_mpfr, 1, "k1sq", 0))) __PYX_ERR(0, 505, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_k2sq), __pyx_ptype_5gmpy2_5gmpy2_mpfr, 1, "k2sq", 0))) __PYX_ERR(0, 505, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_k3sq), __pyx_ptype_5gmpy2_5gmpy2_mpfr, 1, "k3sq", 0))) __PYX_ERR(0, 505, __pyx_L1_error)
   __pyx_r = __pyx_pf_15Jfunc_cython_v4_computeJ(__pyx_self, __pyx_v_n1, __pyx_v_n2, __pyx_v_n3, __pyx_v_d1, __pyx_v_d2, __pyx_v_d3, __pyx_v_k1sq, __pyx_v_k2sq, __pyx_v_k3sq);
 
   /* function exit code */
@@ -7222,7 +7270,7 @@ static PyObject *__pyx_pf_15Jfunc_cython_v4_computeJ(CYTHON_UNUSED PyObject *__p
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("computeJ", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = PyFloat_FromDouble(__pyx_f_15Jfunc_cython_v4_computeJ(__pyx_v_n1, __pyx_v_n2, __pyx_v_n3, __pyx_v_d1, __pyx_v_d2, __pyx_v_d3, __pyx_v_k1sq, __pyx_v_k2sq, __pyx_v_k3sq, 0)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 494, __pyx_L1_error)
+  __pyx_t_1 = PyFloat_FromDouble(__pyx_f_15Jfunc_cython_v4_computeJ(__pyx_v_n1, __pyx_v_n2, __pyx_v_n3, __pyx_v_d1, __pyx_v_d2, __pyx_v_d3, __pyx_v_k1sq, __pyx_v_k2sq, __pyx_v_k3sq, 0)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 503, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -22570,7 +22618,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_main, __pyx_k_main, sizeof(__pyx_k_main), 0, 0, 1, 1},
   {&__pyx_n_s_mass_dict, __pyx_k_mass_dict, sizeof(__pyx_k_mass_dict), 0, 0, 1, 1},
   {&__pyx_n_s_matarray_val, __pyx_k_matarray_val, sizeof(__pyx_k_matarray_val), 0, 0, 1, 1},
-  {&__pyx_n_s_matdiogotobabis, __pyx_k_matdiogotobabis, sizeof(__pyx_k_matdiogotobabis), 0, 0, 1, 1},
+  {&__pyx_n_s_matdiogotobabisnewbasis, __pyx_k_matdiogotobabisnewbasis, sizeof(__pyx_k_matdiogotobabisnewbasis), 0, 0, 1, 1},
   {&__pyx_n_s_memview, __pyx_k_memview, sizeof(__pyx_k_memview), 0, 0, 1, 1},
   {&__pyx_n_s_mode, __pyx_k_mode, sizeof(__pyx_k_mode), 0, 0, 1, 1},
   {&__pyx_n_s_n1, __pyx_k_n1, sizeof(__pyx_k_n1), 0, 0, 1, 1},
@@ -23963,14 +24011,14 @@ if (!__Pyx_RefNanny) {
  * cdef long lenfbabis = 33
  * cdef long lenfdiogo = 16             # <<<<<<<<<<<<<<
  * 
- * matarray_val = np.reshape(np.fromfile('matdiogotobabis', np.complex128),(lenfdiogo,lenfbabis))
+ * matarray_val = np.reshape(np.fromfile('matdiogotobabisnewbasis', np.complex128),(lenfdiogo,lenfbabis))
  */
   __pyx_v_15Jfunc_cython_v4_lenfdiogo = 16;
 
   /* "Jfunc_cython_v4.pyx":45
  * cdef long lenfdiogo = 16
  * 
- * matarray_val = np.reshape(np.fromfile('matdiogotobabis', np.complex128),(lenfdiogo,lenfbabis))             # <<<<<<<<<<<<<<
+ * matarray_val = np.reshape(np.fromfile('matdiogotobabisnewbasis', np.complex128),(lenfdiogo,lenfbabis))             # <<<<<<<<<<<<<<
  * cdef double complex[:,:] matdiogotobabisnowig = matarray_val
  * 
  */
@@ -23991,9 +24039,9 @@ if (!__Pyx_RefNanny) {
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_t_1 = PyTuple_New(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 45, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __Pyx_INCREF(__pyx_n_s_matdiogotobabis);
-  __Pyx_GIVEREF(__pyx_n_s_matdiogotobabis);
-  PyTuple_SET_ITEM(__pyx_t_1, 0, __pyx_n_s_matdiogotobabis);
+  __Pyx_INCREF(__pyx_n_s_matdiogotobabisnewbasis);
+  __Pyx_GIVEREF(__pyx_n_s_matdiogotobabisnewbasis);
+  PyTuple_SET_ITEM(__pyx_t_1, 0, __pyx_n_s_matdiogotobabisnewbasis);
   __Pyx_GIVEREF(__pyx_t_6);
   PyTuple_SET_ITEM(__pyx_t_1, 1, __pyx_t_6);
   __pyx_t_6 = 0;
@@ -24030,10 +24078,10 @@ if (!__Pyx_RefNanny) {
 
   /* "Jfunc_cython_v4.pyx":46
  * 
- * matarray_val = np.reshape(np.fromfile('matdiogotobabis', np.complex128),(lenfdiogo,lenfbabis))
+ * matarray_val = np.reshape(np.fromfile('matdiogotobabisnewbasis', np.complex128),(lenfdiogo,lenfbabis))
  * cdef double complex[:,:] matdiogotobabisnowig = matarray_val             # <<<<<<<<<<<<<<
  * 
- * mass_dict = {-1: mpc0, 0: kuv0 - 0.j,
+ * mass_dict = {-1: mpc0, 0: kuv0 + 0.j,
  */
   __Pyx_GetModuleGlobalName(__pyx_t_7, __pyx_n_s_matarray_val); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 46, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
@@ -24047,7 +24095,7 @@ if (!__Pyx_RefNanny) {
   /* "Jfunc_cython_v4.pyx":48
  * cdef double complex[:,:] matdiogotobabisnowig = matarray_val
  * 
- * mass_dict = {-1: mpc0, 0: kuv0 - 0.j,             # <<<<<<<<<<<<<<
+ * mass_dict = {-1: mpc0, 0: kuv0 + 0.j,             # <<<<<<<<<<<<<<
  * 			1: -kpeak1 - 1j*kuv1, 2: -kpeak1 + 1j*kuv1,
  * 			3: -kpeak2 - 1j*kuv2, 4: -kpeak2 + 1j*kuv2,
  */
@@ -24056,7 +24104,7 @@ if (!__Pyx_RefNanny) {
   if (PyDict_SetItem(__pyx_t_7, __pyx_int_neg_1, ((PyObject *)__pyx_v_15Jfunc_cython_v4_mpc0)) < 0) __PYX_ERR(0, 48, __pyx_L1_error)
   __pyx_t_2 = PyComplex_FromDoubles(0.0, 0.0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 48, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_5 = PyNumber_Subtract(((PyObject *)__pyx_v_15Jfunc_cython_v4_kuv0), __pyx_t_2); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 48, __pyx_L1_error)
+  __pyx_t_5 = PyNumber_Add(((PyObject *)__pyx_v_15Jfunc_cython_v4_kuv0), __pyx_t_2); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 48, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   if (PyDict_SetItem(__pyx_t_7, __pyx_int_0, __pyx_t_5) < 0) __PYX_ERR(0, 48, __pyx_L1_error)
@@ -24064,7 +24112,7 @@ if (!__Pyx_RefNanny) {
 
   /* "Jfunc_cython_v4.pyx":49
  * 
- * mass_dict = {-1: mpc0, 0: kuv0 - 0.j,
+ * mass_dict = {-1: mpc0, 0: kuv0 + 0.j,
  * 			1: -kpeak1 - 1j*kuv1, 2: -kpeak1 + 1j*kuv1,             # <<<<<<<<<<<<<<
  * 			3: -kpeak2 - 1j*kuv2, 4: -kpeak2 + 1j*kuv2,
  * 			5: -kpeak3 - 1j*kuv3, 6: -kpeak3 + 1j*kuv3,
@@ -24097,7 +24145,7 @@ if (!__Pyx_RefNanny) {
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
   /* "Jfunc_cython_v4.pyx":50
- * mass_dict = {-1: mpc0, 0: kuv0 - 0.j,
+ * mass_dict = {-1: mpc0, 0: kuv0 + 0.j,
  * 			1: -kpeak1 - 1j*kuv1, 2: -kpeak1 + 1j*kuv1,
  * 			3: -kpeak2 - 1j*kuv2, 4: -kpeak2 + 1j*kuv2,             # <<<<<<<<<<<<<<
  * 			5: -kpeak3 - 1j*kuv3, 6: -kpeak3 + 1j*kuv3,
@@ -24241,7 +24289,7 @@ if (!__Pyx_RefNanny) {
   /* "Jfunc_cython_v4.pyx":60
  * #fourth column: denominator exponent of babis function
  * 
- * fbabisparamtab[0]=[ mass_dict[0], 0, 0, 0]             # <<<<<<<<<<<<<<
+ * fbabisparamtab[0]=[ mass_dict[0], 0, 0, 1]             # <<<<<<<<<<<<<<
  * fbabisparamtab[1]=[ mass_dict[3], 3, 1, 1]
  * fbabisparamtab[2]=[ mass_dict[4], 4, 1, 1]
  */
@@ -24260,9 +24308,9 @@ if (!__Pyx_RefNanny) {
   __Pyx_INCREF(__pyx_int_0);
   __Pyx_GIVEREF(__pyx_int_0);
   PyList_SET_ITEM(__pyx_t_2, 2, __pyx_int_0);
-  __Pyx_INCREF(__pyx_int_0);
-  __Pyx_GIVEREF(__pyx_int_0);
-  PyList_SET_ITEM(__pyx_t_2, 3, __pyx_int_0);
+  __Pyx_INCREF(__pyx_int_1);
+  __Pyx_GIVEREF(__pyx_int_1);
+  PyList_SET_ITEM(__pyx_t_2, 3, __pyx_int_1);
   __pyx_t_5 = 0;
   __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_fbabisparamtab); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 60, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
@@ -24272,7 +24320,7 @@ if (!__Pyx_RefNanny) {
 
   /* "Jfunc_cython_v4.pyx":61
  * 
- * fbabisparamtab[0]=[ mass_dict[0], 0, 0, 0]
+ * fbabisparamtab[0]=[ mass_dict[0], 0, 0, 1]
  * fbabisparamtab[1]=[ mass_dict[3], 3, 1, 1]             # <<<<<<<<<<<<<<
  * fbabisparamtab[2]=[ mass_dict[4], 4, 1, 1]
  * fbabisparamtab[3]=[ mass_dict[5], 5, 0, 1]
@@ -24303,7 +24351,7 @@ if (!__Pyx_RefNanny) {
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
   /* "Jfunc_cython_v4.pyx":62
- * fbabisparamtab[0]=[ mass_dict[0], 0, 0, 0]
+ * fbabisparamtab[0]=[ mass_dict[0], 0, 0, 1]
  * fbabisparamtab[1]=[ mass_dict[3], 3, 1, 1]
  * fbabisparamtab[2]=[ mass_dict[4], 4, 1, 1]             # <<<<<<<<<<<<<<
  * fbabisparamtab[3]=[ mass_dict[5], 5, 0, 1]

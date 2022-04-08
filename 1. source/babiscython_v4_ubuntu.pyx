@@ -794,7 +794,8 @@ cdef mpfr k1dotk2(mpfr k21, mpfr k22, mpfr ksum2):
 @cython.boundscheck(False)
 @cython.wraparound(False)
 cdef mpc Ltrian(long n1, long d1, long n2, long d2, long n3, long d3, 
-		   mpfr k21, mpfr k22, mpfr k23, mpc m1, mpc m2, mpc m3, long m1_ind, long m2_ind, long m3_ind, dict Ltrian_cache):
+		   mpfr k21, mpfr k22, mpfr k23, mpc m1, mpc m2, mpc m3, 
+		   long m1_ind, long m2_ind, long m3_ind, dict Ltrian_cache):
 	
 	#note that using hash gives a bug in python version 3.7. Need to use version 3.8 or above
 	arg_list_bin = (n1,d1,n2,d2,n3,d3,m1_ind,m2_ind,m3_ind)
@@ -812,15 +813,15 @@ cdef mpc Ltrian(long n1, long d1, long n2, long d2, long n3, long d3,
 		Ltrian_cache[arg_list_bin] = result
 		return result
 	if d1 == 0 and n1 != 0:
-		result = Ltrian(0,-n1,n2,d2,n3,d3,k21,k22,k23,mpc0,m2,m3, 0, m2_ind, m3_ind, Ltrian_cache)
+		result = Ltrian(0,-n1,n2,d2,n3,d3,k21,k22,k23,mpc0,m2,m3, -1, m2_ind, m3_ind, Ltrian_cache)
 		Ltrian_cache[arg_list_bin] = result
 		return result
 	if d2 == 0 and n2 != 0:
-		result = Ltrian(n1,d1,0,-n2,n3,d3,k21,k22,k23,m1,mpc0,m3, m1_ind, 0, m3_ind, Ltrian_cache)
+		result = Ltrian(n1,d1,0,-n2,n3,d3,k21,k22,k23,m1,mpc0,m3, m1_ind, -1, m3_ind, Ltrian_cache)
 		Ltrian_cache[arg_list_bin] = result
 		return result	
 	if d3 == 0 and n3 != 0:
-		result = Ltrian(n1,d1,n2,d2,0,-n3,k21,k22,k23,m1,m2,mpc0, m1_ind, m2_ind, 0, Ltrian_cache)
+		result = Ltrian(n1,d1,n2,d2,0,-n3,k21,k22,k23,m1,m2,mpc0, m1_ind, m2_ind, -1, Ltrian_cache)
 		Ltrian_cache[arg_list_bin] = result
 		return result
 	if n1 > 0:

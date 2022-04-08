@@ -42,10 +42,10 @@ cdef mpfr kuv4 = mpfr(str(0.0000135))
 cdef long lenfbabis = 33
 cdef long lenfdiogo = 16
 
-matarray_val = np.reshape(np.fromfile('matdiogotobabis', np.complex128),(lenfdiogo,lenfbabis))
+matarray_val = np.reshape(np.fromfile('matdiogotobabisnewbasis', np.complex128),(lenfdiogo,lenfbabis))
 cdef double complex[:,:] matdiogotobabisnowig = matarray_val
 
-mass_dict = {-1: mpc0, 0: kuv0 - 0.j, 
+mass_dict = {-1: mpc0, 0: kuv0 + 0.j, 
 			1: -kpeak1 - 1j*kuv1, 2: -kpeak1 + 1j*kuv1,
 			3: -kpeak2 - 1j*kuv2, 4: -kpeak2 + 1j*kuv2,
 			5: -kpeak3 - 1j*kuv3, 6: -kpeak3 + 1j*kuv3,
@@ -57,7 +57,7 @@ fbabisparamtab = np.zeros((lenfbabis,4),dtype=object)
 #third column: numerator exponent of babis function
 #fourth column: denominator exponent of babis function
 
-fbabisparamtab[0]=[ mass_dict[0], 0, 0, 0]
+fbabisparamtab[0]=[ mass_dict[0], 0, 0, 1]
 fbabisparamtab[1]=[ mass_dict[3], 3, 1, 1]
 fbabisparamtab[2]=[ mass_dict[4], 4, 1, 1]
 fbabisparamtab[3]=[ mass_dict[5], 5, 0, 1]
@@ -269,7 +269,9 @@ cdef double computed1zero(long[:] d2new, long[:] d3basis, long n1, long n2, long
 			mass_ind_j = fbabisparamtab_mass_ind[j]
 
 			Ltrian_temp = <double complex>Ltrian(exp_num_i, exp_den_i, -n1, 0, exp_num_j, exp_den_j, 
-			k1sq, k2sq, k3sq, mass_i, mpc0, mass_j, mass_ind_i, -1, mass_ind_j, Ltrian_cache)
+			k1sq, k2sq, k3sq, 
+			mass_i, mpc0, mass_j, 
+			mass_ind_i, -1, mass_ind_j, Ltrian_cache)
 
 			result_temp_d3 = result_temp_d3 + coef_d3_indx3 * Ltrian_temp
 
@@ -323,7 +325,9 @@ cdef double computed2zero(long[:] d1new, long[:] d3basis, long n1, long n2, long
 			mass_ind_j = fbabisparamtab_mass_ind[j]
 
 			Ltrian_temp = <double complex>Ltrian(-n2, 0, exp_num_i, exp_den_i, exp_num_j, exp_den_j, k1sq,
-							 k2sq, k3sq, mpc0, mass_i, mass_j, -1, mass_ind_i, mass_ind_j, Ltrian_cache)
+							 k2sq, k3sq, 
+							 mpc0, mass_i, mass_j, 
+							 -1, mass_ind_i, mass_ind_j, Ltrian_cache)
 
 			result_temp_d3 = result_temp_d3 + coef_d3_indx3 * Ltrian_temp
 
@@ -378,7 +382,9 @@ cdef double computed3zero(long[:] d1new, long[:] d2basis, long n1, long n2, long
 			mass_ind_j = fbabisparamtab_mass_ind[j]
 
 			Ltrian_temp = <double complex>Ltrian(exp_num_j, exp_den_j, exp_num_i, exp_den_i, -n3, 0, 
-			k1sq, k2sq, k3sq, mass_j, mass_i, mpc0, mass_ind_j, mass_ind_i, -1, Ltrian_cache)
+			k1sq, k2sq, k3sq, 
+			mass_j, mass_i, mpc0, 
+			mass_ind_j, mass_ind_i, -1, Ltrian_cache)
 
 			result_temp_d2 = result_temp_d2 + coef_d2_indx2 * Ltrian_temp
 
@@ -415,7 +421,8 @@ cdef double computed3(long[:] d3new, long n1, long n2, long n3, long d3, mpfr k1
 		mass_ind_i = fbabisparamtab_mass_ind[i]
 		
 		Ltrian_temp = <double complex>Ltrian(-n2, 0, -n1, 0, exp_num_i, exp_den_i, k1sq, k2sq, k3sq, 
-		mpc0, mpc0, mass_i, -1, -1, mass_ind_i, Ltrian_cache)
+		mpc0, mpc0, mass_i, 
+		-1, -1, mass_ind_i, Ltrian_cache)
 
 
 		result = result + coef_d3_indx * Ltrian_temp
@@ -450,7 +457,8 @@ cdef double computed2(long[:] d2new, long n1, long n2, long n3, long d2, mpfr k1
 		mass_ind_i = fbabisparamtab_mass_ind[i]
 		
 		Ltrian_temp = <double complex>Ltrian(exp_num_i, exp_den_i, -n1, 0, -n3, 0, k1sq, k2sq, k3sq, 
-		mass_i, mpc0, mpc0, mass_ind_i, -1, -1, Ltrian_cache)
+		mass_i, mpc0, mpc0, 
+		mass_ind_i, -1, -1, Ltrian_cache)
 
 		result = result + coef_d2_indx * Ltrian_temp
 
@@ -484,7 +492,8 @@ cdef double computed1(long[:] d1new, long n1, long n2, long n3, long d1, mpfr k1
 		mass_ind_i = fbabisparamtab_mass_ind[i]
 		
 		Ltrian_temp = <double complex>Ltrian(-n2, 0, exp_num_i, exp_den_i, -n3, 0, k1sq, k2sq, k3sq, 
-		mpc0, mass_i, mpc0, -1, mass_ind_i, -1, Ltrian_cache)
+		mpc0, mass_i, mpc0, 
+		-1, mass_ind_i, -1, Ltrian_cache)
 
 		result = result + coef_d1_indx * Ltrian_temp
 
@@ -497,6 +506,7 @@ cpdef double computeJ(long n1, long n2, long n3,
 	# n1, n2, n3 are the exponents of q, k1pq, k2mq in the denominator
 
 	# d1basis is the decomposition of the diogo function d1 into Babis functions, same for d2 and d3
+	# If there is no PS, we put -1 in d1, d2, d3 !
 	cdef long[:] d1basis = dtab[d1]
 	cdef long[:] d2basis = dtab[d2]
 	cdef long[:] d3basis = dtab[d3]

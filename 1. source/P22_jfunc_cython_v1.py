@@ -30,7 +30,7 @@ def computeker(i1, i2, k2, ctab_ns, ctab_coefs, Jtriantable):
 	res = 0
 	for i in range(numker):
 		if ctab_coefs[i] != 0:
-			res += ctab_coefs[i]*J(-ctab_ns[i,0], -ctab_ns[i,1], 0, i1, i2, 0, k2, mpfr0, mpfr0)			
+			res += ctab_coefs[i]*J(-ctab_ns[i,0], -ctab_ns[i,1], 0, i1, i2, -1, k2, mpfr0, mpfr0)			
 	Jtriantable[i1,i2] = res
 	return res
 
