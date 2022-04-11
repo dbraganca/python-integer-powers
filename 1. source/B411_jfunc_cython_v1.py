@@ -23,6 +23,13 @@ if not(os.path.exists(outputfolder)):
 
 filelist = [f for f in os.listdir(ctabfolder) if not f.startswith('.')]
 
+def get_ks(filename):
+	# filename = 'B411ctab_' + k1str + '_' + k2str + '_' + k3str + '_.csv'
+	k1 = mpfr(str.split(filename,'_')[1])
+	k2 = mpfr(str.split(filename,'_')[2])
+	k3 = mpfr(str.split(str.split(filename,'_')[3],'.csv')[0])
+	return (k1,k2,k3)
+
 def computeker(i1, k12, k22, k32, ctab_ns, ctab_coefs, Jtriantable):
 	# ctab_ns has the form (n1, i, n2, j, n3, k) where ijk is 100, 010 or 001 
 	# depending on the change of variable needed to make
@@ -32,30 +39,23 @@ def computeker(i1, k12, k22, k32, ctab_ns, ctab_coefs, Jtriantable):
 		if ctab_coefs[i] != 0:
 			if ctab_ns[i, 1] != 0:
 				# no change of variable: Plin inside integral is P(q)
-				term = ctab_coefs[i] * J(-ctab_ns[i,0], -ctab_ns[i,2], -ctab_ns[i,4], i1, 0, 0, k12, k22, k32)
+				term = ctab_coefs[i] * J(-ctab_ns[i,0], -ctab_ns[i,2], -ctab_ns[i,4], i1, -1, -1, k12, k22, k32)
 
 			elif ctab_ns[i, 3] != 0:
 				# change of variable q -> k1 - q
 				# Plin inside integral is P(k1 - q)
-				term = ctab_coefs[i] * J(-ctab_ns[i,0], -ctab_ns[i,2], -ctab_ns[i,4], 0, i1, 0, k12, k22, k32)
+				term = ctab_coefs[i] * J(-ctab_ns[i,0], -ctab_ns[i,2], -ctab_ns[i,4], -1, i1, -1, k12, k22, k32)
 
 			elif ctab_ns[i, 5] != 0:
 				# change of variable q -> k2 + q
 				# Plin inside integral is P(k2 + q)
-				term = ctab_coefs[i] * J(-ctab_ns[i,0], -ctab_ns[i,2], -ctab_ns[i,4], 0, 0, i1, k12, k22, k32)
+				term = ctab_coefs[i] * J(-ctab_ns[i,0], -ctab_ns[i,2], -ctab_ns[i,4], -1, -1, i1, k12, k22, k32)
 			else:
 				print(i,"ERROR in computeker: case not considered")
 			res += term
 
 	Jtriantable[i1] = res
 	return res
-
-def get_ks(filename):
-	# filename = 'B411ctab_' + k1str + '_' + k2str + '_' + k3str + '_.csv'
-	k1 = mpfr(str.split(filename,'_')[1])
-	k2 = mpfr(str.split(filename,'_')[2])
-	k3 = mpfr(str.split(str.split(filename,'_')[3],'.csv')[0])
-	return (k1,k2,k3)
 
 
 def compute_B411_jmat(filename):
@@ -94,7 +94,7 @@ def compute_B411_jmat(filename):
 	# pd.set_option("precision", GLOBAL_PREC)
 	# np.set_printoptions(precision=GLOBAL_PREC)
 	out_df = pd.DataFrame(Jtriantable, dtype = object)
-	print(k1,k2,k3)
+	# print(k1,k2,k3)
 	out_filename = outputfolder + 'B411_Jfunc_'+str(float(k1))+'_' + str(float(k2)) + '_' + str(float(k3)) + '_' +'.csv'
 	out_df.to_csv(out_filename, index = False)
 
@@ -106,7 +106,7 @@ def compute_all_B411():
 		(k1,k2,k3)=get_ks(file)
 		#print(float(k1), float(k2), float(k3))
 		out_filename = outputfolder + 'B411_Jfunc_'+str(float(k1))+'_' + str(float(k2)) + '_' + str(float(k3)) + '_' +'.csv'
-		if not(os.path.isfile(out_filename)) or float(k1)==0.5:	
+		if not(os.path.isfile(out_filename)):	
 			if k1==k2 and k2==k3:
 				start_time = time.time()
 				compute_B411_jmat(file)

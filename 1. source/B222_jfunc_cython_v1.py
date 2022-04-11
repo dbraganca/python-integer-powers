@@ -19,11 +19,18 @@ gm.get_context().allow_complex = True
 ctabfolder = '../3. Ctabs/B222ctabks/'
 outputfolder = '../2. Jmat_loopvals/B222_Jmat_cython/'
 
-
+# make output folder
 if not(os.path.exists(outputfolder)):
 	os.makedirs(outputfolder)
 
 filelist = [f for f in os.listdir(ctabfolder) if not f.startswith('.')]
+
+def get_ks(filename):
+	# filename = 'B222ctab_' + k1str + '_' + k2str + '_' + k3str + '_.csv'
+	k1 = mpfr(str.split(filename,'_')[1])
+	k2 = mpfr(str.split(filename,'_')[2])
+	k3 = mpfr(str.split(str.split(filename,'_')[3],'.csv')[0])
+	return (k1,k2,k3)
 
 def computeker(i1,i2,i3, k12, k22, k32, ctab_ns, ctab_coefs, Jtriantable):
 	numker = len(ctab_coefs)
@@ -35,13 +42,6 @@ def computeker(i1,i2,i3, k12, k22, k32, ctab_ns, ctab_coefs, Jtriantable):
 	Jtriantable[i1,i2,i3] = res
 	return res
 
-
-def get_ks(filename):
-	# filename = 'B222ctab_' + k1str + '_' + k2str + '_' + k3str + '_.csv'
-	k1 = mpfr(str.split(filename,'_')[1])
-	k2 = mpfr(str.split(filename,'_')[2])
-	k3 = mpfr(str.split(str.split(filename,'_')[3],'.csv')[0])
-	return (k1,k2,k3)
 
 def compute_B222_jmat(filename):
 	
@@ -85,8 +85,9 @@ def compute_all_B222():
 	for file in filelist:
 		(k1,k2,k3)=get_ks(file)		
 		out_filename = outputfolder + 'B222_Jfunc_'+str(float(k1))+'_' + str(float(k2)) + '_' + str(float(k3)) + '_' +'.csv'
+		# guarantee it is an equilateral triangle
 		if k1==k2 and k2==k3:
-			if not(os.path.isfile(out_filename)) or float(k1)==0.5:	
+			if not(os.path.isfile(out_filename)):	
 				print(float(k1), float(k2), float(k3))
 				start_time = time.time()
 				compute_B222_jmat(file)
