@@ -9,18 +9,27 @@ import gmpy2 as gm
 from gmpy2 import *
 import time
 
+from config import Ltrian_cache, TriaN_cache
+
 gm.get_context().precision = 190
 gm.get_context().allow_complex = True
 
 # load coefficients
-
 ctabfolder = '../3. Ctabs/B222Redshiftctabks/'
 outputfolder = '../2. Jmat_loopvals/B222Redshift_Jmat_cython/'
 
+# make output folder
 if not(os.path.exists(outputfolder)):
 	os.makedirs(outputfolder)
 
 filelist = [f for f in os.listdir(ctabfolder) if not f.startswith('.')]
+
+def get_ks(filename):
+	# filename = 'B222ctab_' + k1str + '_' + k2str + '_' + k3str + '_.csv'
+	k1 = mpfr(str.split(filename,'_')[1])
+	k2 = mpfr(str.split(filename,'_')[2])
+	k3 = mpfr(str.split(str.split(filename,'_')[3],'.csv')[0])
+	return (k1,k2,k3)
 
 def computeker(i1,i2,i3, k12, k22, k32, ctab_ns, ctab_coefs, Jtriantable):
 	numker = len(ctab_coefs)
@@ -33,14 +42,6 @@ def computeker(i1,i2,i3, k12, k22, k32, ctab_ns, ctab_coefs, Jtriantable):
 	Jtriantable[i1,i2,i3] = res
 	# print(res)
 	return res
-
-
-def get_ks(filename):
-	# filename = 'B222ctab_' + k1str + '_' + k2str + '_' + k3str + '_.csv'
-	k1 = mpfr(str.split(filename,'_')[1])
-	k2 = mpfr(str.split(filename,'_')[2])
-	k3 = mpfr(str.split(str.split(filename,'_')[3],'.csv')[0])
-	return (k1,k2,k3)
 
 def compute_B222_jmat(filename):
 	
@@ -62,17 +63,18 @@ def compute_B222_jmat(filename):
 	ctab_ns = ctab[:,0:3].astype(int)
 	ctab_coefs = ctab[:,3].astype(float)
 
+	# clear cache because different triangle
+	Ltrian_cache.clear()
+	TriaN_cache.clear()
+
 	Jtriantable = np.empty((16,16,16),dtype=float)
 
-	start_time = time.time()
 	for i1 in reversed(range(16)):
 		for i2 in reversed(range(16)):
 			print(i2,i1)
 			for i3 in reversed(range(16)):				
 				computeker(i1, i2, i3, k12, k22, k32, ctab_ns, ctab_coefs, Jtriantable)
 
-	print("--- %s seconds ---" % (time.time() - start_time))
-	# print(Jtriantable.shape)
 
 	# Output the table to csv 
 	out_arr = np.column_stack((np.repeat(np.arange(16),16),Jtriantable.reshape(16**2,-1)))
@@ -80,12 +82,16 @@ def compute_B222_jmat(filename):
 	out_filename = outputfolder + 'B222RedshiftJfunc_'+str(float(k1))+'_' + str(float(k2)) + '_' + str(float(k3)) + '_' +'.csv'
 	out_df.to_csv(out_filename,index = False)
 
-for file in filelist:
-	(k1,k2,k3)=get_ks(file)
-	print(float(k1), float(k2), float(k3))
-	out_filename = outputfolder + 'B222RedshiftJfunc_'+str(float(k1))+'_' + str(float(k2)) + '_' + str(float(k3)) + '_' +'.csv'
-	if k1==k2 and k2==k3:
-		if not(os.path.isfile(out_filename)):	
-			start_time = time.time()
-			compute_B222_jmat(file)
-			print("--- %s seconds ---" % (time.time() - start_time))
+def compute_all_B222():
+	for file in filelist:
+		(k1,k2,k3)=get_ks(file)
+		print(float(k1), float(k2), float(k3))
+		out_filename = outputfolder + 'B222RedshiftJfunc_'+str(float(k1))+'_' + str(float(k2)) + '_' + str(float(k3)) + '_' +'.csv'
+		if k1==k2 and k2==k3:
+			if not(os.path.isfile(out_filename)):	
+				start_time = time.time()
+				compute_B222_jmat(file)
+				print("--- %s seconds ---" % (time.time() - start_time))
+
+if __name__ == "__main__":
+	compute_all_B222()
