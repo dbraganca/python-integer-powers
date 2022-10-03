@@ -4,9 +4,7 @@ import sys
 from functools import lru_cache
 import pandas as pd
 
-# from babiscython_v4_ubuntu import Ltrian as L
 from Jfunc_cython_v4 import computeJ as J
-# from computeJ_Guido import computeJ as J
 import gmpy2 as gm
 from gmpy2 import *
 import time
@@ -39,10 +37,8 @@ def computeker(i1,i2, k12, k22, k32, ctab_ns, ctab_coefs, Jtriantable):
 	for i in range(numker):
 		if ctab_coefs[i] != 0:
 			term = ctab_coefs[i]*J(-ctab_ns[i,0], -ctab_ns[i,1], -ctab_ns[i,2], i1, -1, i2, k12, k22, k32)
-			#print(term)
 			res += term
 	Jtriantable[i1,i2] = res
-	# print(res)
 	return res
 
 def compute_B3211_jmat(filename):
@@ -65,9 +61,8 @@ def compute_B3211_jmat(filename):
 	ctab_ns = ctab[:,0:3].astype(int)
 	ctab_coefs = ctab[:,3].astype(float)
 
-	# clear cache because different triangle
-	Ltrian_cache.clear()
-	TriaN_cache.clear()
+	# clear cache because it is a different set of ks 
+	config.clear_cache()
 
 	Jtriantable = np.empty((16,16),dtype=float)
 

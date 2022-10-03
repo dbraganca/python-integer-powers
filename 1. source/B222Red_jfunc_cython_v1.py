@@ -9,6 +9,7 @@ import gmpy2 as gm
 from gmpy2 import *
 import time
 
+import config
 from config import Ltrian_cache, TriaN_cache
 
 gm.get_context().precision = 190
@@ -37,10 +38,8 @@ def computeker(i1,i2,i3, k12, k22, k32, ctab_ns, ctab_coefs, Jtriantable):
 	for i in range(numker):
 		if ctab_coefs[i] != 0:
 			term = ctab_coefs[i]*J(-ctab_ns[i,0], -ctab_ns[i,1], -ctab_ns[i,2], i1, i2, i3, k12, k22, k32)
-			#print(term)
 			res += term
 	Jtriantable[i1,i2,i3] = res
-	# print(res)
 	return res
 
 def compute_B222_jmat(filename):
@@ -63,9 +62,8 @@ def compute_B222_jmat(filename):
 	ctab_ns = ctab[:,0:3].astype(int)
 	ctab_coefs = ctab[:,3].astype(float)
 
-	# clear cache because different triangle
-	Ltrian_cache.clear()
-	TriaN_cache.clear()
+	# clear cache because it is a different set of ks 
+	config.clear_cache()
 
 	Jtriantable = np.empty((16,16,16),dtype=float)
 
@@ -74,7 +72,6 @@ def compute_B222_jmat(filename):
 			print(i2,i1)
 			for i3 in reversed(range(16)):				
 				computeker(i1, i2, i3, k12, k22, k32, ctab_ns, ctab_coefs, Jtriantable)
-
 
 	# Output the table to csv 
 	out_arr = np.column_stack((np.repeat(np.arange(16),16),Jtriantable.reshape(16**2,-1)))

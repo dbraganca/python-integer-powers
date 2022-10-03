@@ -58,7 +58,7 @@ def B411jmat(k1, k2, k3):
 
 	numperms = len(k_cycperms_str) 
 
-	Jmat = np.empty((len411, nfit, nfit, numperms),dtype=float)
+	Jmat = np.empty((len411, nfit, numperms),dtype=float)
 
 	# this dictionary maps permutations in k1, k2, k3 to permutations in (n1,i1), (n2,i2), (n3,i3), represented by (1,2,3)
 	# while keeping k1, k2, k3 in the initial ordering
@@ -70,7 +70,6 @@ def B411jmat(k1, k2, k3):
 	config.clear_cache()
 
 	for i1 in reversed(range(nfit)):
-		print(i1)
 		for i in range(len411):
 			# iterate over permutations
 			n_vec = [ctab411[i,0], ctab411[i,2], ctab411[i,4]]

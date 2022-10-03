@@ -9,6 +9,7 @@ import gmpy2 as gm
 from gmpy2 import *
 import time
 
+import config
 from config import Ltrian_cache, TriaN_cache
 
 gm.get_context().precision = 190
@@ -83,28 +84,23 @@ def compute_B411_jmat(filename):
 
 	Jtriantable = np.empty((16,),dtype=float)
 
-	# clear cache
-	Ltrian_cache.clear()
-	TriaN_cache.clear()
+	# clear cache because it is a different set of ks 
+	config.clear_cache()
 
 	for i1 in range(16):
 		print(i1)
 		computeker(i1, k12, k22, k32, ctab_ns, ctab_coefs, Jtriantable)
 
-	# pd.set_option("precision", GLOBAL_PREC)
-	# np.set_printoptions(precision=GLOBAL_PREC)
+
 	out_df = pd.DataFrame(Jtriantable, dtype = object)
-	# print(k1,k2,k3)
 	out_filename = outputfolder + 'B411_Jfunc_'+str(float(k1))+'_' + str(float(k2)) + '_' + str(float(k3)) + '_' +'.csv'
 	out_df.to_csv(out_filename, index = False)
 
 
 
 def compute_all_B411():	
-	start_time = time.time()
 	for file in filelist:
 		(k1,k2,k3)=get_ks(file)
-		#print(float(k1), float(k2), float(k3))
 		out_filename = outputfolder + 'B411_Jfunc_'+str(float(k1))+'_' + str(float(k2)) + '_' + str(float(k3)) + '_' +'.csv'
 		if not(os.path.isfile(out_filename)):	
 			if k1==k2 and k2==k3:

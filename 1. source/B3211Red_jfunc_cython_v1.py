@@ -9,6 +9,7 @@ import gmpy2 as gm
 from gmpy2 import *
 import time
 
+import config
 from config import Ltrian_cache, TriaN_cache
 
 gm.get_context().precision = 190
@@ -62,9 +63,8 @@ def compute_B3211_jmat(filename):
 	ctab_ns = ctab[:,0:3].astype(int)
 	ctab_coefs = ctab[:,3].astype(float)
 
-	# clear cache because different triangle
-	Ltrian_cache.clear()
-	TriaN_cache.clear()
+	# clear cache because it is a different set of ks 
+	config.clear_cache()
 
 	Jtriantable = np.empty((16,16),dtype=float)
 
