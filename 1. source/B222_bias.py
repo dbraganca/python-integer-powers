@@ -20,6 +20,8 @@ gm.get_context().allow_complex = True
 outputfolder = '../2. Jmat_loopvals/B222_bias_Jmat/'
 path_b222ctab = '../3. Ctabs/B222ctab.csv'
 fisherPoints_path = '../3. Ctabs/fisherPoints.csv'
+CMASSPoints_path = '../3. Ctabs/CMASS_tri_eff.csv'
+LOWZPoints_path = '../3. Ctabs/LOWZ_tri_eff.csv'
 
 # make output folder
 if not(os.path.exists(outputfolder)):
@@ -48,7 +50,7 @@ def saver(outfile, jmat):
 	h5_file.close()
 
 
-def B222jmat(k1):
+def B222jmat(k1,k2,k3):
 	
 	k1mpf = mpfr(str(k1))
 	k2mpf = mpfr(str(k2))
@@ -68,7 +70,7 @@ def B222jmat(k1):
 				for i in range(len222):
 					Jmat[i,i1,i2,i3] = J(ctab222[i,0], ctab222[i,1], ctab222[i,2], 
 										i1, i2, i3, 
-										k12, mpfr0, mpfr0)
+										k12, k22, k32)
 
 	return Jmat
 
@@ -85,5 +87,5 @@ def compute_all_B222(triangles):
 
 
 if __name__ == "__main__":
-	fisher_points = np.loadtxt(fisherPoints_path, dtype = float, delimiter = ',')
+	fisher_points = np.loadtxt(LOWZPoints_path, dtype = float, delimiter = ',')
 	compute_all_B222(fisher_points)

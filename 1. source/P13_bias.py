@@ -21,7 +21,8 @@ outputfolder = '../2. Jmat_loopvals/P13_bias_Jmat/'
 path_p13ctab = '../3. Ctabs/P13ctab.csv'
 fisherPoints_path = '../3. Ctabs/fisherPoints.csv'
 challengeA_path = '../3. Ctabs/chA_points.csv'
-CMASS_path = '../3. Ctabs/CMASS_points.csv'
+CMASS_path = '../3. Ctabs/CMASS_ks.csv'
+LOWZ_path = '../3. Ctabs/LOWZ_ks.csv'
 
 if not(os.path.exists(outputfolder)):
 	os.makedirs(outputfolder)
@@ -77,4 +78,6 @@ def compute_all_P13(ktab):
 if __name__ == "__main__":
 	# chA_points = np.loadtxt(challengeA_path, dtype = float, delimiter = ',')
 	CMASS_points = np.loadtxt(CMASS_path, dtype = float, delimiter = ',')
+	LOWZ_points = np.loadtxt(LOWZ_path, dtype = float, delimiter = ',')
 	compute_all_P13(CMASS_points)
+	compute_all_P13(LOWZ_points)

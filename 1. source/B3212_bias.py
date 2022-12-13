@@ -20,6 +20,8 @@ gm.get_context().allow_complex = True
 outputfolder = '../2. Jmat_loopvals/B3212_bias_Jmat/'
 path_b3212ctab = '../3. Ctabs/B3212ctab.csv'
 fisherPoints_path = '../3. Ctabs/fisherPoints.csv'
+CMASSPoints_path = '../3. Ctabs/CMASS_tri_eff.csv'
+LOWZPoints_path = '../3. Ctabs/LOWZ_tri_eff.csv'
 
 # create output folder if it does not exist
 if not(os.path.exists(outputfolder)):
@@ -97,5 +99,6 @@ def compute_all_B3212(triangles):
 	
 
 if __name__ == "__main__":
-	fisher_points = np.loadtxt(fisherPoints_path, dtype = float, delimiter = ',')
+	# fisher_points = np.loadtxt(CMASSPoints_path, dtype = float, delimiter = ',')
+	fisher_points = np.loadtxt(LOWZPoints_path, dtype = float, delimiter = ',')
 	compute_all_B3212(fisher_points)

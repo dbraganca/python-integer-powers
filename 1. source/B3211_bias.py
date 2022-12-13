@@ -19,6 +19,8 @@ gm.get_context().allow_complex = True
 outputfolder = '../2. Jmat_loopvals/B3211_bias_Jmat/'
 path_b3211ctab = '../3. Ctabs/B3211ctab.csv'
 fisherPoints_path = '../3. Ctabs/fisherPoints.csv'
+CMASSPoints_path = '../3. Ctabs/CMASS_tri_eff.csv'
+LOWZPoints_path = '../3. Ctabs/LOWZ_tri_eff.csv'
 
 if not(os.path.exists(outputfolder)):
 	os.makedirs(outputfolder)
@@ -26,7 +28,7 @@ if not(os.path.exists(outputfolder)):
 # number of fitting functions we are using
 nfit = 16
 
-ctab3211 = np.loadtxt(path_b3211ctab, dtype = int)
+ctab3211 = np.loadtxt(path_b3211ctab, dtype = int, delimiter = ',')
 len3211 = len(ctab3211)
 
 # function to write the output file name
@@ -99,5 +101,6 @@ def compute_all_B3211(triangles):
 	
 
 if __name__ == "__main__":
-	fisher_points = np.loadtxt(fisherPoints_path, dtype = float, delimiter = ',')
+	# fisher_points = np.loadtxt(CMASSPoints_path, dtype = float, delimiter = ',')
+	fisher_points = np.loadtxt(LOWZPoints_path, dtype = float, delimiter = ',')
 	compute_all_B3211(fisher_points)
