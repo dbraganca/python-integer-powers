@@ -1,5 +1,4 @@
 
-
 # without this -  cython: profile=True
 
 import cython
@@ -51,6 +50,7 @@ mass_dict = {-1: mpc0, 0: kuv0 + 0.j,
 			5: -kpeak3 - 1j*kuv3, 6: -kpeak3 + 1j*kuv3,
 			7: -kpeak4 - 1j*kuv4, 8: -kpeak4 + 1j*kuv4}
 
+#build babis basis function parameters
 fbabisparamtab = np.zeros((lenfbabis,4),dtype=object)
 #first column: mass value
 #second column: mass index
@@ -129,6 +129,8 @@ cdef Py_ssize_t i
 for i in range(16):
 	dtab.append(np.array(giveIndices(i), dtype = int))
 
+# build list with coefficients from each basis function (Breit-Wigner) 
+# to the babis functions (usual propagator)
 @cython.boundscheck(False)
 @cython.wraparound(False)
 cdef list build_matcoefs():
@@ -142,12 +144,13 @@ cdef list build_matcoefs():
 
 cdef list matcoefs = build_matcoefs()
 
-
 @cython.boundscheck(False)
 @cython.wraparound(False)
-cdef double computefull(long[:] d1new, long[:] d2basis, long[:] d3basis, long n1, long n2, long n3, 
-	long d1, long d2, long d3, mpfr k1sq, mpfr k2sq, mpfr k3sq):
-
+cdef double computefull(long[:] d1new, long[:] d2basis, long[:] d3basis, 
+						long n1, long n2, long n3, 	
+						long d1, long d2, long d3, 
+						mpfr k1sq, mpfr k2sq, mpfr k3sq):
+	# calculates the J function with 3 basis functions
 	cdef long lend1 = len(d1new), 
 	cdef long lend2 = len(d2basis)
 	cdef long lend3 = len(d3basis)
@@ -226,7 +229,7 @@ cdef double computefull(long[:] d1new, long[:] d2basis, long[:] d3basis, long n1
 @cython.wraparound(False)
 cdef double computed1zero(long[:] d2new, long[:] d3basis, long n1, long n2, long n3, 
 		long d2, long d3, mpfr k1sq, mpfr k2sq, mpfr k3sq):
-
+	# calculates the J function with 2 basis functions (no d1)
 	cdef double complex Ltrian_temp = 0
 		
 	cdef long lend2 = len(d2new), lend3 = len(d3basis)
@@ -283,7 +286,7 @@ cdef double computed1zero(long[:] d2new, long[:] d3basis, long n1, long n2, long
 @cython.wraparound(False)
 cdef double computed2zero(long[:] d1new, long[:] d3basis, long n1, long n2, long n3, 
 		long d1, long d3, mpfr k1sq, mpfr k2sq, mpfr k3sq):
-
+	# calculates the J function with 2 basis functions (no d2)
 	cdef double complex Ltrian_temp = 0
 	
 	cdef long lend1 = len(d1new), lend3 = len(d3basis)
@@ -340,7 +343,7 @@ cdef double computed2zero(long[:] d1new, long[:] d3basis, long n1, long n2, long
 @cython.wraparound(False)
 cdef double computed3zero(long[:] d1new, long[:] d2basis, long n1, long n2, long n3, 
 		long d1, long d2, mpfr k1sq, mpfr k2sq, mpfr k3sq):
-
+	# calculates the J function with 2 basis functions (no d3)
 	cdef double complex Ltrian_temp = 0j
 		
 	cdef long lend1 = len(d1new), lend2 = len(d2basis)
@@ -395,8 +398,9 @@ cdef double computed3zero(long[:] d1new, long[:] d2basis, long n1, long n2, long
 
 @cython.boundscheck(False)
 @cython.wraparound(False)
-cdef double computed3(long[:] d3new, long n1, long n2, long n3, long d3, mpfr k1sq, mpfr k2sq, mpfr k3sq):
-
+cdef double computed3(long[:] d3new, long n1, long n2, long n3, 
+					  long d3, mpfr k1sq, mpfr k2sq, mpfr k3sq):
+	# calculates the J function with 1 basis functions (only d3)
 	cdef double complex Ltrian_temp = 0j
 		
 	cdef long lend3 = len(d3new)
@@ -432,7 +436,7 @@ cdef double computed3(long[:] d3new, long n1, long n2, long n3, long d3, mpfr k1
 @cython.boundscheck(False)
 @cython.wraparound(False)
 cdef double computed2(long[:] d2new, long n1, long n2, long n3, long d2, mpfr k1sq, mpfr k2sq, mpfr k3sq):
-
+	# calculates the J function with 1 basis functions (only d2)
 	cdef double complex Ltrian_temp = 0j
 		
 	cdef long lend2 = len(d2new)
@@ -466,8 +470,9 @@ cdef double computed2(long[:] d2new, long n1, long n2, long n3, long d2, mpfr k1
 
 @cython.boundscheck(False)
 @cython.wraparound(False)
-cdef double computed1(long[:] d1new, long n1, long n2, long n3, long d1, mpfr k1sq, mpfr k2sq, mpfr k3sq):
-
+cdef double computed1(long[:] d1new, long n1, long n2, long n3, 
+					  long d1, mpfr k1sq, mpfr k2sq, mpfr k3sq):
+	# calculates the J function with 1 basis functions (only d1)
 	cdef long lend1 = len(d1new)
 	cdef Py_ssize_t indx, i
 
@@ -503,19 +508,23 @@ cdef double computed1(long[:] d1new, long n1, long n2, long n3, long d1, mpfr k1
 cpdef double computeJ(long n1, long n2, long n3, 
 					long d1, long d2, long d3, 
 					mpfr k1sq, mpfr k2sq, mpfr k3sq):
+	# calculates the J function which is the integral of
+	# q^(-2n1) * k1pq^(-2n2) * k2mq^(-2n3) * f_{d1}(q) * f_{d2}(k1pq) * f_{d3}(k2mq)
 	# n1, n2, n3 are the exponents of q, k1pq, k2mq in the denominator
 
 	# d1basis is the decomposition of the diogo function d1 into Babis functions, same for d2 and d3
-	# If there is no PS, we put -1 in d1, d2, d3 !
+	# If there is no PS, we put -1 in d1, d2, d3 
 	cdef long[:] d1basis = dtab[d1]
 	cdef long[:] d2basis = dtab[d2]
 	cdef long[:] d3basis = dtab[d3]
 
 	if d1 >= 0 and d2 >= 0 and d3 >= 0:
+	# case with 3 basis functions
 		if d1 == 0: 
 			return 0.5 * computefull(d1basis[::2], d2basis, d3basis, n1, n2, n3, d1, d2, d3, k1sq, k2sq, k3sq)
 		return computefull(d1basis[::2], d2basis, d3basis, n1, n2, n3, d1, d2, d3, k1sq, k2sq, k3sq)
 
+	# the following are the cases with 2 basis functions
 	if d1 >= 0 and d2 >= 0 and d3 == -1:
 		if d1 == 0:
 			return 0.5 * computed3zero(d1basis[::2], d2basis, n1, n2, n3, d1, d2, k1sq, k2sq, k3sq)
@@ -531,6 +540,7 @@ cpdef double computeJ(long n1, long n2, long n3,
 			return 0.5 * computed1zero(d2basis[::2], d3basis, n1, n2, n3, d2, d3, k1sq, k2sq, k3sq)
 		return computed1zero(d2basis[::2], d3basis, n1, n2, n3, d2, d3, k1sq, k2sq, k3sq)
 
+	# the following are the cases with 1 basis function
 	if d1 >= 0 and d2 == -1 and d3 == -1:
 		if d1 == 0:
 			return 0.5 * computed1(d1basis[::2], n1, n2, n3, d1, k1sq, k2sq, k3sq)
@@ -546,8 +556,11 @@ cpdef double computeJ(long n1, long n2, long n3,
 			return 0.5 * computed3(d3basis[::2], n1, n2, n3, d3, k1sq, k2sq, k3sq)
 		return computed3(d3basis[::2], n1, n2, n3, d3, k1sq, k2sq, k3sq)
 
+	# case with no basis function for completeness
 	if d1 == -1 and d2 == -1 and d3 == -1:
-		return <double>Ltrian(-n2, 0, -n1, 0, -n3, 0, k1sq, k2sq, k3sq, mpc0, mpc0, mpc0, -1, -1, -1, Ltrian_cache).real/(8  * PI * SQRT_PI)
+		return <double>Ltrian(-n2, 0, -n1, 0, -n3, 0, 
+							  k1sq, k2sq, k3sq, 
+							  mpc0, mpc0, mpc0, -1, -1, -1, Ltrian_cache).real/(8  * PI * SQRT_PI)
 	
 	print("Case not considered in ComputeJ")
 	

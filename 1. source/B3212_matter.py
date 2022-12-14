@@ -46,7 +46,7 @@ def outputfile(k1, k2, k3):
 	out_filename = outputfolder + 'B3212_Jfunc_' + k1_str +'_' + k2_str + '_' + k3_str + '_.csv'
 	return out_filename
 
-# utility function to save jmat to h5 file
+# utility function to save jmat to h5/csv file
 def saver(outfile, jmat):
 	# with h5py.File(outfile,'w') as h5_file:
 	# 	h5_file.create_dataset("jmat", data= jmat)

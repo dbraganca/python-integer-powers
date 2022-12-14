@@ -109,8 +109,7 @@ def compute_all_B222():
 		(k1,k2,k3) = get_ks(file)
 		out_filename = outputfile(k1,k2,k3)
 		# only calculates if file still does not exist
-		# if not(os.path.isfile(out_filename)) and k1 != k2:
-		if k1!=k2:
+		if not(os.path.isfile(out_filename)):
 			start_time = time.time()
 			saver(out_filename, compute_B222(file))
 			end_time = time.time()

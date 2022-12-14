@@ -16,6 +16,7 @@ from gmpy2 cimport *
 from functools import lru_cache
 from config import TriaN_cache
 
+# these imports load the gmp libraries
 cdef extern from "complex.h":
 	double complex conj(double complex z)
 
@@ -73,6 +74,7 @@ cdef int almosteq(mpc z1, mpc z2, mpfr tol):
 @cython.boundscheck(False)
 @cython.wraparound(False)
 cdef long long binomial_c(long long n, long long k):
+	# calculates n choose k recursively
 	if k > n or k < 0:
 		print("Warning: k bigger/negative than n in binomial_c")
 		return 0
@@ -87,7 +89,7 @@ cdef long long binomial_c(long long n, long long k):
 @cython.boundscheck(False)
 @cython.wraparound(False)
 cdef long long trinomial(long long n, long long k, long long i):
-	# coefficient in (x + y + z)^n corresponding to x^k y^i z^(n-k-i)
+	# returns coefficient in (x + y + z)^n corresponding to x^k y^i z^(n-k-i)
 	return binomial_c(n, k + i) * binomial_c(k + i, i)
 
 #The following 7 functions allow us to calculate dim reg results 
@@ -117,6 +119,9 @@ cdef long long get_coef(long long n1, long long k2exp, long long q2exp, int kmq 
 cdef num_terms(long long n1, int kmq = True):
 	# expands terms of the type (k-q)^(2n1) if kmq = True
 	# expands terms of the type (k+q)^(2n1) if kmq = False
+	# returns:
+	# - term_list: list of coefficients
+	# - exp_list: list of triplets corresponding to exponents of [k^2, q^2, k.q]
 
 	cdef long long list_length = (1 + n1)*(2 + n1)/2	
 	cdef long long k2exp = 0, q2exp = 0
@@ -130,8 +135,6 @@ cdef num_terms(long long n1, int kmq = True):
 			exp_list[i,0] = k2exp
 			exp_list[i,1] = q2exp
 			exp_list[i,2] = n1-k2exp-q2exp
-		#	print(term_list[i])
-		#	print(exp_list[i,0],exp_list[i,1],exp_list[i,2])
 			i += 1			
 	return (term_list, exp_list)
 
@@ -139,10 +142,14 @@ cdef num_terms(long long n1, int kmq = True):
 coef_dim_gen_cache = {}
 cdef long double coef_dim_gen(long long expnum, long long expden):
 	# function to calculate coefficient in dim_gen without using Gamma functions 
+	# instead it uses a recursion relation
+
+	#defines a cache for memoization
 	global coef_dim_gen_cache
 	
 	cdef long double lookup_val, val
-		
+
+	# boundary conditions
 	if expden == 1:
 		return ((-1)**(expnum + 1))
 	if expden < 1:
@@ -158,10 +165,12 @@ cdef long double coef_dim_gen(long long expnum, long long expden):
 @cython.boundscheck(False)
 @cython.wraparound(False)
 cdef mpc dim_gen(long long expnum, long long expden, mpc m):
+	# calculates 3d integral of (q^2)^expnum/(q^2+m)^expden
 	if m == mpc0:
 		return mpc0
 	return (2.*SQRT_PI)*(coef_dim_gen(expnum,expden)*m**(expnum - expden + 1)*sqrt(m))
 
+# same function but directly calculated with gamma functions
 #@cython.boundscheck(False)
 #@cython.wraparound(False)
 #cdef mpc dim_gen(long long expnum, long long expden, mpc m):
@@ -198,6 +207,7 @@ cdef mpc dim_result(long expkmq2, long expden, mpfr k2, mpc mDen, int kmq = True
 	# computes integrals of the type ((k-q)^2)^expnum / (q^2 + mDen)^expden
 	# if kmq is TRUE, consider (k-q)
 	# if kmq is FALSE, consider (k+q)
+	# returns value of the integral
 
 	cdef int list_length = (1 + expkmq2)*(2 + expkmq2)/2
 	cdef long long k2exp = 0, q2exp = 0, kqexp = 0
@@ -233,7 +243,6 @@ cdef mpc compute_massive_num(long long expnum, long long expden,
 	if mNum == 0:
 		return dim_result(expnum,expden,k2,mDen)
 
-
 	cdef Py_ssize_t list_length = expnum + 1
 	cdef long long kmq2exp = 0, mNumexp = 0
 	cdef long long[:] term_list = np.zeros((list_length,), dtype = np.longlong)
@@ -256,6 +265,7 @@ cdef mpc compute_massive_num(long long expnum, long long expden,
 @cython.boundscheck(False)
 @cython.wraparound(False)
 cdef mpc TadN(long n, mpc m):
+	# Tadpole master integral
 	if m == mpc0:
 		return mpc0
 	if n == 0:
@@ -270,17 +280,20 @@ cdef mpc TadN(long n, mpc m):
 @cython.wraparound(False)
 @lru_cache(None)
 def BubN(long n1, long n2, mpfr k2, mpc m1, mpc m2):
-
+	# function to calculate general Bubble integral.
+	# returns the value of the integral of 
+	# (kmq^2 + m1)^(-n1) * (q^2 + m2)^(-n2)
+	# calculated recursively from IBP
+	# for this function memoization is done with lru_cache because m1 and m2 can be switched
+	
+	# boundary conditions
 	if n1 == 0:
-		# print('n2', n2, 'm2', m2, 'TadN', TadN(n2, m2))
 		return TadN(n2, m2)
 
 	if n2 == 0:
-		# print('n1', n1, 'm1', m1, 'TadN',TadN(n1, m1))
 		return TadN(n1, m1)
 
 	if n1 == 1 and n2 == 1:
-		# print('BubMaster',BubMaster(k2, m1, m2))
 		return BubMaster(k2, m1, m2)
 
 	cdef mpc k1s = k2 + m1 + m2
@@ -289,6 +302,7 @@ def BubN(long n1, long n2, mpfr k2, mpc m1, mpc m2):
 	cdef long dim = 3
 	cdef long long nu1, nu2, Ndim
 
+	# IBP relations to deal with denominator
 	if n1 > 1:
 		nu1 = n1 - 1
 		nu2 = n2
@@ -337,7 +351,7 @@ def BubN(long n1, long n2, mpfr k2, mpc m1, mpc m2):
 @lru_cache(None)
 def TrianKinem(mpfr k21, mpfr k22, mpfr k23, 
 				mpc m1, mpc m2, mpc m3):
-	
+	# utility function to generate the special variables that simplify the recusrin relations
 	cdef mpc k1s, k2s, k3s, jac, ks11, ks12, ks22, ks23, ks31, ks33
 	
 	k1s = k21 + m1 + m2
@@ -358,17 +372,15 @@ def TrianKinem(mpfr k21, mpfr k22, mpfr k23,
 	#kinems = [jac,ks11,ks22,ks33,ks12,ks23,ks31]
 	return  np.array([jac,ks11,ks22,ks33,ks12,ks23,ks31], dtype = mpc)
 
-# this functions AFFECTS SPEED: decreases speed by 1/3
-
 @cython.boundscheck(False)
 @cython.wraparound(False)
-#@lru_cache(None)
 cdef mpc TriaN(long n1, long n2, long n3, 
 			mpfr k21, mpfr k22, mpfr k23, 
 			mpc m1, mpc m2, mpc m3, 
 			long m1_ind, long m2_ind, long m3_ind):
-	# print("n1, n2, n3", n1, n2, n3)
-	# print(n1,d1,n2,d2,n3,d3,m1,m2,m3)
+	# calculates the general triangle integral given by
+	# (k1mq^2 + m1)^(-n1) * (q^2 + m2)^(-n2) * (k2pq^2 + m3)^(-n3)
+	# mi_ind are integer indices to indicate the complex mass in the cache
 
 	arg_list = (n1,n2,n3,m1_ind,m2_ind,m3_ind)
 	# check cache
@@ -383,9 +395,11 @@ cdef mpc TriaN(long n1, long n2, long n3,
 	if n3 == 0:
 		return BubN(n1, n2, k21, m1, m2)
 
+	#calculate triangle master integral
 	if n1 == 1 and n2 == 1 and n3 == 1:
 		return TriaMaster(k21, k22, k23, m1, m2, m3)
 
+	# deal with a numerator
 	if n1 < 0 or n2 < 0 or n3 < 0:
 		if n1 < -4 or n2 < -4 or n3 < -4:
 			print('ERROR: case not considered -  n1, n2, n3', n1,n2,n3)
@@ -423,6 +437,8 @@ cdef mpc TriaN(long n1, long n2, long n3,
 	cdef mpc cpm0, cmp0, cm0p, cp0m, c0pm, c0mp, c000
 
 	cdef mpc[:] kinem = TrianKinem(k21, k22, k23, m1, m2, m3)
+	
+	#recursion relations using IBP
 	#jac = kinem[0]
 	ks11 = kinem[1]
 	ks22 = kinem[2]
@@ -494,10 +510,9 @@ cdef mpc tri_dim(long long n1, long long d1, long long d2,
 				mpfr numk2, mpfr denk2, mpfr ksum2, 
 				mpc m1, mpc m2):
 	# integral of (numk-q)^2n1/(q^2+m1)^2d1/((denk+q)^2+m2)^2d2
-	#numerator (numk-q)^2n1 is massless
-	#m1 is mass of d1 propagator, which is (q^2+m1)^2d1,
-	#m2 is mass of d2 propagator, which is ((denk+q)^2+m2)^2d2
-
+	# numerator (numk-q)^2n1 is massless
+	# m1 is mass of d1 propagator, which is (q^2+m1)^2d1,
+	# m2 is mass of d2 propagator, which is ((denk+q)^2+m2)^2d2
 	
 	cdef Py_ssize_t list_length = (1 + n1)*(2 + n1)/2	
 	cdef long long k2exp = 0, q2exp = 0, kqexp = 0
@@ -608,8 +623,8 @@ cdef num_two_pow(long long d1, long long d2, mpfr denk2, mpc m1, mpc m2):
 @cython.boundscheck(False)
 @cython.wraparound(False)
 cdef num_three_pow(long long d1, long long d2, mpfr denk2, mpc m1, mpc m2):
-	#integral of (k.q)^3/(((q^2+m1)^d1)*((denk+q)^2+m2)^d2) divided by k^3
-
+	# integral of (k.q)^3/(((q^2+m1)^d1)*((denk+q)^2+m2)^d2) divided by k^3
+	# coefficients were generated in Mathematica
 	cdef mpc aux0=((3*(m1-m2)*(m1-m2)+(2.*(denk2*(m1+m2))))-(denk2**2))*(BubN(-1 + d1, d2, denk2, m1, m2))
 	cdef mpc aux1=((denk2**2)+((((m1-m2)*(m1-m2)))+(2.*(denk2*(m1+m2)))))*(BubN(d1, d2, denk2, m1, m2))
 	cdef mpc aux2=(3*(((denk2+m2)-m1)*(BubN(d1, -2 + d2, denk2, m1, m2))))+(((denk2+m2)-m1)*aux1)
@@ -630,6 +645,8 @@ cdef num_three_pow(long long d1, long long d2, mpfr denk2, mpc m1, mpc m2):
 cdef num_four_pow(long long d1, long long d2, 
 					mpfr denk2, mpc m1, mpc m2):
 
+	# integral of (k.q)^4/(((q^2+m1)^d1)*((denk+q)^2+m2)^d2) divided by k^4
+	# coefficients were generated in Mathematica
 	cdef mpc aux0=((3*(((denk2+m1)**2)))+((-2.*((denk2+(3*m1))*m2))+(3*(m2**2))))*(BubN(-2 + d1, d2, denk2, m1, m2))
 	cdef mpc aux1=((denk2**2)+((-3*(((m1-m2)**2)))+(-2.*(denk2*(m1+m2)))))*(BubN(-1 + d1, -1 + d2, denk2, m1, m2))
 	cdef mpc aux2=((denk2**2)+((((m1-m2)**2))+(2.*(denk2*(m1+m2)))))*(BubN(-1 + d1, d2, denk2, m1, m2))
@@ -679,9 +696,6 @@ cdef num_four_pow(long long d1, long long d2,
 	return coef1, coef2, coef3
 
 
-
-
-#@lru_cache(None)
 @cython.boundscheck(False)
 @cython.wraparound(False)
 cdef mpc tri_dim_two(long n1, long n2, long d1, 
@@ -787,16 +801,25 @@ cdef mpc tri_dim_two(long n1, long n2, long d1,
 @cython.boundscheck(False)
 @cython.wraparound(False)
 cdef mpfr k1dotk2(mpfr k21, mpfr k22, mpfr ksum2):
+	# calculates the dot product between k1 and k2 given k1^2, k2^2
+	# and (k1+k2)^2
 	return (ksum2 - k21 - k22)/2.
 
 
-
+###############################
+# MAIN FUNCTION OF THE SCRIPT #
+###############################
 @cython.boundscheck(False)
 @cython.wraparound(False)
 cdef mpc Ltrian(long n1, long d1, long n2, long d2, long n3, long d3, 
 		   mpfr k21, mpfr k22, mpfr k23, mpc m1, mpc m2, mpc m3, 
 		   long m1_ind, long m2_ind, long m3_ind, dict Ltrian_cache):
-	
+	# calculates the L function: integral of
+	# k1mq^2n1 * q^2n2 * k2pq^2n3 
+	# / (k1mq^2+m1)^d1 / (q^2+m2)^d2 / (k2pq^2+m2)^d3
+
+	#mi_ind are integers that represent the masses in the cache
+
 	#note that using hash gives a bug in python version 3.7. Need to use version 3.8 or above
 	arg_list_bin = (n1,d1,n2,d2,n3,d3,m1_ind,m2_ind,m3_ind)
 
@@ -902,7 +925,9 @@ cdef mpc Ltrian(long n1, long d1, long n2, long d2, long n3, long d3,
 # BubMaster does not affect the speed 
 @cython.boundscheck(False)
 @cython.wraparound(False)
-cdef mpc BubMaster(mpfr k2, mpc M1, mpc M2):	
+cdef mpc BubMaster(mpfr k2, mpc M1, mpc M2):
+# this calculates the bubble master integral:
+# 1/(kmq^2+M1)/(q^2+M2)	
 	cdef mpc m1 = M1/k2
 	cdef mpc m2 = M2/k2
 	cdef int sign = 0
@@ -962,6 +987,7 @@ def Prefactor(mpfr a, mpc y1, mpc y2):
 @cython.boundscheck(False)
 @cython.wraparound(False)
 cdef mpc Antideriv(long double x, mpc y1, mpc y2, mpc x0):
+	# calculates the antiderivative (arctan times a prefactor)
 	if almosteq(x0,y2,CHOP_TOL):
 		# case where x0 = y2 = 0 or 1
 		if almosteq(mpc(x),y2,CHOP_TOL):
@@ -993,6 +1019,7 @@ cdef mpc Antideriv(long double x, mpc y1, mpc y2, mpc x0):
 @cython.boundscheck(False)
 @cython.wraparound(False)
 cdef mpc Fint(mpfr aa, mpc Y1, mpc Y2, mpc X0):
+# calculates Fint. Most of the code of to find and count the branch cuts
 
 	cdef mpc y1 = Y1
 	cdef mpc y2 = Y2
@@ -1081,7 +1108,7 @@ cdef mpc Fint(mpfr aa, mpc Y1, mpc Y2, mpc X0):
 @cython.boundscheck(False)
 @cython.wraparound(False)
 cdef mpc TrMxy(long double y, mpfr k21, mpfr k22, mpfr k23, mpc M1, mpc M2, mpc M3):
-
+	# antiderivative of the master integral integrand in y 
 	cdef mpfr Num1 = 4*k22*y+2*k21-2*k22-2*k23
 	cdef mpc Num0 = -4*k22*y+2*M2-2*M3+2*k22
 	cdef mpfr DeltaR2 = -k21*y+k23*y-k23
@@ -1112,17 +1139,17 @@ cdef mpc TrMxy(long double y, mpfr k21, mpfr k22, mpfr k23, mpc M1, mpc M2, mpc 
 	else:
 		return cf2*Fint(DeltaR2, solR1, solR2, solS2)+cf1*Fint(DeltaR2, solR1, solR2, solS1)
 
-#@lru_cache(None)
 @cython.boundscheck(False)
 @cython.wraparound(False)
 cdef mpc TriaMasterZeroMasses(mpfr k21, mpfr k22, mpfr k23):
-	#case for triangle integrals where all masses vanish
+	#case for triangle master integrals where all masses vanish
 	return mpc(PI*SQRT_PI/sqrt(k21)/sqrt(k22)/sqrt(k23))
 
 @cython.boundscheck(False)
 @cython.wraparound(False)
 cdef mpc TriaMaster(mpfr k21, mpfr k22, mpfr k23, mpc M1, mpc M2, mpc M3):
-	#--- masses are squared
+	#--- masses are squared as in the paper ---
+	# calculates triangle master integral
 	if M1 == mpc0 and M2 == mpc0 and M3 == mpc0:
 		return  TriaMasterZeroMasses(k21, k22, k23)
 	
