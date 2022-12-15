@@ -1,7 +1,8 @@
 # Analytical integration of EFTofLSS loop corrections
 
 This project was created to efficiently evaluate ETFofLSS loop corrections up to the 1-loop bispectrum. 
-This technique uses a decomposition of the linear power spectrum into analytical function of $k^2$, and proceeds to evaluate the integrals using recursion relations.
+This technique uses a decomposition of the linear power spectrum into analytical function of $k^2$, and proceeds to evaluate the integrals using recursion relations. 
+The algorithm is described in detail in [arXiv:2212.07421](http://arxiv.org/abs/2212.07421). 
 
 ## Outline
 
