@@ -7,6 +7,7 @@ This technique uses a decomposition of the linear power spectrum into analytical
 
 - [1. source/](1.%20source/): where all the computation scripts are.
 - [3. Ctabs/](3.%20Ctabs/): the exponent tables and the $k$'s and/or triangles to evaluate are here.
+- [integer_powers.nb](integer_powers.nb): Mathematica notebook with the calculation of $P_{22}$ and $B_{222}$ with our method and a comparison with numerical integration.
 
 ## Installation
 
@@ -36,3 +37,4 @@ python B222_bias.py
 Calculates the bias-decomposed $J$-function for a given set of triangles.
 
 The notebook `1. source/Test and run functions.ipynb` provides other examples of usage.
+The Mathematica notebook [integer_powers.nb](integer_powers.nb) contains the full pipeline to calculate $P_{22}$ and $B_{222}$.
