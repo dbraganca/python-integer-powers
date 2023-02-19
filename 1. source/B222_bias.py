@@ -7,7 +7,7 @@ import h5py
 
 from Jfunc_cython_v4 import computeJ as J
 import gmpy2 as gm
-from gmpy2 import *
+from gmpy2 import mpfr
 import time
 
 import config
@@ -17,11 +17,16 @@ gm.get_context().precision = 190
 gm.get_context().allow_complex = True
 
 
-outputfolder = '../2. Jmat_loopvals/B222_bias_Jmat/'
+
+# outputfolder = '../2. Jmat_loopvals/B222/'
+
+# new jmat output folder to save laptop memory
+outputfolder = '/d/jmats/B222/'
 path_b222ctab = '../3. Ctabs/B222ctab.csv'
-fisherPoints_path = '../3. Ctabs/fisherPoints.csv'
+# fisherPoints_path = '../3. Ctabs/fisherPoints.csv'
 CMASSPoints_path = '../3. Ctabs/CMASS_tri_eff.csv'
 LOWZPoints_path = '../3. Ctabs/LOWZ_tri_eff.csv'
+basePoints_path = '../3. Ctabs/base_tri_eff.csv'
 
 # make output folder
 if not(os.path.exists(outputfolder)):
@@ -40,7 +45,7 @@ def outputfile(k1, k2, k3):
 	k1_str = str(round(k1,5))
 	k2_str = str(round(k2,5))
 	k3_str = str(round(k3,5))
-	out_filename = outputfolder + 'B222_Jfunc_' + k1_str +'_' + k2_str + '_' + k3_str + '_.h5'
+	out_filename = outputfolder + k1_str +'_' + k2_str + '_' + k3_str + '_.h5'
 	return out_filename
 
 # utility function to save jmat to h5 file
@@ -87,5 +92,15 @@ def compute_all_B222(triangles):
 
 
 if __name__ == "__main__":
-	fisher_points = np.loadtxt(LOWZPoints_path, dtype = float, delimiter = ',')
-	compute_all_B222(fisher_points)
+	LOWZpoints = np.loadtxt(LOWZPoints_path, dtype = float, delimiter = ',')
+	CMASSpoints = np.loadtxt(CMASSPoints_path, dtype = float, delimiter = ',')
+	basepoints = np.loadtxt(basePoints_path, dtype = float, delimiter = ',')
+	
+	compute_all_B222(LOWZpoints)
+	print('LOWZ done.')
+
+	compute_all_B222(CMASSpoints)
+	print('CMASS done.')
+
+	compute_all_B222(basepoints)
+	print('Base done.')
