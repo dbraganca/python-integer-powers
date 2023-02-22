@@ -35,6 +35,7 @@ path_b411ctab = ctab_folder + 'B411ctab.csv'
 CMASSPoints_path = '../3. Ctabs/CMASS_tri_eff.csv'
 LOWZPoints_path = '../3. Ctabs/LOWZ_tri_eff.csv'
 basePoints_path = '../3. Ctabs/base_tri_eff.csv'
+BOSSPoints_path = '../3. Ctabs/BOSS_tri_eff.csv'
 
 # make output folders
 for outputfolder in outputfolders:
@@ -257,12 +258,17 @@ if __name__ == "__main__":
 	LOWZpoints = np.loadtxt(LOWZPoints_path, dtype = float, delimiter = ',')
 	CMASSpoints = np.loadtxt(CMASSPoints_path, dtype = float, delimiter = ',')
 	basepoints = np.loadtxt(basePoints_path, dtype = float, delimiter = ',')
-	
-	compute_all_B222(LOWZpoints)
+	BOSSpoints = np.loadtxt(BOSSPoints_path, dtype = float, delimiter = ',')
+
+
+	compute_all_B1loop(LOWZpoints)
 	print('LOWZ done.')
 
-	compute_all_B222(CMASSpoints)
+	compute_all_B1loop(CMASSpoints)
 	print('CMASS done.')
 
-	compute_all_B222(basepoints)
+	compute_all_B1loop(basepoints)
 	print('Base done.')
+
+	compute_all_B1loop(BOSSpoints)
+	print('BOSS done.')

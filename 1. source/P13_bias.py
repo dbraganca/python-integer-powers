@@ -7,7 +7,7 @@ import h5py
 
 from Jfunc_cython_v4 import computeJ as J
 import gmpy2 as gm
-from gmpy2 import *
+from gmpy2 import mpfr
 import time
 
 import config
@@ -23,6 +23,8 @@ fisherPoints_path = '../3. Ctabs/fisherPoints.csv'
 challengeA_path = '../3. Ctabs/chA_points.csv'
 CMASS_path = '../3. Ctabs/CMASS_ks.csv'
 LOWZ_path = '../3. Ctabs/LOWZ_ks.csv'
+basePoints_path = '../3. Ctabs/base_ks.csv'
+
 
 if not(os.path.exists(outputfolder)):
 	os.makedirs(outputfolder)
@@ -38,7 +40,7 @@ len13 = len(ctab13)
 # function to write the output file name
 def outputfile(k1):
 	k1_str = str(round(k1,5))
-	out_filename = outputfolder + 'P13_Jfunc_' + k1_str + '_.h5'
+	out_filename = outputfolder + k1_str + '_.h5'
 	return out_filename
 
 # utility function to save jmat to h5 file
@@ -79,5 +81,13 @@ if __name__ == "__main__":
 	# chA_points = np.loadtxt(challengeA_path, dtype = float, delimiter = ',')
 	CMASS_points = np.loadtxt(CMASS_path, dtype = float, delimiter = ',')
 	LOWZ_points = np.loadtxt(LOWZ_path, dtype = float, delimiter = ',')
+	basepoints = np.loadtxt(basePoints_path, dtype = float, delimiter = ',')
+
 	compute_all_P13(CMASS_points)
+	print('CMASS done.')
+
 	compute_all_P13(LOWZ_points)
+	print('LOWZ done.')
+
+	compute_all_P13(basepoints)
+	print('Base done.')
