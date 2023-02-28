@@ -232,7 +232,7 @@ def compute_all(triangles,
 			start_time = time.time()
 			saver(out_filename, jmat_fn(*trian))
 			end_time = time.time()
-			print("--- %.3f seconds ---" % (end_time - start_time))
+			print("--- %.2f seconds ---" % (end_time - start_time))
 	return 0
 
 def compute_all_B222(triangles):

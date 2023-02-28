@@ -97,19 +97,9 @@ def P13jmat(k1):
 	return Jmat
 
 # calculates jmats for a list of ks
-def compute_all_P22(ktab):
-	for k in ktab:
-		out_filename = outputfile(k)
-		# only calculates if file still does not exist	
-		if not(os.path.isfile(out_filename)):
-			start_time = time.time()
-			saver(out_filename, P22jmat(k))
-			end_time = time.time()
-			print("--- %s seconds ---" % (end_time - start_time))
-
 def compute_all(ktab, 
 				output_path: str, 
-				jmat_fn: Callable[[float, float, float],np.array]):
+				jmat_fn: Callable[[float] ,np.array]):
 	'''
 	Calculates a specific jmat_fn for a list of ks and saves it in output_path.
 	'''
